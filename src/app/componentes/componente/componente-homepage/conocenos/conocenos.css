@@ -1,0 +1,94 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
+
+.sobre-container {
+  font-family: 'Inter', sans-serif;
+  color: #333;
+}
+
+.banner {
+  background: linear-gradient(to right, #03018b, #66ccff);
+  color: white;
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.banner h1 {
+  font-size: 48px;
+  margin: 0 0 10px;
+}
+
+.banner p {
+  font-size: 20px;
+  margin: 0;
+}
+
+.contenido {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 40px 20px;
+  gap: 40px;
+  background-color: #f9f9f9;
+}
+
+.texto {
+  flex: 1 1 400px;
+  max-width: 600px;
+}
+
+.texto h2 {
+  color: #007BFF;
+  margin-top: 0;
+}
+
+.texto p {
+  font-size: 18px;
+  line-height: 1.6;
+  margin-bottom: 25px;
+}
+
+.imagen img {
+  max-width: 600px;
+  width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.valores {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 40px 20px;
+  background-color: #ffffff;
+  gap: 40px;
+}
+
+.valor {
+  width: 250px;
+  text-align: center;
+  padding: 20px;
+  border-radius: 15px;
+  background-color: #f1faff;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+  transition: transform 0.3s ease;
+}
+
+.valor:hover {
+  transform: translateY(-5px);
+}
+
+.valor img {
+  height: 60px;
+  margin-bottom: 15px;
+}
+
+.valor h3 {
+  margin: 10px 0;
+  color: #007BFF;
+}
+
+.valor p {
+  font-size: 16px;
+  color: #555;
+}

@@ -1,0 +1,50 @@
+<div class="layout">
+  <app-menu-lateral class="menu-lateral"></app-menu-lateral>
+
+  <div class="contenido">
+    <h1 class="titulo-principal">Registro de Usuario Admin</h1>
+    <h2 class="subtitulo">Datos del Admin</h2>
+
+    <form class="user-form" (ngSubmit)="agregarUsuario()" #clienteForm="ngForm">
+      <div class="form-row">
+        <div class="form-group">
+          <label>Correo</label>
+          <input
+            type="email"
+            [(ngModel)]="usuario.correo"
+            name="correo"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label>Usuario</label>
+          <input
+            type="text"
+            [(ngModel)]="usuario.login"
+            name="usuario"
+            required
+          />
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Password</label>
+        <input
+          type="text"
+          [(ngModel)]="usuario.password"
+          name="password"
+          required
+        />
+      </div>
+
+      <div class="form-actions">
+        <button class="btn-approve" type="submit" [disabled]="!clienteForm.form.valid">
+          Registrar Admin
+        </button>
+        <button class="btn-cancel" [routerLink]="'/reporte-usuarioss'">Regresar</button>
+      </div>
+    </form>
+  </div>
+
+  <router-outlet></router-outlet>
+</div>

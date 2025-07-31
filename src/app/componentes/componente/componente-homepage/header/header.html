@@ -1,0 +1,26 @@
+<!-- Fuente Inter -->
+<link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet" />
+
+<div class="header">
+  <div class="logo-icons">
+    <img class="logo" src="assets/ima/LogoNg.png" alt="LogoNg" />
+
+    <div class="social-icons">
+      <img src="assets/ima/whatsapp.png" alt="WhatsApp" onclick="window.open('https://wa.me/', '_blank')" />
+      <img src="assets/ima/facebook.png" alt="Facebook" onclick="window.open('https://facebook.com', '_blank')" />
+      <img src="assets/ima/instagram.png" alt="Instagram" onclick="window.open('https://instagram.com', '_blank')" />
+    </div>
+  </div>
+
+  <div class="nav">
+    <a routerLink="/inicio" routerLinkActive="active">INICIO</a>
+    <a routerLink="/conocenos" routerLinkActive="active">CONÓCENOS</a>
+    <a routerLink="/contactanos" routerLinkActive="active">CONTÁCTANOS</a>
+    <a routerLink="/menu-lateral" routerLinkActive="active">MENÚ</a>
+
+    <button class="btn-blue" [routerLink]="'/login'">Iniciar sesión</button>
+    <button class="btn-icon" onclick="alert('Botón decorativo o de ayuda')">?</button>
+  </div>
+</div>
+
+<router-outlet></router-outlet>

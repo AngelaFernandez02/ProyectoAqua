@@ -1,0 +1,87 @@
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #ffffff;
+  padding: 20px 40px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+  flex-wrap: wrap;
+   font-family: 'Inter', sans-serif;
+}
+
+.logo-icons {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.logo {
+  height: 50px;
+}
+
+.social-icons img {
+  height: 24px;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.social-icons img:hover {
+  transform: scale(1.2);
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.nav a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  font-size: 16px;
+  transition: color 0.3s;
+}
+
+.nav a:hover,
+.nav a.active {
+  color: #007bff;
+}
+
+.btn-blue {
+  background-color: #007bff;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.btn-blue:hover {
+  background-color: #0056b3;
+}
+
+.btn-icon {
+  background-color: #e0e0e0;
+  border: none;
+  color: #333;
+  padding: 10px 15px;
+  border-radius: 50%;
+  font-weight: bold;
+  font-size: 18px;
+  cursor: pointer;
+  margin-left: 10px;
+  transition: background-color 0.3s;
+}
+
+.btn-icon:hover {
+  background-color: #d0d0d0;
+}

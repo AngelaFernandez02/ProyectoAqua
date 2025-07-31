@@ -1,0 +1,83 @@
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
+}
+
+.container {
+  display: flex;
+  min-height: 100vh;
+}
+
+
+.sidebar {
+  width: 250px;
+  background-color: #0A009C;
+  color: white;
+  padding: 20px 0;
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+  padding: 10px 0 30px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.993);
+}
+
+.menu ul {
+  list-style: none;
+  padding: 20px 0;
+}
+
+.menu li a {
+  display: block;
+  padding: 12px 20px;
+  color: white;
+  text-decoration: none;
+  transition: all 0.3s;
+  font-size: 20px;
+}
+
+
+.menu li a:hover {
+  background-color: #2724f3;
+}
+
+.menu li a.active {
+  background-color: #01064e;
+  border-left: 4px solid #01064e;
+}
+
+.logout {
+  margin-top: 30px;
+  border-top: 1px solid rgb(255, 255, 255);
+  padding-top: 10px;
+}
+
+.main-content {
+  flex: 1;
+  padding: 30px;
+  background-color: #f5f5f5;
+}
+
+.main-content h1 {
+  color: #2c3e50;
+  margin-bottom: 10px;
+}
+
+.main-content h2 {
+  color: #7f8c8d;
+  font-size: 18px;
+  margin-bottom: 30px;
+  font-weight: normal;
+}
+
+app-menu-lateral-cliente {
+  width: 250px;
+  background-color: #0A009C;
+  color: white;
+}
+

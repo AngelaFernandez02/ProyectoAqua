@@ -1,0 +1,141 @@
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body, html {
+  height: 100%;
+  font-family: 'Inter', sans-serif;
+  background-color: #f5f7fa;
+  color: #333;
+}
+
+
+.wrapper {
+  display: flex;
+  min-height: 100vh;  
+}
+
+
+.menu-lateral {
+  width: 250px;
+  background-color: #0A009C;
+  color: white;
+  padding: 20px 0;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+.opiniones-container {
+  flex-grow: 1;
+  padding: 20px 30px;
+  background-color: #f5f7fa;
+  overflow-x: auto;     
+  min-height: 100vh;
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+
+.titulo {
+  font-size: 26px;
+  color: #142196;
+  margin-bottom: 30px;
+  text-align: left;
+}
+
+
+.tabla-opiniones {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.tabla-opiniones thead {
+  background-color: #142196;
+  color: white;
+}
+
+.tabla-opiniones th,
+.tabla-opiniones td {
+  padding: 14px 16px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+  vertical-align: top;
+  white-space: normal;
+}
+
+.tabla-opiniones tbody tr:hover {
+  background-color: #f0f4fa;
+}
+
+
+.estrellas {
+  color: #ccc;
+  font-size: 16px;
+}
+
+.estrellas .activa {
+  color: #f7c948;
+}
+
+
+.select-estado {
+  padding: 6px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-family: inherit;
+  background-color: #fff;
+  cursor: pointer;
+}
+
+
+.textarea-respuesta {
+  width: 100%;
+  min-height: 60px;
+  padding: 8px;
+  margin-top: 6px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-family: inherit;
+  resize: vertical;
+}
+
+
+.btn-guardar {
+  margin-top: 8px;
+  padding: 8px 14px;
+  background-color: #142196;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-guardar:hover {
+  background-color: #0e1677;
+}
+
+
+.titulo-principal {
+  font-size: 32px;
+  margin-bottom: 10px;
+  color: #1a1a1a;
+}
+
+.subtitulo {
+  font-size: 22px;
+  margin-bottom: 20px;
+  color: #444;
+}

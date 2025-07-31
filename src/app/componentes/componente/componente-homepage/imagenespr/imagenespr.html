@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Componente de 3 Imágenes</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', sans-serif;
+      background-color: #f9f9f9;
+    }
+
+    .galeria-tres {
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+    }
+
+    .imagen-card {
+      background-color: #f9f9f9;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+      transition: transform 0.3s ease;
+    }
+
+    .imagen-card:hover {
+      transform: scale(1.03);
+    }
+
+    .imagen-card img {
+      width: 100%;
+      height: 400px;
+      object-fit: cover;
+      padding-left: 30px;
+      padding-right: 30px;
+    }
+
+    .imagen-card .descripcion {
+      padding: 16px;
+      text-align: center;
+      font-size: 18px;
+      color: #333;
+    }
+
+    h3 {
+      font-size: 28px;
+      text-align: center;
+      margin: 0;
+      padding: 20px 0;
+    }
+  </style>
+</head>
+
+<body>
+  <h3>Casos de uso</h3>
+  <section class="galeria-tres">
+    <div class="imagen-card">
+      <img src="https://cdn-3.expansion.mx/dims4/default/03f7fa9/2147483647/strip/true/crop/1196x628+2+0/resize/1200x630!/format/jpg/quality/80/?url=https%3A%2F%2Fcdn-3.expansion.mx%2F4c%2Fc2%2F41b6a3ea4465bb9a0d855eabbe6d%2Fciudad-de-mexico-agua.jpeg" alt="Imagen 1" />
+      <div class="descripcion">Hogares con escasez de agua</div>
+    </div>
+    <div class="imagen-card">
+      <img src="https://i.pinimg.com/originals/cd/53/6a/cd536aa9a0ca71818ea85bebc3e3dfa4.jpg" alt="Imagen 2" />
+      <div class="descripcion">Granjas pequeñas</div>
+    </div>
+    <div class="imagen-card">
+      <img src="https://www.shutterstock.com/image-vector/couple-travelling-by-bicycles-on-600nw-1947170476.jpg" alt="Imagen 3" />
+      <div class="descripcion">Comunidades rurales</div>
+    </div>
+  </section>
+</body>
+</html>

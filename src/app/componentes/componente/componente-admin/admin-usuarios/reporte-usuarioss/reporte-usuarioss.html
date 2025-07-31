@@ -1,0 +1,74 @@
+<div class="layout">
+  <app-menu-lateral class="menu-lateral"></app-menu-lateral>
+
+  <div class="contenido">
+    <h1 class="titulo-principal">Reporte de usuarios</h1>
+    <h2 class="subtitulo">Datos de los usuarios</h2>
+
+    <div class="header-actions">
+      <button class="btn-agregar" [routerLink]="'/formulario-usuario-admin'">Agregar Admin +</button>
+      <button class="btn-agregar" [routerLink]="'/formulario-usuario-cliente'">Agregar Cliente +</button>
+    </div>
+
+    <table class="tabla-clientes">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Correo</th>
+          <th>Tipo Usuario</th>
+          <th>Login</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let usuario of listaUsuarios">
+          <td>{{ usuario.idUsuario }}</td>
+          <td>{{ usuario.correo }}</td>
+          <td>{{ usuario.tipoUsuario }}</td>
+          <td>{{ usuario.login }}</td>
+          <td class="acciones">
+            <button class="btn btn-sm btn-warning me-2" (click)="seleccionarParaEditar(usuario)">
+              Editar
+            </button>
+            <button class="btn btn-sm btn-danger" (click)="eliminarEmpleado(usuario)">
+              Eliminar
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+   <div class="formulario-edicion" *ngIf="isUpdateFormActive">
+  <h3>Editar Usuario</h3>
+
+  <div class="form-row">
+    <div class="form-group">
+      <label for="login">Login</label>
+      <input type="text" id="login" [(ngModel)]="login" name="login" />
+    </div>
+
+    <div class="form-group">
+      <label for="correo">Correo</label>
+      <input type="email" id="correo" [(ngModel)]="correo" name="correo" />
+    </div>
+
+    <div class="form-group">
+      <label for="password">Contraseña</label>
+      <input type="password" id="password" [(ngModel)]="password" name="password" />
+    </div>
+
+    <div class="form-group">
+      <label for="tipoUsuario">Tipo de Usuario</label>
+      <input type="number" id="tipoUsuario" [(ngModel)]="tipoUsuario" name="tipoUsuario" />
+    </div>
+  </div>
+
+  <div class="form-buttons">
+    <button class="btn-success" (click)="modificarUsuario()">Guardar</button>
+    <button class="btn-secondary" (click)="limpiarFormulario()">Cancelar</button>
+  </div>
+</div>
+
+
+  <router-outlet></router-outlet>
+</div>

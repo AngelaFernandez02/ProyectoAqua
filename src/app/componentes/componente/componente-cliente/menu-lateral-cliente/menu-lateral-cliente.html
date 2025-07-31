@@ -1,0 +1,47 @@
+
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+
+<div class="container">
+    <div class="sidebar">
+    <div class="logo">
+      AGUAMIND
+    </div>
+    <nav class="menu">
+      <ul>
+        <li>
+         <a [routerLink]="'/cliente-actualizar'" class="active">
+            <i class="fas fa-home icon"> </i>
+            <span class="menu-text">  Inicio</span>
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <i class="fas fa-file icon"></i>
+            <span class="menu-text">Documentación</span>
+          </a>
+        </li>
+        <li>
+          <a [routerLink]="'/compras-cliente'" >
+            <i class="fas fa-truck icon"></i>
+            <span class="menu-text">Compras</span>
+          </a>
+        </li>
+         <li>
+          <a [routerLink]="'/formulario-usuario'" >
+            <i class="fas fa-user"></i>
+            <span class="menu-text">Actualizar datos</span>
+          </a>
+        </li>
+       <li class="logout">
+  <a href="#" (click)="cerrarSesion()">
+    <i class="fas fa-sign-out-alt icon"></i>
+    <span class="menu-text">Cerrar sesión</span>
+  </a>
+</li>
+
+    
+      </ul>
+    </nav>
+  </div>
+  <router-outlet></router-outlet>
+</div>

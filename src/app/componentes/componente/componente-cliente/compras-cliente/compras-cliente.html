@@ -1,0 +1,63 @@
+<div class="layout">
+  <app-menu-lateral-cliente class="menu-lateral"></app-menu-lateral-cliente>
+
+  <div class="contenido">
+    <h3 class="titulo-principal">Compras</h3>
+    <h4 class="subtitulo">Datos de las compras</h4>
+
+
+    <table class="tabla-compras">
+      <thead>
+        <tr>
+          <th>ID Venta</th>
+          <th>Producto</th>
+          <th>Cantidad</th>
+          <th>Precio Unitario</th>
+          <th>Total</th>
+          <th>Opinión</th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngFor="let compra of compras">
+         
+          <tr>
+            <td>{{ compra.idVenta }}</td>
+            <td>{{ compra.nombreProducto }}</td>
+            <td>{{ compra.cantidad }}</td>
+            <td>{{ compra.precioUnitario | currency: 'MXN' }}</td>
+            <td>{{ compra.cantidad * compra.precioUnitario | currency: 'MXN' }}</td>
+            <td class="acciones">
+              <button class="btn-comentar" (click)="mostrarFormulario(compra)">Comentar</button>
+            </td>
+          </tr>
+
+          <tr *ngIf="compra.mostrarFormulario">
+            <td colspan="6">
+              <div class="form-opinion">
+                <textarea
+                  [(ngModel)]="compra.opinion"
+                  rows="4"
+                  class="input-opinion"
+                  placeholder="Escribe tu opinión sobre este producto...">
+                </textarea>
+                <div class="form-footer">
+                  <label class="label-calificacion">
+                    Calificación:
+                    <select [(ngModel)]="compra.calificacion" class="select-calificacion">
+                      <option [value]="5">⭐⭐⭐⭐⭐</option>
+                      <option [value]="4">⭐⭐⭐⭐</option>
+                      <option [value]="3">⭐⭐⭐</option>
+                      <option [value]="2">⭐⭐</option>
+                      <option [value]="1">⭐</option>
+                    </select>
+                  </label>
+                  <button class="btn-enviar" (click)="enviarOpinion(compra)">Enviar Opinión</button>
+                </div>
+              </div>
+            </td>
+          </tr>
+        </ng-container>
+      </tbody>
+    </table>
+  </div>
+</div>

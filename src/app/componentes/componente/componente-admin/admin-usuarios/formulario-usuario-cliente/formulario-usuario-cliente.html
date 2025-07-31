@@ -1,0 +1,60 @@
+<div class="layout">
+  <app-menu-lateral class="menu-lateral"></app-menu-lateral>
+
+  <div class="contenido">
+    <h1 class="titulo-principal">Registro de Cliente</h1>
+    <h2 class="subtitulo">Datos del Cliente</h2>
+
+    <form class="user-form" (ngSubmit)="registrarCliente()" #clienteForm="ngForm">
+      <div class="form-row">
+        <div class="form-group">
+          <label>Email de contacto</label>
+          <input
+            type="email"
+            [(ngModel)]="cliente.correoContacto"
+            name="correoContacto"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label>Teléfono</label>
+          <input
+            type="text"
+            [(ngModel)]="cliente.telefono"
+            name="telefono"
+            required
+          />
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Nombre de contacto</label>
+        <input
+          type="text"
+          [(ngModel)]="cliente.nombreContacto"
+          name="nombreContacto"
+          required
+        />
+      </div>
+
+      <div class="form-group">
+        <label>Correo de acceso (para enviar credenciales)</label>
+        <input
+          type="email"
+          [(ngModel)]="cliente.usuario.correo"
+          name="correoUsuario"
+          required
+        />
+      </div>
+
+      <div class="form-actions">
+        <button class="btn-approve" type="submit" [disabled]="!clienteForm.form.valid">
+          Registrar Cliente
+        </button>
+        <button class="btn-cancel" [routerLink]="'/reporte-usuarioss'">Regresar</button>
+      </div>
+    </form>
+  </div>
+
+  <router-outlet></router-outlet>
+</div>

@@ -1,0 +1,69 @@
+
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+
+<div class="container">
+    <div class="sidebar">
+    <div class="logo">
+      AGUAMIND
+    </div>
+    <nav class="menu">
+      <ul>
+        <li>
+          <a href="/menu-lateral" class="active">
+            <i class="fas fa-home icon"> </i>
+            <span class="menu-text">  Inicio</span>
+          </a>
+        </li>
+        <li>
+           <a [routerLink]="'/formulario-proveedores'">
+            <i class="fas fa-truck icon">   </i>
+            <span class="menu-text">  Proveedores</span>
+          </a>
+        </li>
+        <li>
+           <a [routerLink]="'/formulario-compras'">
+            <i class="fas fa-shopping-cart icon"></i>
+            <span class="menu-text">  Compras</span>
+          </a>
+        </li>
+        <li>
+          <a [routerLink]="'/formulario-materia'">
+            <i class="fas fa-boxes icon"></i>
+            <span class="menu-text">  Materia Prima</span>
+          </a>
+        </li>
+        <li>
+          <a [routerLink]="'/formulario-ventas'">
+            <i class="fas fa-cash-register icon"></i>
+            <span class="menu-text">  Ventas</span>
+          </a>
+        </li>
+        <li>
+           <a [routerLink]="'/formulario-productos'">
+            <span class="menu-text">  Productos</span>
+          </a>
+        </li>
+ <li>
+          <a [routerLink]="'/reporte-usuarioss'" routerLinkActive="active">
+            <i class="fas fa-chart-line icon"></i>
+            <span class="menu-text">Reporte Usuarios</span>
+          </a>
+        </li>
+        <li>
+          <a [routerLink]="'/comentarios-admin'">
+            <i class="fas fa-chart-line icon"></i>
+            <span class="menu-text">Comentarios admin</span>
+          </a>
+        </li>
+        <li class="logout">
+          <a href="#">
+            <i class="fas fa-sign-out-alt icon"></i>
+            <span class="menu-text">  Cerrar sesión</span>
+          </a>
+        </li>
+    
+      </ul>
+    </nav>
+  </div>
+  <router-outlet></router-outlet>
+</div>

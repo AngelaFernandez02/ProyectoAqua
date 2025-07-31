@@ -1,0 +1,23 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
+
+.sobre-container {
+  font-family: 'Inter', sans-serif;
+  color: #333;
+}
+
+.banner {
+  background: linear-gradient(to right, #03018b, #66ccff);
+  color: white;
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.banner h1 {
+  font-size: 48px;
+  margin: 0 0 10px;
+}
+
+.banner p {
+  font-size: 20px;
+  margin: 0;
+}

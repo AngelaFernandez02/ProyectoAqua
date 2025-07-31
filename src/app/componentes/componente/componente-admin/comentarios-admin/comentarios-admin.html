@@ -1,0 +1,52 @@
+<div class="wrapper">
+  <nav class="menu-lateral">
+    <app-menu-lateral></app-menu-lateral>
+  </nav>
+
+  <main class="opiniones-container">
+    <h2 class="titulo">Seguimiento de Opiniones</h2>
+
+    <table class="tabla-opiniones">
+      <thead>
+        <tr>
+          <th>Cliente</th>
+          <th>Producto</th>
+          <th>Mensaje</th>
+          <th>Calificación</th>
+          <th>Fecha</th>
+          <th>Estado</th>
+          <th>Respuesta</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let o of opiniones">
+          <td>{{ o.clienteNombre }}</td>
+          <td>{{ o.productoNombre }}</td>
+          <td>"{{ o.mensaje }}"</td>
+          <td>
+            <span class="estrellas">
+              <ng-container *ngFor="let star of [1,2,3,4,5]">
+                <span [class.activa]="star <= o.calificacion">★</span>
+              </ng-container>
+            </span>
+          </td>
+          <td>{{ o.fecha | date:'mediumDate' }}</td>
+          <td>
+            <select [(ngModel)]="o.estado" class="select-estado">
+              <option>Pendiente</option>
+              <option>Revisado</option>
+              <option>Respondido</option>
+            </select>
+          </td>
+          <td>
+            <textarea
+              [(ngModel)]="o.respuestaAdmin"
+              class="textarea-respuesta"
+              placeholder="Respuesta del admin..."></textarea>
+            <button class="btn-guardar" (click)="actualizarSeguimiento(o)">Guardar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </main>
+</div>

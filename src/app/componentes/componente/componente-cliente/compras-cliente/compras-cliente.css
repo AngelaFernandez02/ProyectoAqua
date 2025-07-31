@@ -1,0 +1,163 @@
+
+.layout {
+  display: flex;
+  min-height: 100vh;
+  background-color: #f4f6f8;
+  font-family: Arial, sans-serif;
+}
+
+.menu-lateral-cliente {
+  width: 250px;
+  background-color: #0A009C;
+  color: white;
+  padding: 20px 0;
+  flex-shrink: 0;
+}
+
+.contenido {
+  flex: 1;
+  padding: 40px;
+  box-sizing: border-box;
+}
+
+
+.tabla-compras {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.tabla-compras th,
+.tabla-compras td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.tabla-compras th {
+  background-color: #0A009C;
+  color: white;
+}
+
+
+.content {
+  flex: 1;
+  padding: 40px;
+  background-color: #f5f7fa;
+}
+
+/* Título */
+.header h2 {
+  margin: 0 0 20px;
+  color: #142196;
+}
+
+/* Tabla */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: white;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  border-radius: 10px;
+  overflow: hidden;
+  font-size: 14px;
+}
+
+/* Cabecera */
+thead {
+  background-color: #142196;
+  color: white;
+}
+
+th, td {
+  padding: 16px 20px;
+  text-align: left;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+tbody tr:hover {
+  background-color: #f0f4fa;
+}
+
+/* Acciones */
+.acciones {
+  display: flex;
+  gap: 10px;
+}
+
+/* Botón comentar */
+.btn-comentar {
+  background-color: #0a68ff;
+  color: white;
+  padding: 8px 14px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.3s;
+}
+
+.btn-comentar:hover {
+  background-color: #084eb1;
+}
+
+/* Área de formulario */
+.form-opinion {
+  background-color: #f4f7ff;
+  padding: 16px;
+  border: 1px solid #cdd5e0;
+  border-radius: 10px;
+  margin-top: 10px;
+}
+
+.input-opinion {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #c0c0c0;
+  border-radius: 8px;
+  font-size: 14px;
+  resize: vertical;
+  margin-bottom: 10px;
+  background-color: #fff;
+}
+
+.form-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.label-calificacion {
+  font-weight: 500;
+  color: #333;
+  margin-right: 10px;
+}
+
+.select-calificacion {
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  margin-left: 8px;
+  background-color: #fff;
+  font-size: 14px;
+}
+
+/* Botón enviar */
+.btn-enviar {
+  background-color: #00c48c;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+}
+
+.btn-enviar:hover {
+  background-color: #009c6f;
+}

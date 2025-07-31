@@ -1,0 +1,155 @@
+.user-form {
+  background-color: white;
+  padding: 30px;
+  border-radius: 5px;
+  box-shadow: 0 2px 10px rgb(255, 255, 255);
+}
+
+.user-form h3 {
+  color: #ffffff;
+  margin-bottom: 20px;
+  font-size: 20px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  color: #7f8c8d;
+  font-size: 14px;
+}
+
+.form-group input, 
+.form-group select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.form-row {
+  display: flex;
+  gap: 20px;
+}
+
+.form-row .form-group {
+  flex: 1;
+}
+
+.form-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 30px;
+}
+
+.form-actions button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.btn-approve {
+  background-color: #2ecc71;
+  color: white;
+}
+
+.btn-cancel {
+  background-color: #f39c12;
+  color: white;
+}
+
+.btn-delete {
+  background-color: #e74c3c;
+  color: white;
+}
+
+.btn-admin {
+  background-color: #3498db;
+  color: white;
+}
+
+
+
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
+}
+
+.container {
+  display: flex;
+  min-height: 100vh;
+}
+
+
+.sidebar {
+  width: 250px;
+  background-color: #0A009C;
+  color: white;
+  padding: 20px 0;
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+  padding: 10px 0 30px;
+  border-bottom: 1px solid rgb(255, 255, 255);
+}
+
+.menu ul {
+  list-style: none;
+  padding: 20px 0;
+}
+
+.menu li a {
+  display: block;
+  padding: 12px 20px;
+  color: white;
+  text-decoration: none;
+  transition: all 0.3s;
+  font-size: 20px;
+}
+
+
+.menu li a:hover {
+  background-color: #34495e;
+}
+
+.menu li a.active {
+  background-color: #040652;
+  border-left: 4px solid #011674;
+}
+
+.logout {
+  margin-top: 30px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 10px;
+}
+
+
+.main-content {
+  flex: 1;
+  padding: 30px;
+  background-color: #f5f5f5;
+}
+
+.main-content h1 {
+  color: #2c3e50;
+  margin-bottom: 10px;
+}
+
+.main-content h2 {
+  color: #7f8c8d;
+  font-size: 18px;
+  margin-bottom: 30px;
+  font-weight: normal;
+}

@@ -1,0 +1,33 @@
+<div class="banner">
+  <h1>Opiniones de Nuestros Clientes</h1>
+  <p>Tu confianza es nuestra mayor motivación. Descubre qué dicen sobre nosotros.</p>
+</div>
+
+<div class="opiniones-container">
+  <h2 class="titulo">Opiniones de Clientes</h2>
+
+  <div class="opiniones-lista">
+    <div *ngFor="let opinion of opiniones" class="opinion-card shadow-sm">
+      <div class="opinion-header">
+        <div class="cliente-info">
+          <h3>{{ opinion.clienteNombre }}</h3>
+          <span class="fecha">{{ opinion.fecha | date:'longDate' }}</span>
+        </div>
+        <div class="calificacion">
+          <span *ngFor="let star of [1,2,3,4,5]" class="estrella" [class.activa]="star <= opinion.calificacion">★</span>
+        </div>
+      </div>
+
+      <div class="producto">
+        Producto: <strong>{{ opinion.productoNombre }}</strong>
+      </div>
+
+      <p class="mensaje">"{{ opinion.mensaje }}"</p>
+
+      <div *ngIf="opinion.estado === 'respondido'" class="respuesta">
+        <strong>Respuesta del administrador:</strong>
+        <p>{{ opinion.respuestaAdmin }}</p>
+      </div>
+    </div>
+  </div>
+</div>

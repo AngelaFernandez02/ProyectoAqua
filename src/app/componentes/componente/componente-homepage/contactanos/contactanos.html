@@ -1,0 +1,50 @@
+<div class="contacto-container">
+  <div class="banner">
+    <h1>Contáctanos</h1>
+    <p>¿En qué podemos ayudarte? Envíanos tus dudas o comentarios.</p>
+  </div>
+
+  <div class="formulario-contacto shadow">
+    <form (ngSubmit)="agregarContacto()" class="p-4 rounded bg-white">
+      <div class="mb-3">
+        <label for="nombreContacto" class="form-label">Nombre completo</label>
+        <input
+          type="text"
+          class="form-control"
+          id="nombreContacto"
+          [(ngModel)]="nombreContacto"
+          name="nombreContacto"
+          required
+        />
+      </div>
+
+      <div class="mb-3">
+        <label for="telefono" class="form-label">Teléfono</label>
+        <input
+          type="tel"
+          class="form-control"
+          id="telefono"
+          [(ngModel)]="telefono"
+          name="telefono"
+          required
+        />
+      </div>
+
+      <div class="mb-3">
+        <label for="correoContacto" class="form-label">Correo electrónico</label>
+        <input
+          type="email"
+          class="form-control"
+          id="correoContacto"
+          [(ngModel)]="correoContacto"
+          name="correoContacto"
+          required
+        />
+      </div>
+
+      <div class="d-grid mt-4">
+        <button type="submit" class="btn btn-primary btn-lg">Enviar Datos</button>
+      </div>
+    </form>
+  </div>
+</div>
