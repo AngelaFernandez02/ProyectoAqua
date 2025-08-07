@@ -1,0 +1,35 @@
+<div class="layout">
+  <app-menu-lateral class="menu-lateral"></app-menu-lateral>
+  
+  <div class="contenido">
+    <app-buscar-producto (onFiltrar)="filtrar($event)"></app-buscar-producto>
+    <div style="padding: 20px;"></div>
+    
+    <!-- Botón Agregar -->
+    <div class="d-flex justify-content-end mb-3 me-4">
+      <button class="btn btn-add" [routerLink]="['/agregar-producto']">
+        <i class="bi bi-plus-lg"></i> Agregar
+      </button>
+    </div>
+    
+    <!-- Lista de Productos -->
+    <div class="row">
+      <div class="col-md-4 mb-4" *ngFor="let producto of productosFiltrados">
+        <div class="card h-100 shadow-sm" (click)="verDetallesProducto(producto.idProducto)" style="cursor:pointer">
+          <div class="card-header bg-primary text-white">
+            {{ producto.nombreProducto }}
+          </div>
+          <div class="card-body text-center">
+            <img 
+              [src]="'assets/ima/img-casas/' + getImagenPorNombre(producto.nombreProducto)" 
+              alt="{{ producto.nombreProducto }}" 
+              class="img-fluid mb-3" 
+              style="max-height: 180px; object-fit: contain;" 
+            />
+            <h5 class="card-title text-success">$ {{ producto.precio | number:'1.2-2' }}</h5>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

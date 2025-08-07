@@ -1,0 +1,72 @@
+<div class="layout">
+  <app-menu-lateral class="menu-lateral"></app-menu-lateral>
+  
+  <div class="contenido">
+<div class="full-width-container">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h1 class="d-flex align-items-center gap-2" style="font-weight: bold;">
+      Editar proveedor
+      <i class="bi bi-pencil-fill"></i>
+    </h1>
+    <div style="width: 100px;"></div> <!-- Espacio para balancear -->
+  </div>
+
+  <div class="card border-custom mt-4">
+    <div class="card-header bg-header-custom d-flex justify-content-between align-items-center">
+      <h3 class="mb-0">Actualizar datos del proveedor</h3>
+      <button class="btn btn-back" (click)="goBack()">
+        <i class="bi bi-arrow-left"></i> Regresar
+      </button>
+    </div>
+
+    <div class="card-body bg-white">
+      <form [formGroup]="proveedorForm" (ngSubmit)="onSubmit()" class="full-width-form">
+        <!-- Primera fila -->
+        <div class="form-row">
+          <div class="form-group triple">
+            <label for="idProveedor">Id Proveedor</label>
+            <input type="text" id="idProveedor" formControlName="idProveedor" class="form-control" readonly>
+          </div>
+          
+          <div class="form-group triple">
+            <label for="nombreProveedor">Nombre del Proveedor</label>
+            <input type="text" id="nombreProveedor" formControlName="nombre" class="form-control">
+          </div>
+
+          <div class="form-group triple">
+            <label for="contactoProveedor">Contacto</label>
+            <input type="text" id="contactoProveedor" formControlName="contacto" class="form-control">
+          </div>
+        </div>
+
+<!-- Sección de insumos -->
+      <div class="mt-4">
+        <h3>Insumos:</h3>
+
+        <div *ngIf="insumos.length > 0; else noInsumos">
+          <div *ngFor="let insumo of insumos" class="d-flex justify-content-between align-items-center p-3 border rounded mb-2 shadow-sm insumo-card">
+            <span class="insumo-nombre">{{ insumo.nombreInsumo }}</span>
+            <span>
+              <strong>Cantidad:</strong>
+              {{ insumo.tbInsumoProductos?.$values[0]?.cantidad || 'N/A' }}
+            </span>
+          </div>
+        </div>
+
+        <ng-template #noInsumos>
+          <p class="text-muted fst-italic">No tiene insumos registrados.</p>
+        </ng-template>
+      </div>
+
+
+        <div class="divider"></div>
+
+        <button type="submit" class="btn btn-add mt-3">
+          <i class="bi bi-save"></i> Guardar cambios
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
+  </div>
+</div>

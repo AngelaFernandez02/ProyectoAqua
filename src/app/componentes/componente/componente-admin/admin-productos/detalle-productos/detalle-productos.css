@@ -1,0 +1,31 @@
+
+/* Menu Lateral*/
+.layout {
+  display: flex;
+  min-height: 100vh;
+  background-color: #f4f6f8;
+  font-family: Arial, sans-serif;
+}
+
+
+.menu-lateral {
+  width: 250px;
+  background-color: #0A009C;
+  color: white;
+  padding: 20px 0;
+  flex-shrink: 0;
+}
+
+
+.contenido {
+  flex: 1;
+  padding: 40px;
+  box-sizing: border-box;
+}
+
+
+.bg-header-custom {
+  background-color: #D9D9D9;
+  padding: 16px;
+  border-bottom: 2px solid #D9D9D9;
+}

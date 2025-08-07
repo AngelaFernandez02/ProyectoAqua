@@ -1,0 +1,22 @@
+<div class="search-container mb-3">
+  <div class="input-group">
+    <span class="input-group-text">
+      <i class="bi bi-search"></i>
+    </span>
+    <input 
+      type="text" 
+      class="form-control" 
+      placeholder="Buscar proveedores..." 
+      [(ngModel)]="searchText"
+      (input)="onSearchChange()"
+    >
+    <button 
+      class="btn btn-outline-secondary" 
+      type="button" 
+      (click)="searchText = ''; onSearchChange()"
+      *ngIf="searchText"
+    >
+      Limpiar
+    </button>
+  </div>
+</div>
