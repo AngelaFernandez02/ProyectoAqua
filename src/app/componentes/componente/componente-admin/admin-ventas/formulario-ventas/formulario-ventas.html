@@ -1,1 +1,71 @@
-<p>formulario-ventas works!</p>
+<div class="container">
+  <h1>Registro de Ventas</h1>
+
+  <div class="form-venta">
+    <h2>Nueva Venta</h2>
+
+    <div class="input-group">
+      <label>Id Cliente:</label>
+      <input type="number" [(ngModel)]="nuevaVenta.idCliente" placeholder="Cliente ID" />
+    </div>
+
+    <div class="detalles-productos">
+      <h3>Agregar Detalle</h3>
+      <input type="number" [(ngModel)]="nuevoDetalle.idProducto" placeholder="Id Producto" />
+      <input type="number" [(ngModel)]="nuevoDetalle.cantidad" min="1" placeholder="Cantidad" />
+      <input type="number" [(ngModel)]="nuevoDetalle.precioUnitario" min="0" placeholder="Precio Unitario" />
+      <button (click)="agregarDetalle()">Agregar</button>
+    </div>
+
+    <table class="tabla-detalles" *ngIf="nuevaVenta?.detalles?.length && nuevaVenta.detalles.length > 0">
+      <thead>
+        <tr>
+          <th>Producto</th>
+          <th>Cantidad</th>
+          <th>Precio Unitario</th>
+          <th>Subtotal</th>
+          <th>Eliminar</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let detalle of nuevaVenta.detalles; let i = index">
+          <td>{{detalle.idProducto}}</td>
+          <td>{{detalle.cantidad}}</td>
+          <td>{{detalle.precioUnitario | currency:'USD'}}</td>
+          <td>{{detalle.cantidad * detalle.precioUnitario | currency:'USD'}}</td>
+          <td><button (click)="eliminarDetalle(i)">X</button></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <button class="btn-registrar" (click)="registrarVenta()">Registrar Venta</button>
+  </div>
+
+  <hr />
+
+  <div class="reporte-ventas">
+    <h2>Reporte de Ventas</h2>
+    <table class="tabla-ventas">
+      <thead>
+        <tr>
+          <th>Id Venta</th>
+          <th>Cliente</th>
+          <th>Fecha Venta</th>
+          <th>Total</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let venta of ventas">
+          <td>{{venta.idVenta}}</td>
+          <td>{{venta.idCliente || 'N/A'}}</td>
+          <td>{{venta.fechaVenta | date:'shortDate'}}</td>
+         <td>{{ venta.total | currency:'USD' }}</td>
+          <td>
+            <button class="btn-eliminar" (click)="eliminarVenta(venta.idVenta!)">Eliminar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -31,7 +31,7 @@ registrarCliente() {
     this.cliente.usuario.correo = this.cliente.correoContacto;
   }
 
-  this.http.post('https://localhost:7186/api/Clientes', this.cliente).subscribe({
+  this.http.post('https://aquamindapi-production.up.railway.app/api/Clientes', this.cliente).subscribe({
     next: () => {
       alert('Cliente registrado correctamente. Las credenciales han sido enviadas por correo.');
     },

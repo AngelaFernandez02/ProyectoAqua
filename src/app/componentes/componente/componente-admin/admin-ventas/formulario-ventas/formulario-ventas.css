@@ -1,0 +1,79 @@
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  font-family: Arial, sans-serif;
+  padding: 20px;
+  color: #333;
+}
+
+h1, h2, h3 {
+  color: #005f73;
+}
+
+.form-venta, .reporte-ventas {
+  background: #fcfcfc;
+  padding: 15px 20px;
+  border-radius: 8px;
+  margin-bottom: 30px;
+  box-shadow: 0 0 10px #94d2bd;
+}
+
+.input-group {
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.input-group label {
+  min-width: 90px;
+  font-weight: bold;
+}
+
+input[type=number] {
+  padding: 5px 8px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  width: 150px;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+  background-color: #0081a7;
+  color: white;
+  padding: 6px 12px;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #005f73;
+}
+
+.tabla-detalles, .tabla-ventas {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+}
+
+.tabla-detalles th, .tabla-detalles td,
+.tabla-ventas th, .tabla-ventas td {
+  border: 1px solid #ccc;
+  padding: 8px 12px;
+  text-align: center;
+}
+
+.btn-registrar {
+  margin-top: 15px;
+  width: 100%;
+  font-weight: bold;
+}
+
+.btn-eliminar {
+  background-color: #d90429;
+}
+
+.btn-eliminar:hover {
+  background-color: #9b2226;
+}
