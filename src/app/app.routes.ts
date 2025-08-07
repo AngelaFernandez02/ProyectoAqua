@@ -16,10 +16,16 @@ import { FormularioUsuarioAdmin } from './componentes/componente/componente-admi
 import { FormularioCompras } from './componentes/componente/componente-admin/admin-compras/formulario-compras/formulario-compras';
 import { FormularioVentas } from './componentes/componente/componente-admin/admin-ventas/formulario-ventas/formulario-ventas';
 import { FormularioMateria } from './componentes/componente/componente-admin/admin-materia-prima/formulario-materia/formulario-materia';
-import { FormularioProductos } from './componentes/componente/componente-admin/admin-productos/formulario-productos/formulario-productos';
-import { FormularioProveedores } from './componentes/componente/componente-admin/admin-proveedores/formulario-proveedores/formulario-proveedores';
-
-
+import { CatalogoProductos } from './componentes/componente/componente-admin/admin-productos/catalogo-productos/catalogo-productos';
+import { CatalogoProveedores } from './componentes/componente/componente-admin/admin-proveedores/catalogo-proveedores/catalogo-proveedores';
+import { EditarProveedores } from './componentes/componente/componente-admin/admin-proveedores/editar-proveedores/editar-proveedores';
+import { DetalleProveedores } from './componentes/componente/componente-admin/admin-proveedores/detalle-proveedores/detalle-proveedores';
+import { EliminarProveedores } from './componentes/componente/componente-admin/admin-proveedores/eliminar-proveedores/eliminar-proveedores';
+import { AgregarProveedores } from './componentes/componente/componente-admin/admin-proveedores/agregar-proveedores/agregar-proveedores';  
+import { AgregarProducto } from './componentes/componente/componente-admin/admin-productos/agregar-producto/agregar-producto';  
+import { EliminarProductos } from './componentes/componente/componente-admin/admin-productos/eliminar-productos/eliminar-productos';
+import { DetalleProductos } from './componentes/componente/componente-admin/admin-productos/detalle-productos/detalle-productos';
+import { EditarProductos } from './componentes/componente/componente-admin/admin-productos/editar-productos/editar-productos';
 export const routes : Routes = [
     { path: 'login', component: Login },
     {path:'inicio', component: ComponenteInicio},
@@ -28,7 +34,7 @@ export const routes : Routes = [
     {path:'producto', component: Producto},
     {path:'clientes', component: Clientes},
     {path:'cliente-actualizar', component: ClienteActualizar},
-     {path:'formulario-usuario', component: FormularioUsuario},
+    {path:'formulario-usuario', component: FormularioUsuario},
     {path:'compras-cliente', component: ComprasCliente},
     {path:'comentarios-admin', component: ComentariosAdmin},
     {path:'menu-lateral', component: MenuLateral},
@@ -38,12 +44,19 @@ export const routes : Routes = [
         {path:'formulario-compras', component: FormularioCompras},
         {path:'formulario-ventas', component: FormularioVentas},
         {path:'formulario-materia', component: FormularioMateria},
-        {path:'formulario-productos', component: FormularioProductos},
-        {path:'formulario-proveedores', component: FormularioProveedores},
+        {path:'catalogo-productos', component: CatalogoProductos},
+          //proveedores rutas
+        {path:'catalogo-proveedores', component: CatalogoProveedores},
+        { path: 'editar-proveedor/:id', component: EditarProveedores },
+        { path: 'detalle-proveedor/:id', component: DetalleProveedores },
+        { path: 'eliminar-proveedor/:id', component: EliminarProveedores },
+        { path: 'agregar-proveedores', component: AgregarProveedores },
+  // Productos rutas
+        {path:'catalogo-producto', component: CatalogoProductos},
+        { path: 'editar-productos/:id', component: EditarProductos },
+        { path: 'detalle-producto/:id', component: DetalleProductos },
+        { path: 'eliminar-productos/:id', component: EliminarProductos },
+        { path: 'agregar-producto', component: AgregarProducto },        
     {path:'reporte-usuarioss', component: ReporteUsuarioss},
-
-
     {path:'', redirectTo: '/inicio', pathMatch:'full'}
-
-
 ]

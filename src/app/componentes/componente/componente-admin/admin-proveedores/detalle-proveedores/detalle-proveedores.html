@@ -1,0 +1,51 @@
+<div class="layout">
+  <app-menu-lateral class="menu-lateral"></app-menu-lateral>
+  
+  <div class="contenido">
+    <div class="container mt-4" *ngIf="proveedor && insumos">
+      <div class="card border-custom">
+        <div class="card-header bg-header-custom d-flex justify-content-between align-items-center">
+          <h4 class="mb-0 d-flex align-items-center">
+            Detalles del proveedor
+            <i class="bi bi-person-vcard ms-2"></i>
+          </h4>
+          <button class="btn btn-back" (click)="goBack()">
+            <i class="bi bi-arrow-left"></i> Regresar
+          </button>
+        </div>
+
+        <div class="card-body bg-white">
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <label class="form-label fw-bold">Nombre:</label>
+              <p class="form-control-plaintext">{{ proveedor.nombreProveedor }}</p>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label fw-bold">Contacto:</label>
+              <p class="form-control-plaintext">{{ proveedor.contactoProveedor }}</p>
+            </div>
+          </div>
+
+          <!-- Sección de insumos -->
+          <div class="mt-4">
+            <h3>Insumos:</h3>
+
+            <div *ngIf="insumos?.length; else noInsumos">
+              <div *ngFor="let insumo of insumos ?? []" class="d-flex justify-content-between align-items-center p-3 border rounded mb-2 shadow-sm insumo-card">
+                <span class="insumo-nombre">{{ insumo.nombreInsumo }}</span>
+                <span>
+                  <strong>Cantidad:</strong>
+                  {{ insumo.tbInsumoProductos?.[0]?.cantidad || 'N/A' }}
+                </span>
+              </div>
+            </div>
+
+            <ng-template #noInsumos>
+              <p class="text-muted fst-italic">No tiene insumos registrados.</p>
+            </ng-template>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

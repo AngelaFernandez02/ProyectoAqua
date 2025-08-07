@@ -1,0 +1,90 @@
+<div class="layout">
+  <app-menu-lateral class="menu-lateral"></app-menu-lateral>
+  <div class="contenido">
+    <div class="container mt-4">
+      <div class="card">
+        <div class="card-header bg-header-custom d-flex justify-content-between align-items-center">
+          <h1 class="mb-0">Agregar un producto</h1>
+          
+          <button class="btn btn-outline-secondary btn-sm" (click)="volverAlCatalogo()">
+            <i class="bi bi-arrow-left-circle"></i> Regresar
+          </button>
+        </div>
+        <div class="card-body">
+          <form [formGroup]="productoForm" (ngSubmit)="agregarProducto()">
+
+            <div class="mb-3">
+              <label class="form-label ">Nombre del Producto</label>
+              <select formControlName="nombreProducto" class="form-select">
+                <option value="">Selecciona un producto</option>
+                <option value="Kit Básico">Kit Básico</option>
+                <option value="Kit Básico Pro">Kit Básico Pro</option>
+                <option value="Kit Completo">Kit Completo</option>
+                <option value="Kit Completo Pro">Kit Completo Pro</option>
+                <option value="Kit Premium">Kit Premium</option>
+                <option value="Personalizado">Personalizado</option>
+              </select>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Descripción</label>
+              <textarea formControlName="descripcion" class="form-control"></textarea>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Precio</label>
+              <input type="number" formControlName="precio" class="form-control" min="0" />
+            </div>
+
+            <div formArrayName="insumos" class="mt-3">
+              <h5>Insumos</h5>
+
+              <div *ngFor="let insumo of insumos.controls; let i = index" [formGroupName]="i" class="border p-3 mb-2">
+
+                <div class="row g-2">
+                  <div class="col-md-5">
+                    <input
+                      list="listaInsumos"
+                      placeholder="Nombre insumo"
+                      class="form-control"
+                      formControlName="nombreInsumo" />
+                    <datalist id="listaInsumos">
+                      <option *ngFor="let ins of insumosRegistrados" [value]="ins.nombreInsumo"></option>
+                    </datalist>
+                  </div>
+
+                  <div class="col-md-3">
+                    <input
+                      type="number"
+                      placeholder="Cantidad"
+                      class="form-control"
+                      formControlName="cantidad"
+                      min="1" />
+                  </div>
+
+                  <div class="col-md-3">
+                    <input
+                      placeholder="Unidad"
+                      class="form-control"
+                      formControlName="unidad" />
+                  </div>
+
+                  <div class="col-md-1 d-flex align-items-center">
+                    <button type="button" class="btn btn-danger btn-sm" (click)="eliminarInsumo(i)">Eliminar</button>
+                  </div>
+                </div>
+
+              </div>
+
+              <button type="button" class="btn btn-secondary mt-2" (click)="agregarInsumo()">+ Agregar Insumo</button>
+            </div>
+
+            <button type="submit" class="btn btn-primary mt-4">Agregar Producto</button>
+
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

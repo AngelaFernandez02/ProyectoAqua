@@ -1,0 +1,46 @@
+<div class="layout">
+  <app-menu-lateral class="menu-lateral"></app-menu-lateral>
+
+  <div class="contenido">
+
+    <div class="container mt-4" *ngIf="producto">
+      <div class="card">
+        <div class="card-header bg-header-custom d-flex justify-content-between align-items-center">
+  <!-- Botones a la izquierda -->
+     <!-- Título a la derecha -->
+  <h1 class="mb-0">Detalle del producto</h1>
+  <div class="d-flex align-items-center gap-2">
+    <button class="btn btn-outline-secondary btn-sm" (click)="volverAlCatalogo()">
+      <i class="bi bi-arrow-left-circle"></i> Volver al catálogo
+    </button>
+    <button class="btn btn-warning btn-sm" (click)="irEditar()">
+      <i class="bi bi-pencil-square"></i> Editar
+    </button>
+    <button class="btn btn-danger btn-sm" (click)="irEliminar()">
+      <i class="bi bi-trash"></i> Eliminar
+    </button>
+  </div>
+</div>
+
+        <div class="card-body">
+          <h2>{{ producto?.nombreProducto }}</h2>
+          <p><strong>Descripción:</strong> {{ producto?.descripcion }}</p>
+          <p><strong>Precio:</strong> ${{ producto?.precio }}</p>
+
+          <h4>Insumos</h4>
+          <ul class="list-group">
+            <li 
+              class="list-group-item d-flex justify-content-between align-items-center"
+              *ngFor="let insumo of producto.tbInsumoProductos">
+              {{ insumo.idInsumoNavigation?.nombreInsumo || 'Insumo desconocido' }}
+              <span class="badge bg-primary rounded-pill">
+                {{ insumo.cantidad }}
+              </span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

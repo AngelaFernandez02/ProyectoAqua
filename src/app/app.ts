@@ -5,10 +5,12 @@ import { ComponenteInicio } from "./componentes/componente/componente-homepage/c
 import { Footer } from "./componentes/componente/componente-homepage/footer/footer";
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
-
+import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms'; // 👈 Importa esto
+import { Routes } from '@angular/router';
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, Header, ComponenteInicio, Footer, HttpClientModule],
+  imports: [RouterOutlet, Header, ComponenteInicio, Footer, HttpClientModule,],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
