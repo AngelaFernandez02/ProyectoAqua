@@ -26,6 +26,9 @@ import { AgregarProducto } from './componentes/componente/componente-admin/admin
 import { EliminarProductos } from './componentes/componente/componente-admin/admin-productos/eliminar-productos/eliminar-productos';
 import { DetalleProductos } from './componentes/componente/componente-admin/admin-productos/detalle-productos/detalle-productos';
 import { EditarProductos } from './componentes/componente/componente-admin/admin-productos/editar-productos/editar-productos';
+import { CatalogoCompras } from './componentes/componente/componente-admin/admin-compras/catalogo-compras/catalogo-compras';
+import { EliminarCompras } from './componentes/componente/componente-admin/admin-compras/eliminar-compras/eliminar-compras';
+import { DetallesCompra } from './componentes/componente/componente-admin/admin-compras/detalles-compras/detalles-compras';
 export const routes : Routes = [
     { path: 'login', component: Login },
     {path:'inicio', component: ComponenteInicio},
@@ -56,7 +59,15 @@ export const routes : Routes = [
         { path: 'editar-productos/:id', component: EditarProductos },
         { path: 'detalle-producto/:id', component: DetalleProductos },
         { path: 'eliminar-productos/:id', component: EliminarProductos },
-        { path: 'agregar-producto', component: AgregarProducto },        
+        { path: 'agregar-producto', component: AgregarProducto },  
+        
+        
+
+          //compras rutas
+        {path:'catalogo-compras', component: CatalogoCompras},
+        { path: 'detalles-compras/:id', component: DetallesCompra },
+        { path: 'eliminar-compras/:id', component: EliminarCompras },
+        { path: 'agregar-compras', component: FormularioCompras },
     {path:'reporte-usuarioss', component: ReporteUsuarioss},
     {path:'', redirectTo: '/inicio', pathMatch:'full'}
 ]

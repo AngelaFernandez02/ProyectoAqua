@@ -83,4 +83,7 @@ export class CatalogoProveedores implements OnInit {
   trackProveedor(index: number, proveedor: IProveedor): number {
     return proveedor.idProveedor;
   }
+
+ 
+
 }

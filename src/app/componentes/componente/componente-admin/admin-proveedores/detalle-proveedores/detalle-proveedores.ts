@@ -25,7 +25,7 @@ export class DetalleProveedores implements OnInit {
   const id = Number(this.route.snapshot.paramMap.get('id'));
 
   this.sProveedores.getProveedorById(id).subscribe({
-    next: (data: any) => {  // usar any para evitar problemas temporales
+    next: (data: any) => {  
       this.proveedor = data;
 
       this.insumos = Array.isArray(data.tbInsumos)
