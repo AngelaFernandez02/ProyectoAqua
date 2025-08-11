@@ -22,7 +22,7 @@
       (searchChange)="onSearchChange($event)">
   </app-search-materiaprima>
 
-        <button class="btn btn-add" [routerLink]="['/formulario-materia']">
+        <button class="btn btn-add" [routerLink]="['/admin/formulario-materia']">
           <i class="bi bi-plus-lg"></i> Agregar
         </button>
       </div>
@@ -49,16 +49,16 @@
       <td>{{ insumo.costoPromedio | currency:'MXN':'symbol':'1.2-2' }}</td>
       <td>
         <button class="btn btn-sm btn-outline-dark me-1"
-                          [routerLink]="['/detalles-materiaprima', insumo.idInsumo]"
+                          [routerLink]="['/admin/detalles-materiaprima', insumo.idInsumo]"
                           (click)="$event.stopPropagation()">
                     <i class="bi bi-eye"></i>
                   </button>
         <button class="btn btn-sm btn-outline-dark me-1"
-                [routerLink]="['/editar-materiaprima', insumo.idInsumo]">
+                [routerLink]="['/admin/editar-materiaprima', insumo.idInsumo]">
           <i class="bi bi-pencil-square"></i>
         </button>
         <button class="btn btn-sm btn-outline-dark"
-                [routerLink]="['/eliminar-materiaprima', insumo.idInsumo]">
+                [routerLink]="['/admin/eliminar-materiaprima', insumo.idInsumo]">
           <i class="bi bi-trash"></i>
         </button>
       </td>

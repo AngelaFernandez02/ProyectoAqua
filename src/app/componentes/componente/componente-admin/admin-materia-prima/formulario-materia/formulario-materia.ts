@@ -65,7 +65,7 @@ export class FormularioMateria implements OnInit {
       next: () => {
         alert('Insumo registrado correctamente');
         this.insumoForm.reset();
-        this.router.navigate(['/catalogo-materiaprima']); 
+        this.router.navigate(['/admin/catalogo-materiaprima']); 
       },
       error: (err) => {
         console.error('Error al registrar insumo', err);
@@ -75,6 +75,6 @@ export class FormularioMateria implements OnInit {
   }
 
   goBack(): void {
-    this.router.navigate(['/catalogo-materiaprima']); 
+    this.router.navigate(['/admin/catalogo-materiaprima']); 
   }
 }

@@ -51,10 +51,10 @@ export class CatalogoProductos {
   }
 
   abrirAgregarProducto(): void {
-    this.router.navigate(['/agregar-producto']);
+    this.router.navigate(['/admin/agregar-producto']);
   }
   verDetallesProducto(idProducto: number): void {
-  this.router.navigate(['/detalle-producto', idProducto]);
+  this.router.navigate(['/admin/detalle-producto', idProducto]);
 }
 
 }

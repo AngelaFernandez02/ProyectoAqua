@@ -36,13 +36,13 @@ export class DetalleProductos implements OnInit {
   }
   
   irEditar(): void {
-    this.router.navigate(['/editar-productos', this.productoId]);
+    this.router.navigate(['/admin/editar-productos', this.productoId]);
   }
 
   irEliminar(): void {
-    this.router.navigate(['/eliminar-productos', this.productoId]);
+    this.router.navigate(['/admin/eliminar-productos', this.productoId]);
   }
     volverAlCatalogo(): void {
-  this.router.navigate(['/catalogo-productos']);
+  this.router.navigate(['/admin/catalogo-productos']);
 }
 }

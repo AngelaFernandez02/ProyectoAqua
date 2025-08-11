@@ -62,7 +62,7 @@ export class AgregarProducto implements OnInit {
       this.sProducto.crearProducto(nuevoProducto).subscribe({
         next: () => {
           alert('Producto agregado exitosamente');
-          this.router.navigate(['/catalogo-productos']);
+          this.router.navigate(['/admin/catalogo-productos']);
         },
         error: (err) => {
           console.error('Error al agregar producto', err);

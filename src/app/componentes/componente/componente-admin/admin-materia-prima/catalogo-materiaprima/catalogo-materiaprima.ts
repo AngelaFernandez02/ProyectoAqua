@@ -77,11 +77,11 @@ export class CatalogoMateriaPrima implements OnInit {
     }
   
     abrirAgregarInsumo(): void {
-      this.router.navigate(['/agregar-materiaprima']);
+      this.router.navigate(['/admin/agregar-materiaprima']);
     }
   
     abrirEditarInsumo(insumo: IInsumo): void {
-      this.router.navigate(['editar-materiaprima', insumo.idInsumo]);
+      this.router.navigate(['/admin/editar-materiaprima', insumo.idInsumo]);
     }
   
     abrirEliminarInsumo(insumo: IInsumo): void {
@@ -89,12 +89,12 @@ export class CatalogoMateriaPrima implements OnInit {
       const nombreProv = proveedor ? proveedor.nombreProveedor : 'este proveedor';
   
       if (confirm(`¿Estás seguro de eliminar la compra del proveedor ${nombreProv}?`)) {
-        this.router.navigate(['/eliminar-materiaprima', insumo.idInsumo]);
+        this.router.navigate(['/admin/eliminar-materiaprima', insumo.idInsumo]);
       }
     }
   
     abrirDetallesInsumo(insumo: IInsumo): void {
-      this.router.navigate(['/detalle-materiaprima', insumo.idInsumo]);
+      this.router.navigate(['/admin/detalle-materiaprima', insumo.idInsumo]);
     }
   
     trackInsumo(index: number, insumo: IInsumo): number {

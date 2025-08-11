@@ -45,17 +45,17 @@
                 <td>{{ compra.total | currency:'MXN':'symbol':'1.2-2' }}</td>
                 <td>
                   <button class="btn btn-sm btn-outline-dark me-1"
-                          [routerLink]="['/detalles-compras', compra.idCompra]"
+                          [routerLink]="['/admin/detalles-compras', compra.idCompra]"
                           (click)="$event.stopPropagation()">
                     <i class="bi bi-eye"></i>
-                  </button>c
+                  </button>
                   <button class="btn btn-sm btn-outline-dark me-1"
-                          [routerLink]="['/editar-compras', compra.idCompra]"
+                          [routerLink]="['/admin/editar-compras', compra.idCompra]"
                           (click)="$event.stopPropagation()">
                     <i class="bi bi-pencil-square"></i>
                   </button>
                   <button class="btn btn-sm btn-outline-dark"
-                          [routerLink]="['/eliminar-compras', compra.idCompra]"
+                          [routerLink]="['/admin/eliminar-compras', compra.idCompra]"
                           (click)="$event.stopPropagation()">
                     <i class="bi bi-trash"></i>
                   </button>
