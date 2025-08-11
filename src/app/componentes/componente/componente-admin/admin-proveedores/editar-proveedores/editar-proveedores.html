@@ -1,72 +1,192 @@
+
 <div class="layout">
   <app-menu-lateral class="menu-lateral"></app-menu-lateral>
   
   <div class="contenido">
-<div class="full-width-container">
-  <div class="d-flex justify-content-between align-items-center mb-3">
-    <h1 class="d-flex align-items-center gap-2" style="font-weight: bold;">
-      Editar proveedor
-      <i class="bi bi-pencil-fill"></i>
-    </h1>
-    <div style="width: 100px;"></div>
-  </div>
-
-  <div class="card border-custom mt-4">
-    <div class="card-header bg-header-custom d-flex justify-content-between align-items-center">
-      <h3 class="mb-0">Actualizar datos del proveedor</h3>
-      <button class="btn btn-back" (click)="goBack()">
-        <i class="bi bi-arrow-left"></i> Regresar
-      </button>
-    </div>
-
-    <div class="card-body bg-white">
-      <form [formGroup]="proveedorForm" (ngSubmit)="onSubmit()" class="full-width-form">
-        <!-- Primera fila -->
-        <div class="form-row">
-          <div class="form-group triple">
-            <label for="idProveedor">Id Proveedor</label>
-            <input type="text" id="idProveedor" formControlName="idProveedor" class="form-control" readonly>
-          </div>
-          
-          <div class="form-group triple">
-            <label for="nombreProveedor">Nombre del Proveedor</label>
-            <input type="text" id="nombreProveedor" formControlName="nombre" class="form-control">
-          </div>
-
-          <div class="form-group triple">
-            <label for="contactoProveedor">Contacto</label>
-            <input type="text" id="contactoProveedor" formControlName="contacto" class="form-control">
-          </div>
-        </div>
-
-<!-- Sección de insumos -->
-      <div class="mt-4">
-        <h3>Insumos:</h3>
-
-        <div *ngIf="insumos.length > 0; else noInsumos">
-          <div *ngFor="let insumo of insumos" class="d-flex justify-content-between align-items-center p-3 border rounded mb-2 shadow-sm insumo-card">
-            <span class="insumo-nombre">{{ insumo.nombreInsumo }}</span>
-            <span>
-              <strong>Cantidad:</strong>
-              {{ insumo.tbInsumoProductos?.$values[0]?.cantidad || 'N/A' }}
-            </span>
-          </div>
-        </div>
-
-        <ng-template #noInsumos>
-          <p class="text-muted fst-italic">No tiene insumos registrados.</p>
-        </ng-template>
+    <div class="full-width-container">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h1 class="d-flex align-items-center gap-2" style="font-weight: bold;">
+          Editar proveedor
+          <i class="bi bi-pencil-fill"></i>
+        </h1>
+        <div style="width: 100px;"></div>
       </div>
 
+      <div class="card border-custom mt-4">
+        <div class="card-header bg-header-custom d-flex justify-content-between align-items-center">
+          <h3 class="mb-0">Actualizar datos del proveedor</h3>
+          <button class="btn btn-back" (click)="goBack()">
+            <i class="bi bi-arrow-left"></i> Regresar
+          </button>
+        </div>
 
-        <div class="divider"></div>
+        <div class="card-body bg-white">
+          <form [formGroup]="proveedorForm" (ngSubmit)="onSubmit()" class="full-width-form">
 
-        <button type="submit" class="btn btn-add mt-3">
-          <i class="bi bi-save"></i> Guardar cambios
-        </button>
-      </form>
+            <!-- Datos generales -->
+            <div class="form-row">
+              <div class="form-group triple">
+                <label for="idProveedor">Id Proveedor</label>
+                <input type="text" id="idProveedor" formControlName="idProveedor" class="form-control" readonly />
+              </div>
+              
+              <div class="form-group triple">
+                <label for="nombreProveedor">Nombre del Proveedor</label>
+                <input type="text" id="nombreProveedor" formControlName="nombre" class="form-control" />
+                <div class="text-danger" *ngIf="proveedorForm.get('nombre')?.touched && proveedorForm.get('nombre')?.invalid">
+                  El nombre del proveedor es obligatorio.
+                </div>
+              </div>
+
+              <div class="form-group triple">
+                <label for="contactoProveedor">Contacto</label>
+                <input type="text" id="contactoProveedor" formControlName="contacto" class="form-control" />
+                <div class="text-danger" *ngIf="proveedorForm.get('contacto')?.touched && proveedorForm.get('contacto')?.invalid">
+                  El contacto es obligatorio.
+                </div>
+              </div>
+            </div>
+
+            <!-- Sección de insumos -->
+            <div formArrayName="tbInsumos" class="mb-3">
+              <div *ngFor="let insumo of tbInsumos.controls; let i = index" [formGroupName]="i" class="mb-3 border p-3 rounded">
+
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                  <h5>
+                    Insumo #{{ i + 1 }} - {{ insumo.get('nombreInsumo')?.value || 'Nuevo' }}
+                  </h5>
+                  <button type="button" class="btn btn-danger btn-sm" (click)="eliminarInsumo(i)">
+                    <i class="bi bi-trash"></i> Eliminar
+                  </button>
+                </div>
+
+                <input type="hidden" formControlName="idInsumo" />
+
+                <label>Nombre Insumo:</label>
+                <input type="text" formControlName="nombreInsumo" class="form-control mb-2" />
+                <div class="text-danger" *ngIf="insumo.get('nombreInsumo')?.touched && insumo.get('nombreInsumo')?.invalid">
+                  Nombre del insumo es obligatorio.
+                </div>
+
+                <label>Existencias:</label>
+                <input
+                  type="number"
+                  formControlName="existencias"
+                  class="form-control mb-2"
+                  (keypress)="soloNumerosYPunto($event, insumo.get('unidad')?.value)"
+                />
+                <div class="text-danger" *ngIf="insumo.get('existencias')?.hasError('noEsEntero')">
+                  La cantidad debe ser un número entero para esta unidad.
+                </div>
+                <div class="text-danger" *ngIf="insumo.get('existencias')?.touched && insumo.get('existencias')?.invalid && !insumo.get('existencias')?.hasError('noEsEntero')">
+                  Existencias es obligatorio y debe ser un número válido.
+                </div>
+
+                <label>Costo Promedio:</label>
+                <input type="number" formControlName="costo_Promedio" class="form-control mb-2" />
+                <div class="text-danger" *ngIf="insumo.get('costo_Promedio')?.touched && insumo.get('costo_Promedio')?.invalid">
+                  Costo promedio es obligatorio.
+                </div>
+
+                <label>Unidad:</label>
+                <select formControlName="unidad" class="form-control mb-2">
+                  <option value="">Seleccione unidad</option>
+                  <option value="pieza">pieza</option>
+                  <option value="m">m</option>
+                  <option value="kg">kg</option>
+                  <option value="unidad">unidad</option>
+                  <option value="ESP32">ESP32</option>
+                </select>
+                <div class="text-danger" *ngIf="insumo.get('unidad')?.touched && insumo.get('unidad')?.invalid">
+                  Unidad es obligatoria.
+                </div>
+              </div>
+            </div>
+
+            <!-- Selección de insumos existentes FUERA del formArray -->
+            <div class="mt-4 border rounded p-3 bg-light">
+              <h5>Agregar insumos existentes</h5>
+              <select multiple class="form-control" [(ngModel)]="insumosSeleccionados" [ngModelOptions]="{standalone: true}" size="6">
+                <option *ngFor="let insumo of insumosDisponiblesFiltrados" [value]="insumo.idInsumo">
+                  {{ insumo.nombreInsumo }} (Existencias: {{ insumo.existencias }})
+                </option>
+              </select>
+
+              <button type="button" class="btn btn-primary mt-2" (click)="agregarInsumosExistentes()">
+                <i class="bi bi-plus-lg"></i> Agregar seleccionados
+              </button>
+            </div>
+
+            <div class="alert alert-info mt-3">
+              <strong>Total insumos:</strong> {{ tbInsumos.length }} &nbsp;|&nbsp;
+              <strong>Nuevos:</strong> {{ contarNuevos() }} &nbsp;|&nbsp;
+              <strong>Eliminados:</strong> {{ idsInsumosAEliminar.length }}
+            </div>
+            
+            <div class="mt-4 border rounded p-3 bg-light">
+              <h5>Agregar nuevo insumo</h5>
+              <button type="button" class="btn btn-success mb-3" (click)="agregarInsumo()">
+                <i class="bi bi-plus-circle"></i> Nuevo insumo
+              </button>
+
+              <div *ngFor="let insumo of tbInsumos.controls; let i = index" hidden>
+                <div *ngIf="insumo.get('idInsumo')?.value === 0" [formGroupName]="i" class="mb-3 border p-3 rounded">
+                  <h6>Insumo nuevo #{{ i + 1 }}</h6>
+
+                  <label>Nombre Insumo:</label>
+                  <input type="text" formControlName="nombreInsumo" class="form-control mb-2" />
+                  <div class="text-danger" *ngIf="insumo.get('nombreInsumo')?.touched && insumo.get('nombreInsumo')?.invalid">
+                    Nombre del insumo es obligatorio.
+                  </div>
+
+                  <label>Existencias:</label>
+                  <input
+                    type="number"
+                    formControlName="existencias"
+                    class="form-control mb-2"
+                    (keypress)="soloNumerosYPunto($event, insumo.get('unidad')?.value)"
+                  />
+                  <div class="text-danger" *ngIf="insumo.get('existencias')?.hasError('noEsEntero')">
+                    La cantidad debe ser un número entero para esta unidad.
+                  </div>
+                  <div class="text-danger" *ngIf="insumo.get('existencias')?.touched && insumo.get('existencias')?.invalid && !insumo.get('existencias')?.hasError('noEsEntero')">
+                    Existencias es obligatorio y debe ser un número válido.
+                  </div>
+
+                  <label>Costo Promedio:</label>
+                  <input type="number" formControlName="costo_Promedio" class="form-control mb-2" />
+                  <div class="text-danger" *ngIf="insumo.get('costo_Promedio')?.touched && insumo.get('costo_Promedio')?.invalid">
+                    Costo promedio es obligatorio.
+                  </div>
+
+                  <label>Unidad:</label>
+                  <select formControlName="unidad" class="form-control mb-2">
+                    <option value="">Seleccione unidad</option>
+                    <option value="pieza">pieza</option>
+                    <option value="m">m</option>
+                    <option value="kg">kg</option>
+                    <option value="unidad">unidad</option>
+                    <option value="ESP32">ESP32</option>
+                  </select>
+                  <div class="text-danger" *ngIf="insumo.get('unidad')?.touched && insumo.get('unidad')?.invalid">
+                    Unidad es obligatoria.
+                  </div>
+
+                  <button type="button" class="btn btn-danger btn-sm mt-2" (click)="eliminarInsumo(i)">
+                    <i class="bi bi-trash"></i> Eliminar insumo nuevo
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="divider"></div>
+            
+            <button type="submit" class="btn btn-add mt-3">
+              <i class="bi bi-save"></i> Guardar cambios
+            </button>
+          </form>
+        </div>
+      </div>
     </div>
-  </div>
-</div>
   </div>
 </div>

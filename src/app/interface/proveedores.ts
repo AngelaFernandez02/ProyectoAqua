@@ -4,5 +4,5 @@ export interface IProveedor {
   idProveedor: number;
   nombreProveedor: string | null;
   contactoProveedor: string | null;
-  tbInsumos: IInsumo[];
+  tbInsumos?: IInsumo[];
 }

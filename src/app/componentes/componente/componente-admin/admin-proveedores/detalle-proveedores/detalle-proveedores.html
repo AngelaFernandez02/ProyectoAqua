@@ -35,7 +35,7 @@
                 <span class="insumo-nombre">{{ insumo.nombreInsumo }}</span>
                 <span>
                   <strong>Cantidad:</strong>
-                  {{ insumo.tbInsumoProductos?.[0]?.cantidad || 'N/A' }}
+                  {{ insumo.existencias || 'N/A' }}
                 </span>
               </div>
             </div>

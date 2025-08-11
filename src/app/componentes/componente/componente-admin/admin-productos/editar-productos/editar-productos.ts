@@ -56,18 +56,16 @@ export class EditarProductos implements OnInit {
     return this.productoForm.get('insumos') as FormArray;
   }
 
-agregarInsumo(insumo?: any): void {
-  this.insumos.push(
-    this.fb.group({
-      idInsumo: [insumo?.idInsumoNavigation?.idInsumo ?? null],
-      nombreInsumo: [insumo?.nombreInsumo || '', Validators.required],
-      cantidad: [insumo?.cantidad ?? 1, [Validators.required, Validators.min(1)]],
-    })
-  );
-}
-
-
-
+  agregarInsumo(insumo?: any): void {
+    this.insumos.push(
+      this.fb.group({
+        idInsumo: [insumo?.idInsumoNavigation?.idInsumo ?? null],
+        nombreInsumo: [insumo?.nombreInsumo || '', Validators.required],
+        cantidad: [insumo?.cantidad ?? 1, [Validators.required, Validators.min(1)]],
+        unidad: [insumo?.unidad || '', Validators.required], // Unidad con validación requerida
+      })
+    );
+  }
 
   eliminarInsumo(index: number): void {
     this.insumos.removeAt(index);
@@ -80,21 +78,24 @@ agregarInsumo(insumo?: any): void {
       precio: producto.precio,
     });
 
+    // Limpiar insumos antes de cargar nuevos
+    this.insumos.clear();
+
     // Cargar insumos
     if (producto.tbInsumoProductos?.length > 0) {
       producto.tbInsumoProductos.forEach((i: any) => {
-  this.agregarInsumo({
-    idInsumoNavigation: { idInsumo: i.idInsumo }, // Para que se pase el id correctamente
-    nombreInsumo: i.idInsumoNavigation?.nombreInsumo || '',
-    cantidad: i.cantidad,
-    unidad: i.unidad || '',
-  });
-});
-
+        this.agregarInsumo({
+          idInsumoNavigation: { idInsumo: i.idInsumo }, // Para que se pase el id correctamente
+          nombreInsumo: i.idInsumoNavigation?.nombreInsumo || '',
+          cantidad: i.cantidad,
+          unidad: i.unidad || '', // Asegura unidad no vacía
+        });
+      });
     }
   }
 
   actualizarProducto(): void {
+  this.productoForm.markAllAsTouched();
   if (this.productoForm.invalid) {
     alert('Completa todos los campos requeridos');
     return;
@@ -103,33 +104,27 @@ agregarInsumo(insumo?: any): void {
   const formValue = this.productoForm.value;
 
   const tbInsumoProductos = formValue.insumos.map((insumo: any) => {
-    // Buscar insumo registrado por su nombre
     const insumoEncontrado = this.insumosRegistrados.find(
       i => i.nombreInsumo?.toLowerCase() === insumo.nombreInsumo.toLowerCase()
     );
 
     return {
       idInsumo: insumoEncontrado?.idInsumo ?? insumo.idInsumo ?? null,
-      cantidad: insumo.cantidad
+      cantidad: insumo.cantidad,
+      unidad: insumo.unidad
     };
   });
+
+  // Omitida la validación de insumosInvalidos para permitir guardar sin idInsumo válido
 
   const productoActualizado = {
     idProducto: this.productoId,
     nombreProducto: formValue.nombreProducto,
     descripcion: formValue.descripcion,
     precio: formValue.precio,
-    imagen: '', // O asigna imagen si usas
+    imagen: '', // o la que uses
     tbInsumoProductos
   };
-
-  // Validación extra opcional
-  const insumosInvalidos = tbInsumoProductos.some((i: { idInsumo: number | null }) => i.idInsumo === null);
-
-  if (insumosInvalidos) {
-    alert('Uno o más insumos no tienen un ID válido. Revisa los nombres.');
-    return;
-  }
 
   this.sProducto.actualizarProducto(this.productoId, productoActualizado).subscribe({
     next: () => {

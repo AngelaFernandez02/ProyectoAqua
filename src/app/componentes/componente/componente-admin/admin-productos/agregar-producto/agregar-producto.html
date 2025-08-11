@@ -63,10 +63,15 @@
                   </div>
 
                   <div class="col-md-3">
-                    <input
-                      placeholder="Unidad"
-                      class="form-control"
-                      formControlName="unidad" />
+                    <label>Unidad:</label>
+                  <select formControlName="unidad" class="form-control mb-2">
+                    <option value="">Seleccione unidad</option>
+                    <option value="pieza">pieza</option>
+                    <option value="m">m</option>
+                    <option value="kg">kg</option>
+                    <option value="unidad">unidad</option>
+                    
+                  </select>
                   </div>
 
                   <div class="col-md-1 d-flex align-items-center">
