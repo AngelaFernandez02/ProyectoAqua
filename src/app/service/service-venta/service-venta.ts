@@ -24,5 +24,20 @@ export class ServiceVenta {
   eliminarVenta(idVenta: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}${idVenta}`);
   }
+
+     getVentaById(idVenta: number): Observable<Venta> {
+    return this.http.get<Venta>(`${this.apiUrl}${idVenta}`);
+  }
+
+actualizarVenta(idVenta: number, venta: Venta): Observable<any> {
+  return this.http.put(`${this.apiUrl}EditarVenta/${idVenta}`, venta);
+}
+
+descargarReportePdf(idVenta: number): Observable<Blob> {
+    return this.http.get(`${this.apiUrl}ReportePdf/${idVenta}`, {
+      responseType: 'blob'
+    });
+  }
+
   
 }
