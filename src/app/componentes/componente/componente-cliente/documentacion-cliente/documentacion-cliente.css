@@ -1,0 +1,16 @@
+.layout {
+  display: flex;
+  min-height: 100vh;
+  background-color: #f4f6f8;
+  font-family: 'Inter', sans-serif;
+}
+
+.menu-lateral-cliente {
+  flex-shrink: 0; /* evita que el menú se encoja */
+}
+
+.contenido {
+  flex: 1;
+  padding: 40px;
+  background-color: #f5f5f5;
+}

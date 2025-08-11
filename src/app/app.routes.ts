@@ -47,6 +47,7 @@ import { DetallesVenta } from './componentes/componente/componente-admin/admin-v
 import { EliminarVenta } from './componentes/componente/componente-admin/admin-ventas/eliminar-venta/eliminar-venta';
 import { AgregarVenta } from './componentes/componente/componente-admin/admin-ventas/agregar-venta/agregar-venta';
 import { EditarVenta } from './componentes/componente/componente-admin/admin-ventas/editar-venta/editar-venta';
+import { DocumentacionCliente } from './componentes/componente/componente-cliente/documentacion-cliente/documentacion-cliente';
 
 export const routes : Routes = [
     // Rutas públicas (sin autenticación requerida)
@@ -74,6 +75,13 @@ export const routes : Routes = [
     { 
         path: 'compras-cliente', 
         component: ComprasCliente, 
+        canActivate: [authGuard, roleGuard], 
+        data: { role: 2 } 
+    },
+
+    { 
+        path:'documentacion-cliente', 
+        component: DocumentacionCliente, 
         canActivate: [authGuard, roleGuard], 
         data: { role: 2 } 
     },
