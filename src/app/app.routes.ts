@@ -1,4 +1,6 @@
 import { Routes } from '@angular/router';
+import { authGuard } from './guards/auth.guard';
+import { roleGuard } from './guards/role.guard';
 import { Login } from './componentes/componente/login/login';
 import { ComponenteInicio } from './componentes/componente/componente-homepage/componente-inicio/componente-inicio';
 import { Conocenos } from './componentes/componente/componente-homepage/conocenos/conocenos';
@@ -28,37 +30,164 @@ import { DetalleProductos } from './componentes/componente/componente-admin/admi
 import { EditarProductos } from './componentes/componente/componente-admin/admin-productos/editar-productos/editar-productos';
 import { DashboardAdmin } from './componentes/componente/componente-admin/dashboard-admin/dashboard-admin';
 export const routes : Routes = [
+    // Rutas públicas (sin autenticación requerida)
     { path: 'login', component: Login },
-    {path:'inicio', component: ComponenteInicio},
-    {path:'conocenos', component: Conocenos},
-    {path:'contactanos', component: Contactanos},
-    {path:'producto', component: Producto},
-    {path:'clientes', component: Clientes},
-    {path:'cliente-actualizar', component: ClienteActualizar},
-    {path:'formulario-usuario', component: FormularioUsuario},
-    {path:'compras-cliente', component: ComprasCliente},
-    {path:'comentarios-admin', component: ComentariosAdmin},
-    {path:'menu-lateral', component: MenuLateral},
-    {path:'formulario-usuario-cliente', component: FormularioUsuarioCliente},
-    {path:'formulario-usuario-admin', component: FormularioUsuarioAdmin},
+    { path: 'inicio', component: ComponenteInicio },
+    { path: 'conocenos', component: Conocenos },
+    { path: 'contactanos', component: Contactanos },
+    { path: 'producto', component: Producto },
+    { path: 'clientes', component: Clientes },
 
-        {path:'formulario-compras', component: FormularioCompras},
-        {path:'formulario-ventas', component: FormularioVentas},
-        {path:'formulario-materia', component: FormularioMateria},
-        {path:'catalogo-productos', component: CatalogoProductos},
-          //proveedores rutas
-        {path:'catalogo-proveedores', component: CatalogoProveedores},
-        { path: 'editar-proveedor/:id', component: EditarProveedores },
-        { path: 'detalle-proveedor/:id', component: DetalleProveedores },
-        { path: 'eliminar-proveedor/:id', component: EliminarProveedores },
-        { path: 'agregar-proveedores', component: AgregarProveedores },
-  // Productos rutas
-        {path:'catalogo-producto', component: CatalogoProductos},
-        { path: 'editar-productos/:id', component: EditarProductos },
-        { path: 'detalle-producto/:id', component: DetalleProductos },
-        { path: 'eliminar-productos/:id', component: EliminarProductos },
-        { path: 'agregar-producto', component: AgregarProducto },        
-    {path:'reporte-usuarioss', component: ReporteUsuarioss},
-    {path:'dashboard-admin', component: DashboardAdmin},
-    {path:'', redirectTo: '/inicio', pathMatch:'full'}
+    // Rutas protegidas para CLIENTES (tipo usuario: 2)
+    { 
+        path: 'cliente-actualizar', 
+        component: ClienteActualizar, 
+        canActivate: [authGuard, roleGuard], 
+        data: { role: 2 } 
+    },
+    { 
+        path: 'formulario-usuario', 
+        component: FormularioUsuario, 
+        canActivate: [authGuard, roleGuard], 
+        data: { role: 2 } 
+    },
+    { 
+        path: 'compras-cliente', 
+        component: ComprasCliente, 
+        canActivate: [authGuard, roleGuard], 
+        data: { role: 2 } 
+    },
+
+    // Rutas protegidas para ADMINISTRADORES (tipo usuario: 1)
+    { 
+        path: 'menu-lateral', 
+        component: MenuLateral, 
+        canActivate: [authGuard, roleGuard], 
+        data: { role: 1 } 
+    },
+    { 
+        path: 'dashboard-admin', 
+        component: DashboardAdmin, 
+        canActivate: [authGuard, roleGuard], 
+        data: { role: 1 } 
+    },
+    { 
+        path: 'comentarios-admin', 
+        component: ComentariosAdmin, 
+        canActivate: [authGuard, roleGuard], 
+        data: { role: 1 } 
+    },
+
+    // Rutas de gestión de usuarios (solo administradores)
+    { 
+        path: 'formulario-usuario-cliente', 
+        component: FormularioUsuarioCliente, 
+        canActivate: [authGuard, roleGuard], 
+        data: { role: 1 } 
+    },
+    { 
+        path: 'formulario-usuario-admin', 
+        component: FormularioUsuarioAdmin, 
+        canActivate: [authGuard, roleGuard], 
+        data: { role: 1 } 
+    },
+    { 
+        path: 'reporte-usuarioss', 
+        component: ReporteUsuarioss, 
+        canActivate: [authGuard, roleGuard], 
+        data: { role: 1 } 
+    },
+
+    // Rutas de gestión administrativa (solo administradores)
+    { 
+        path: 'formulario-compras', 
+        component: FormularioCompras, 
+        canActivate: [authGuard, roleGuard], 
+        data: { role: 1 } 
+    },
+    { 
+        path: 'formulario-ventas', 
+        component: FormularioVentas, 
+        canActivate: [authGuard, roleGuard], 
+        data: { role: 1 } 
+    },
+    { 
+        path: 'formulario-materia', 
+        component: FormularioMateria, 
+        canActivate: [authGuard, roleGuard], 
+        data: { role: 1 } 
+    },
+
+    // Rutas de gestión de productos (solo administradores)
+    { 
+        path: 'catalogo-productos', 
+        component: CatalogoProductos, 
+        canActivate: [authGuard, roleGuard], 
+        data: { role: 1 } 
+    },
+    { 
+        path: 'catalogo-producto', 
+        component: CatalogoProductos, 
+        canActivate: [authGuard, roleGuard], 
+        data: { role: 1 } 
+    },
+    { 
+        path: 'editar-productos/:id', 
+        component: EditarProductos, 
+        canActivate: [authGuard, roleGuard], 
+        data: { role: 1 } 
+    },
+    { 
+        path: 'detalle-producto/:id', 
+        component: DetalleProductos, 
+        canActivate: [authGuard, roleGuard], 
+        data: { role: 1 } 
+    },
+    { 
+        path: 'eliminar-productos/:id', 
+        component: EliminarProductos, 
+        canActivate: [authGuard, roleGuard], 
+        data: { role: 1 } 
+    },
+    { 
+        path: 'agregar-producto', 
+        component: AgregarProducto, 
+        canActivate: [authGuard, roleGuard], 
+        data: { role: 1 } 
+    },
+
+    // Rutas de gestión de proveedores (solo administradores)
+    { 
+        path: 'catalogo-proveedores', 
+        component: CatalogoProveedores, 
+        canActivate: [authGuard, roleGuard], 
+        data: { role: 1 } 
+    },
+    { 
+        path: 'editar-proveedor/:id', 
+        component: EditarProveedores, 
+        canActivate: [authGuard, roleGuard], 
+        data: { role: 1 } 
+    },
+    { 
+        path: 'detalle-proveedor/:id', 
+        component: DetalleProveedores, 
+        canActivate: [authGuard, roleGuard], 
+        data: { role: 1 } 
+    },
+    { 
+        path: 'eliminar-proveedor/:id', 
+        component: EliminarProveedores, 
+        canActivate: [authGuard, roleGuard], 
+        data: { role: 1 } 
+    },
+    { 
+        path: 'agregar-proveedores', 
+        component: AgregarProveedores, 
+        canActivate: [authGuard, roleGuard], 
+        data: { role: 1 } 
+    },
+
+    // Ruta por defecto
+    { path: '', redirectTo: '/inicio', pathMatch: 'full' }
 ]

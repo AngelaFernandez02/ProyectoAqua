@@ -2,14 +2,14 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SProducto } from '../../../../../service/service-producto/productos';
 import { IProducto } from '../../../../../interface/producto';
-import { MenuLateral } from "../../menu-lateral/menu-lateral";
+
 import { BuscarProducto } from '../buscar-producto/buscar-producto';
 import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-catalogo-productos',
   standalone: true,
-  imports: [CommonModule, MenuLateral, BuscarProducto, RouterModule],
+  imports: [CommonModule, BuscarProducto, RouterModule],
   templateUrl: './catalogo-productos.html',
   styleUrl: './catalogo-productos.css'
 })

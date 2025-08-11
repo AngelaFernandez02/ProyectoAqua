@@ -31,6 +31,7 @@ export class Login {
     this.ServiceAuth.login({ username: this.username, password: this.password }).subscribe({
       next: (response) => {
         this.ServiceAuth.saveToken(response.token);
+        this.ServiceAuth.saveUserRole(response.tipoUsuario);
 
         if (response.tipoUsuario === 1) {
           this.router.navigate(['/menu-lateral']);

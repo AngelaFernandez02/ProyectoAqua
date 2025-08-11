@@ -13,8 +13,11 @@ export class MenuLateralCliente {
 
 //FUNCION PARA CERRAR SESION Y BORRAR TOKEN DE LOCALSTORAGE
   cerrarSesion(): void {
+    console.log('🚪 Cliente cerrando sesión');
+    // Limpiar localStorage completamente
     localStorage.removeItem('token');     
+    localStorage.removeItem('userRole');
     sessionStorage.removeItem('token');    
-    this.router.navigate(['/login']);      
+    this.router.navigate(['/login']);
   }
 }
