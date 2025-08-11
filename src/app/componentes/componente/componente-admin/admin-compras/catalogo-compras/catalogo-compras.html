@@ -13,8 +13,14 @@
     <p class="mb-0">Agregar nuevas compras y editar o eliminar.</p>
 
     <div class="card border-custom mt-4">
-      <div class="card-header bg-header-custom d-flex justify-content-between align-items-center">
 
+      <div class="card border-custom mt-4">
+
+  <div class="card-header bg-header-custom d-flex justify-content-between align-items-center">
+    <app-search-compras 
+      class="search-container"
+      (searchChange)="onSearchChange($event)">
+  </app-search-compras>
         <button class="btn btn-add" [routerLink]="['/agregar-compras']">
           <i class="bi bi-plus-lg"></i> Agregar
         </button>
@@ -42,14 +48,14 @@
                           [routerLink]="['/detalles-compras', compra.idCompra]"
                           (click)="$event.stopPropagation()">
                     <i class="bi bi-eye"></i>
-                  </button>
+                  </button>c
                   <button class="btn btn-sm btn-outline-dark me-1"
-                          [routerLink]="['/editar-compra', compra.idCompra]"
+                          [routerLink]="['/editar-compras', compra.idCompra]"
                           (click)="$event.stopPropagation()">
                     <i class="bi bi-pencil-square"></i>
                   </button>
                   <button class="btn btn-sm btn-outline-dark"
-                          [routerLink]="['/eliminar-compra', compra.idCompra]"
+                          [routerLink]="['/eliminar-compras', compra.idCompra]"
                           (click)="$event.stopPropagation()">
                     <i class="bi bi-trash"></i>
                   </button>

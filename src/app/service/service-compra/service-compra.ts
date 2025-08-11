@@ -47,6 +47,9 @@ export class ServiceCompra {
   return this.http.get<Compra>(`${this.apiUrl}${id}`);
 
 }
+updateCompra(id: number, compra: Compra): Observable<any> {
+return this.http.put(`${this.apiUrl}ActualizarCompra/${id}`, compra);
+}
 
  
   

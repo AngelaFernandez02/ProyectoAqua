@@ -20,7 +20,6 @@ import { CatalogoProductos } from './componentes/componente/componente-admin/adm
 import { CatalogoProveedores } from './componentes/componente/componente-admin/admin-proveedores/catalogo-proveedores/catalogo-proveedores';
 import { EditarProveedores } from './componentes/componente/componente-admin/admin-proveedores/editar-proveedores/editar-proveedores';
 import { DetalleProveedores } from './componentes/componente/componente-admin/admin-proveedores/detalle-proveedores/detalle-proveedores';
-import { EliminarProveedores } from './componentes/componente/componente-admin/admin-proveedores/eliminar-proveedores/eliminar-proveedores';
 import { AgregarProveedores } from './componentes/componente/componente-admin/admin-proveedores/agregar-proveedores/agregar-proveedores';  
 import { AgregarProducto } from './componentes/componente/componente-admin/admin-productos/agregar-producto/agregar-producto';  
 import { EliminarProductos } from './componentes/componente/componente-admin/admin-productos/eliminar-productos/eliminar-productos';
@@ -29,6 +28,14 @@ import { EditarProductos } from './componentes/componente/componente-admin/admin
 import { CatalogoCompras } from './componentes/componente/componente-admin/admin-compras/catalogo-compras/catalogo-compras';
 import { EliminarCompras } from './componentes/componente/componente-admin/admin-compras/eliminar-compras/eliminar-compras';
 import { DetallesCompra } from './componentes/componente/componente-admin/admin-compras/detalles-compras/detalles-compras';
+import { EditarCompras } from './componentes/componente/componente-admin/admin-compras/editar-compras/editar-compras';
+import { EliminarProveedores } from './componentes/componente/componente-admin/admin-proveedores/eliminar-proveedores/eliminar-proveedores';
+
+import { DetallesMateriaprima } from './componentes/componente/componente-admin/admin-materia-prima/detalles-materiaprima/detalles-materiaprima';
+import { EliminarMateriaprima } from './componentes/componente/componente-admin/admin-materia-prima/eliminar-materiaprima/eliminar-materiaprima';
+import { CatalogoMateriaPrima } from './componentes/componente/componente-admin/admin-materia-prima/catalogo-materiaprima/catalogo-materiaprima';
+import { EditarMateriaprima } from './componentes/componente/componente-admin/admin-materia-prima/editar-materiaprima/editar-materiaprima';
+
 export const routes : Routes = [
     { path: 'login', component: Login },
     {path:'inicio', component: ComponenteInicio},
@@ -61,13 +68,23 @@ export const routes : Routes = [
         { path: 'eliminar-productos/:id', component: EliminarProductos },
         { path: 'agregar-producto', component: AgregarProducto },  
         
-        
-
           //compras rutas
         {path:'catalogo-compras', component: CatalogoCompras},
         { path: 'detalles-compras/:id', component: DetallesCompra },
         { path: 'eliminar-compras/:id', component: EliminarCompras },
         { path: 'agregar-compras', component: FormularioCompras },
+        { path: 'editar-compras/:id', component: EditarCompras },
+
+
+
+ //compras rutas
+        {path:'catalogo-materiaprima', component: CatalogoMateriaPrima},
+        { path: 'detalles-materiaprima/:id', component: DetallesMateriaprima },
+        { path: 'eliminar-materiaprima/:id', component: EliminarMateriaprima },
+        { path: 'agregar-materiaprima', component: FormularioMateria },
+        { path: 'editar-materiaprima/:id', component: EditarMateriaprima },
+
+
     {path:'reporte-usuarioss', component: ReporteUsuarioss},
     {path:'', redirectTo: '/inicio', pathMatch:'full'}
 ]

@@ -1,0 +1,76 @@
+<div class="layout">
+  <app-menu-lateral class="menu-lateral"></app-menu-lateral>
+
+  <div class="contenido">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h1 class="d-flex align-items-center gap-2" style="font-weight: bold;">
+        Catálogo de materia prima
+        <i class="bi bi-box-seam"></i>
+      </h1>
+      <div style="width: 100px;"></div>
+    </div>
+
+    <p class="mb-0">Gestiona la materia prima: agregar, editar o eliminar insumos.</p>
+
+     <div class="card border-custom mt-4">
+
+      <div class="card border-custom mt-4">
+
+  <div class="card-header bg-header-custom d-flex justify-content-between align-items-center">
+    <app-search-materiaprima 
+      class="search-container"
+      (searchChange)="onSearchChange($event)">
+  </app-search-materiaprima>
+
+        <button class="btn btn-add" [routerLink]="['/formulario-materia']">
+          <i class="bi bi-plus-lg"></i> Agregar
+        </button>
+      </div>
+
+      <div class="card-body bg-white">
+        <div class="table-responsive">
+          <table class="table table-striped table-hover">
+            <thead class="table-thead">
+    <tr>
+      <th>Nombre Insumo</th>
+      <th>Proveedor</th>
+      <th>Existencias</th>
+      <th>Unidad</th>
+      <th>Costo Promedio</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let insumo of filteredInsumos; trackBy: trackInsumo">
+      <td>{{ insumo.nombreInsumo }}</td>
+    <td>{{ getNombreProveedor(insumo.idProveedor ?? 0) }}</td>
+      <td>{{ insumo.existencias }}</td>
+      <td>{{ insumo.unidad }}</td>
+      <td>{{ insumo.costoPromedio | currency:'MXN':'symbol':'1.2-2' }}</td>
+      <td>
+        <button class="btn btn-sm btn-outline-dark me-1"
+                          [routerLink]="['/detalles-materiaprima', insumo.idInsumo]"
+                          (click)="$event.stopPropagation()">
+                    <i class="bi bi-eye"></i>
+                  </button>
+        <button class="btn btn-sm btn-outline-dark me-1"
+                [routerLink]="['/editar-materiaprima', insumo.idInsumo]">
+          <i class="bi bi-pencil-square"></i>
+        </button>
+        <button class="btn btn-sm btn-outline-dark"
+                [routerLink]="['/eliminar-materiaprima', insumo.idInsumo]">
+          <i class="bi bi-trash"></i>
+        </button>
+      </td>
+    </tr>
+    <tr *ngIf="filteredInsumos.length === 0">
+      <td colspan="6" class="text-center text-muted">No hay registros disponibles</td>
+    </tr>
+  </tbody>
+</table>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

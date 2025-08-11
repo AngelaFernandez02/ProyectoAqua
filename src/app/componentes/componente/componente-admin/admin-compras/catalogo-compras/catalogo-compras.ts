@@ -5,8 +5,10 @@ import { Router, RouterModule } from '@angular/router';
 import { Compra } from '../../../../../interface/compra';
 import { ServiceCompra } from '../../../../../service/service-compra/service-compra';
 import { IProveedor } from '../../../../../interface/proveedores';
-import { SearchCompras } from "../../../../../search-compras/search-compras";
+
 import { FormsModule } from '@angular/forms';
+import { SearchCompras } from '../search-compras/search-compras';
+
 
 @Component({
   selector: 'app-catalogo-compras',
@@ -81,7 +83,7 @@ export class CatalogoCompras implements OnInit {
     const nombreProv = proveedor ? proveedor.nombreProveedor : 'este proveedor';
 
     if (confirm(`¿Estás seguro de eliminar la compra del proveedor ${nombreProv}?`)) {
-      this.router.navigate(['/compras/eliminar-compra', compra.idCompra]);
+      this.router.navigate(['/eliminar-compras', compra.idCompra]);
     }
   }
 

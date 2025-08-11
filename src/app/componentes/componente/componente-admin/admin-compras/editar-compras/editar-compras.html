@@ -1,0 +1,118 @@
+<div class="layout">
+  <app-menu-lateral class="menu-lateral"></app-menu-lateral>
+
+  <div class="contenido">
+    <div class="full-width-container">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h1 class="d-flex align-items-center gap-2" style="font-weight: bold;">
+          Editar Compra
+          <i class="bi bi-pencil-fill"></i>
+        </h1>
+        <div style="width: 100px;"></div>
+      </div>
+
+      <div class="card border-custom mt-4">
+        <div class="card-header bg-header-custom d-flex justify-content-between align-items-center">
+          <h3 class="mb-0">Actualizar datos de la compra</h3>
+          <button class="btn btn-back" (click)="goBack()">
+            <i class="bi bi-arrow-left"></i> Regresar
+          </button>
+        </div>
+
+        <div class="card-body bg-white">
+          <form [formGroup]="compraForm" (ngSubmit)="onSubmit()" class="container mt-4">
+
+            <h2 class="mb-4 fw-bold d-flex align-items-center gap-2">
+              Editar Compra
+              <i class="bi bi-pencil-fill"></i>
+            </h2>
+
+            <!-- Proveedor -->
+            <div class="mb-3 row">
+              <label for="idProveedor" class="col-sm-2 col-form-label fw-semibold">Proveedor</label>
+              <div class="col-sm-10">
+                <select formControlName="idProveedor" id="idProveedor" class="form-select" required>
+                  <option value="" disabled>Selecciona un proveedor</option>
+                  <option *ngFor="let proveedor of proveedores" [value]="proveedor.idProveedor">
+                    {{ proveedor.nombreProveedor }}
+                  </option>
+                </select>
+                <div *ngIf="compraForm.get('idProveedor')?.invalid && compraForm.get('idProveedor')?.touched" class="text-danger">
+                  Debe seleccionar un proveedor.
+                </div>
+              </div>
+            </div>
+
+            <!-- Fecha Compra -->
+            <div class="mb-3 row">
+              <label for="fechaCompra" class="col-sm-2 col-form-label fw-semibold">Fecha de Compra</label>
+              <div class="col-sm-10">
+                <input type="date" formControlName="fechaCompra" id="fechaCompra" class="form-control" required />
+              </div>
+            </div>
+
+            <!-- Detalles (Insumos) -->
+            <div formArrayName="detalles" class="mb-3">
+              <div *ngFor="let detalle of detalles.controls; let i = index" [formGroupName]="i" class="card mb-3 shadow-sm">
+                <div class="card-header d-flex justify-content-between align-items-center bg-primary text-white">
+                  <h5 class="mb-0">Detalle de Insumo #{{ i + 1 }}</h5>
+                  <button type="button" class="btn btn-outline-light btn-sm" (click)="eliminarDetalle(i)" title="Eliminar detalle">
+                    <i class="bi bi-trash"></i>
+                  </button>
+                </div>
+
+                <div class="card-body">
+                  <!-- Selección Insumo -->
+                  <div class="mb-3">
+                    <label for="idInsumo-{{i}}" class="form-label fw-semibold">Insumo</label>
+                    <select id="idInsumo-{{i}}" formControlName="idInsumo" class="form-select" required>
+                      <option value="" disabled>Selecciona un insumo</option>
+                      <option *ngFor="let insumo of insumos" [value]="insumo.idInsumo">
+                        {{ insumo.nombreInsumo }}
+                      </option>
+                    </select>
+                    <div *ngIf="detalle.get('idInsumo')?.invalid && detalle.get('idInsumo')?.touched" class="text-danger">
+                      Debe seleccionar un insumo.
+                    </div>
+                  </div>
+
+                  <!-- Cantidad -->
+                  <div class="mb-3">
+                    <label for="cantidad-{{i}}" class="form-label fw-semibold">Cantidad</label>
+                    <input type="number" id="cantidad-{{i}}" formControlName="cantidad" class="form-control" min="0.01" step="0.01" required placeholder="Cantidad" />
+                    <div *ngIf="detalle.get('cantidad')?.invalid && detalle.get('cantidad')?.touched" class="text-danger">
+                      Ingrese una cantidad válida.
+                    </div>
+                  </div>
+
+                  <!-- Precio Unitario -->
+                  <div class="mb-3">
+                    <label for="precioUnitario-{{i}}" class="form-label fw-semibold">Precio Unitario</label>
+                    <input type="number" id="precioUnitario-{{i}}" formControlName="precioUnitario" class="form-control" min="0.01" step="0.01" required placeholder="Precio Unitario" />
+                    <div *ngIf="detalle.get('precioUnitario')?.invalid && detalle.get('precioUnitario')?.touched" class="text-danger">
+                      Ingrese un precio válido.
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <button type="button" class="btn btn-primary" (click)="agregarDetalle()">
+                <i class="bi bi-plus-lg"></i> Agregar Insumo
+              </button>
+            </div>
+
+            <div class="d-flex justify-content-between mt-4">
+              <button type="button" class="btn btn-secondary" (click)="goBack()">
+                <i class="bi bi-arrow-left"></i> Cancelar
+              </button>
+              <button type="submit" class="btn btn-primary" [disabled]="compraForm.invalid">
+                <i class="bi bi-save"></i> Guardar Cambios
+              </button>
+            </div>
+
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
