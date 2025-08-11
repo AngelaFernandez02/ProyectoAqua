@@ -9,7 +9,6 @@ import { Observable } from 'rxjs';
 })
 export class ServiceUsuario {
   private readonly apiUrl = environment.endPoint + 'Usuarios/';
-    private apiUrlr = 'https://localhost:7186/api'
 
   constructor(private http: HttpClient) {}
 
@@ -34,5 +33,4 @@ export class ServiceUsuario {
     getById(id: number): Observable<IUsuario> {
       return this.http.get<IUsuario>(`${this.apiUrl}${id}`);
     }
-  
 }
