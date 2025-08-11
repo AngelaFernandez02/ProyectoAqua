@@ -1,0 +1,102 @@
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+}
+
+h2 {
+  font-weight: 600;
+  color: #222;
+}
+
+.form-label {
+  font-weight: 600;
+  color: #444;
+}
+
+.form-select,
+.form-control {
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  padding: 8px 12px;
+  font-size: 1rem;
+  transition: border-color 0.2s ease-in-out;
+}
+
+.form-select:focus,
+.form-control:focus {
+  border-color: #0d6efd; /* bootstrap primary blue */
+  box-shadow: 0 0 5px rgba(13, 110, 253, 0.4);
+  outline: none;
+}
+
+.table {
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgb(0 0 0 / 0.1);
+  background-color: white;
+}
+
+.table thead {
+  background-color: #f8f9fa;
+  font-weight: 600;
+}
+
+.table-hover tbody tr:hover {
+  background-color: #e9f0ff;
+}
+
+.btn-primary {
+  background-color: #0a58ca;
+  border-color: #0a58ca;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: #084298;
+  border-color: #084298;
+}
+
+.btn-outline-secondary {
+  border-radius: 6px;
+  color: #6c757d;
+  border: 1px solid #6c757d;
+  font-weight: 600;
+}
+
+.btn-outline-secondary:hover {
+  background-color: #6c757d;
+  color: white;
+}
+
+.mt-4 {
+  margin-top: 1.5rem !important;
+}
+
+.d-flex {
+  display: flex !important;
+}
+
+.gap-2 {
+  gap: 0.5rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .table {
+    font-size: 0.9rem;
+  }
+
+  .form-select,
+  .form-control {
+    font-size: 0.9rem;
+  }
+
+  .btn-primary,
+  .btn-outline-secondary {
+    font-size: 0.9rem;
+    padding: 8px 16px;
+  }
+}

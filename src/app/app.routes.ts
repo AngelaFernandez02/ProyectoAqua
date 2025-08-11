@@ -42,6 +42,11 @@ import { CatalogoMateriaPrima } from './componentes/componente/componente-admin/
 import { EditarMateriaprima } from './componentes/componente/componente-admin/admin-materia-prima/editar-materiaprima/editar-materiaprima';
 import { AdminLayout } from './layouts/admin-layout/admin-layout';
 import { CotizacionPublica } from './componentes/componente/componente-homepage/cotizacion-publica/cotizacion-publica';
+import { CatalogoVenta } from './componentes/componente/componente-admin/admin-ventas/catalogo-venta/catalogo-venta';
+import { DetallesVenta } from './componentes/componente/componente-admin/admin-ventas/detalles-venta/detalles-venta';
+import { EliminarVenta } from './componentes/componente/componente-admin/admin-ventas/eliminar-venta/eliminar-venta';
+import { AgregarVenta } from './componentes/componente/componente-admin/admin-ventas/agregar-venta/agregar-venta';
+import { EditarVenta } from './componentes/componente/componente-admin/admin-ventas/editar-venta/editar-venta';
 
 export const routes : Routes = [
     // Rutas públicas (sin autenticación requerida)
@@ -140,7 +145,15 @@ export const routes : Routes = [
             { path: 'detalles-materiaprima/:id', component: DetallesMateriaprima },
             { path: 'eliminar-materiaprima/:id', component: EliminarMateriaprima },
             { path: 'agregar-materiaprima', component: FormularioMateria },
-            { path: 'editar-materiaprima/:id', component: EditarMateriaprima }
+            { path: 'editar-materiaprima/:id', component: EditarMateriaprima },
+
+
+             //compras rutas
+        {path:'catalogo-venta', component: CatalogoVenta},
+        { path: 'detalle-venta/:id', component: DetallesVenta },
+        { path: 'eliminar-venta/:id', component: EliminarVenta },
+        { path: 'agregar-venta', component: AgregarVenta },
+        { path: 'editar-venta/:id', component: EditarVenta },
         ]
     },
 
@@ -151,7 +164,7 @@ export const routes : Routes = [
     { path: 'catalogo-productos', redirectTo: '/admin/catalogo-productos', pathMatch: 'full' },
     { path: 'catalogo-compras', redirectTo: '/admin/catalogo-compras', pathMatch: 'full' },
     { path: 'catalogo-materiaprima', redirectTo: '/admin/catalogo-materiaprima', pathMatch: 'full' },
-    { path: 'formulario-ventas', redirectTo: '/admin/formulario-ventas', pathMatch: 'full' },
+    { path: 'catalogo-venta', redirectTo: '/admin/catalogo-venta', pathMatch: 'full' },
     { path: 'reporte-usuarioss', redirectTo: '/admin/reporte-usuarioss', pathMatch: 'full' },
     { path: 'comentarios-admin', redirectTo: '/admin/comentarios', pathMatch: 'full' },
 

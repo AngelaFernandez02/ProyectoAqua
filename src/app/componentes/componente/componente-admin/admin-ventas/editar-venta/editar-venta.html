@@ -1,0 +1,81 @@
+<div class="container mt-4" *ngIf="venta; else cargando">
+  <h2 class="mb-4">Editar Venta #{{ venta.idVenta }}</h2>
+
+  <!-- Selección de cliente -->
+  <div class="form-group mb-3">
+    <label for="clienteSelect" class="form-label fw-semibold">Cliente</label>
+    <select
+      id="clienteSelect"
+      class="form-select"
+      [(ngModel)]="venta.idCliente"
+      name="clienteSelect"
+    >
+      <option *ngFor="let c of clientes" [value]="c.idCliente">
+        {{ c.nombreContacto }}
+      </option>
+    </select>
+  </div>
+
+  <!-- Fecha -->
+  <div class="form-group mb-4">
+    <label for="fechaVenta" class="form-label fw-semibold">Fecha de venta</label>
+    <input
+      type="date"
+      id="fechaVenta"
+      class="form-control"
+      [(ngModel)]="venta.fechaVenta"
+      name="fechaVenta"
+    />
+  </div>
+
+  <table class="table table-hover align-middle">
+    <thead class="table-light">
+      <tr>
+        <th scope="col">Producto</th>
+        <th scope="col" style="width: 120px;">Cantidad</th>
+        <th scope="col" style="width: 150px;">Precio Unitario</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let detalle of detallesVenta; let i = index">
+        <td>
+          <select
+            class="form-select"
+            [(ngModel)]="detalle.idProducto"
+            (change)="onProductoChange(detalle, detalle.idProducto)"
+          >
+            <option *ngFor="let producto of productos" [value]="producto.idProducto">
+              {{ producto.nombreProducto }}
+            </option>
+          </select>
+        </td>
+        <td>
+          <input
+            type="number"
+            min="1"
+            class="form-control"
+            [(ngModel)]="detalle.cantidad"
+          />
+        </td>
+        <td>
+          <input
+            type="number"
+            min="0"
+            step="0.01"
+            class="form-control"
+            [(ngModel)]="detalle.precioUnitario"
+          />
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="mt-4 d-flex gap-2">
+    <button class="btn btn-primary px-4" (click)="guardarCambios()">Guardar cambios</button>
+    <button class="btn btn-outline-secondary px-4" (click)="goBack()">Cancelar</button>
+  </div>
+</div>
+
+<ng-template #cargando>
+  <p class="text-center mt-5">Cargando datos de la venta...</p>
+</ng-template>

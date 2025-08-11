@@ -44,7 +44,7 @@ import { Subscription } from 'rxjs';
               </a>
             </li>
             <li>
-              <a [routerLink]="'/admin/formulario-ventas'" routerLinkActive="active">
+              <a [routerLink]="'/admin/catalogo-venta'" routerLinkActive="active">
                 <i class="fa-solid fa-cash-register icon"></i>
                 <span class="menu-text">Ventas</span>
               </a>

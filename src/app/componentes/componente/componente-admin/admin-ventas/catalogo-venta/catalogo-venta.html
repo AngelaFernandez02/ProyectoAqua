@@ -1,0 +1,107 @@
+<div class="layout">
+ 
+
+  <div class="contenido">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h1 class="d-flex align-items-center gap-2" style="font-weight: bold;">
+        Gestión de Ventas
+        <i class="bi bi-cart-fill"></i>
+      </h1>
+      <div style="width: 100px;"></div>
+    </div>
+
+    <p class="mb-0">Consulta de ventas realizadas y detalles de cada una.</p>
+
+    <div class="card border-custom mt-4">
+      <div class="card-header bg-header-custom d-flex justify-content-between align-items-center">
+        <app-search-venta
+          class="search-container"
+          (searchChange)="onSearchChange($event)">
+        </app-search-venta>
+
+        <button class="btn btn-add" [routerLink]="['/admin/agregar-venta']">
+          <i class="bi bi-plus-lg"></i> Nueva Venta
+        </button>
+      </div>
+
+      <div class="card-body bg-white">
+        <div class="table-responsive">
+          <table class="table table-striped table-hover">
+            <thead class="table-thead">
+              <tr>
+                <th>ID Venta</th>
+                <th>Cliente</th>
+                <th>Fecha</th>
+                <th>Total</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let venta of filteredVentas; trackBy: trackVenta"
+                  (click)="abrirDetallesVenta(venta)" style="cursor: pointer;">
+                <td>{{ venta?.idVenta }}</td>
+               
+                <td>{{ venta?.clienteNombre || 'Desconocido' }}</td>
+                <td>{{ venta?.fechaVenta | date:'dd/MM/yyyy' }}</td>
+                <td>{{ venta?.total | currency:'MXN' }}</td>
+                <td>
+                  <button class="btn btn-sm btn-outline-dark me-1"
+                          [routerLink]="['/admin/detalle-venta', venta?.idVenta]"
+                          (click)="$event.stopPropagation()">
+                    <i class="bi bi-eye"></i>
+                  </button>
+                   <button class="btn btn-sm btn-outline-dark me-1"
+                          [routerLink]="['/admin/editar-venta', venta?.idVenta]"
+                          (click)="$event.stopPropagation()">
+                    <i class="bi bi-pencil-square"></i>
+                  </button>
+                  <button class="btn btn-sm btn-outline-dark"
+                          [routerLink]="['/admin/eliminar-venta', venta?.idVenta]"
+                          (click)="$event.stopPropagation()">
+                    <i class="bi bi-trash"></i>
+                  </button>
+                    <button class="btn btn-sm btn-outline-danger me-1"
+                          (click)="descargarPdfVenta(venta); $event.stopPropagation()">
+                    <i class="bi bi-file-earmark-pdf"></i>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Tabla de detalles de venta -->
+        <div *ngIf="ventaSeleccionada" class="mt-4">
+          <h5>Detalles de la Venta #{{ ventaSeleccionada?.idVenta }}</h5>
+
+           <button class="btn btn-outline-primary mb-3" (click)="descargarPdfVenta(ventaSeleccionada)">
+            <i class="bi bi-file-earmark-pdf me-1"></i> Descargar reporte PDF
+          </button>
+          <table class="table table-bordered table-sm mt-2">
+            <thead>
+              <tr>
+                <th>ID Producto</th>
+                <th>Producto</th>
+                <th>Cantidad</th>
+                <th>Precio Unitario</th>
+                <th>Subtotal</th>
+              </tr>
+            </thead>
+           <tbody>
+  <tr *ngFor="let detalle of ventaSeleccionada?.detalles">
+    <td>{{ detalle.idProducto }}</td>
+    <td>{{ getNombreProducto(detalle) }}</td>
+    <td>{{ detalle.cantidad }}</td>
+    <td>{{ detalle.precioUnitario | currency:'MXN' }}</td>
+    <td>{{ (detalle.cantidad || 0) * (detalle.precioUnitario || 0) | currency:'MXN' }}</td>
+  </tr>
+</tbody>
+
+
+          </table>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,187 @@
+<div class="layout">
+  <div class="contenido">
+    <div class="full-width-container">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h1 class="d-flex align-items-center gap-2" style="font-weight: bold;">
+          Registro de Ventas
+          <i class="bi bi-cart-fill"></i>
+        </h1>
+        <div style="width: 100px;"></div>
+      </div>
+
+      <div class="card border-custom mt-4">
+        <div class="card-header bg-header-custom d-flex justify-content-between align-items-center">
+          <h3 class="mb-0">Datos de la Venta</h3>
+          <button class="btn btn-back" (click)="goBack()">
+            <i class="bi bi-arrow-left"></i> Regresar
+          </button>
+        </div>
+
+        <div class="card-body bg-white">
+          <form [formGroup]="ventaForm" (ngSubmit)="onSubmit()" class="container mt-4">
+
+            <h2 class="mb-4 fw-bold d-flex align-items-center gap-2">
+              Registro de la Venta
+              <i class="bi bi-cart-fill"></i>
+            </h2>
+
+            <!-- Cliente -->
+            <div class="mb-3 row">
+              <label for="idCliente" class="col-sm-2 col-form-label fw-semibold">Cliente</label>
+              <div class="col-sm-10">
+                <select formControlName="idCliente" id="idCliente" class="form-select" required>
+                  <option value="" disabled>Selecciona un cliente</option>
+                  <option *ngFor="let cliente of clientes" [value]="cliente.idCliente">
+                    {{ cliente.nombreContacto }}
+                  </option>
+                </select>
+                <div *ngIf="ventaForm.get('idCliente')?.invalid && ventaForm.get('idCliente')?.touched" class="text-danger">
+                  Debe seleccionar un cliente.
+                </div>
+              </div>
+            </div>
+
+            <!-- Fecha Venta -->
+            <div class="mb-3 row">
+              <label for="fechaVenta" class="col-sm-2 col-form-label fw-semibold">Fecha de Venta</label>
+              <div class="col-sm-10">
+                <input type="date" formControlName="fechaVenta" id="fechaVenta" class="form-control" required />
+              </div>
+            </div>
+
+            <!-- Detalles (Productos) -->
+            <div formArrayName="detalles" class="mb-3">
+              <div *ngFor="let detalle of detalles.controls; let i = index" [formGroupName]="i" class="card mb-3 shadow-sm">
+                <div class="card-header d-flex justify-content-between align-items-center bg-primary text-white">
+                  <h5 class="mb-0">Detalle de Producto #{{ i + 1 }}</h5>
+                  <button type="button" class="btn btn-outline-light btn-sm" (click)="eliminarDetalle(i)" title="Eliminar detalle">
+                    <i class="bi bi-trash"></i>
+                  </button>
+                </div>
+
+                <div class="card-body">
+                  <!-- Producto -->
+                  <div class="mb-3">
+                    <label for="idProducto-{{i}}" class="form-label fw-semibold">Producto</label>
+                    <select id="idProducto-{{i}}" formControlName="idProducto" class="form-select" required (change)="onProductoChange($event, i)">
+                      <option value="" disabled>Selecciona un producto</option>
+                      <option *ngFor="let producto of productos" [value]="producto.idProducto">
+                        {{ producto.nombreProducto }}
+                      </option>
+                    </select>
+                    <div *ngIf="detalle.get('idProducto')?.invalid && detalle.get('idProducto')?.touched" class="text-danger">
+                      Debe seleccionar un producto.
+                    </div>
+                  </div>
+
+                  <!-- Cantidad -->
+                  <div class="mb-3">
+                    <label for="cantidad-{{i}}" class="form-label fw-semibold">Cantidad</label>
+                    <input type="number" id="cantidad-{{i}}" formControlName="cantidad" class="form-control" min="1" step="1" required placeholder="Cantidad" />
+                    <div *ngIf="detalle.get('cantidad')?.invalid && detalle.get('cantidad')?.touched" class="text-danger">
+                      Ingrese una cantidad válida.
+                    </div>
+                  </div>
+
+                  <!-- Precio Unitario -->
+                  <div class="mb-3">
+                    <label for="precioUnitario-{{i}}" class="form-label fw-semibold">Precio Unitario</label>
+                    <input type="number" id="precioUnitario-{{i}}" formControlName="precioUnitario" class="form-control" min="0.01" step="0.01" required placeholder="Precio Unitario" />
+                    <div *ngIf="detalle.get('precioUnitario')?.invalid && detalle.get('precioUnitario')?.touched" class="text-danger">
+                      Ingrese un precio válido.
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <button type="button" class="btn btn-primary" (click)="agregarDetalle()">
+                <i class="bi bi-plus-lg"></i> Agregar Producto
+              </button>
+            </div>
+
+            <div class="d-flex justify-content-between mt-4">
+              <button type="button" class="btn btn-secondary" (click)="goBack()">
+                <i class="bi bi-arrow-left"></i> Cancelar
+              </button>
+              <button type="submit" class="btn btn-primary">
+                <i class="bi bi-save"></i> Registrar venta
+              </button>
+            </div>
+
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Método de Pago -->
+  <div class="modal" [class.show]="modalAbierto" (click)="cerrarModal()">
+    <div class="modal-dialog" (click)="$event.stopPropagation()">
+      <form [formGroup]="pagoForm" (ngSubmit)="confirmarPago()" class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Selecciona Método de Pago</h5>
+          <button type="button" class="btn-close" (click)="cerrarModal()">×</button>
+        </div>
+        <div class="modal-body">
+          <!-- Selección método -->
+          <div class="mb-3">
+            <label class="form-label">Método de Pago</label>
+            <select formControlName="metodoPago" class="form-select" required (change)="onMetodoPagoChange()">
+              <option value="" disabled>Selecciona método</option>
+              <option value="efectivo">Efectivo</option>
+              <option value="tarjeta">Tarjeta</option>
+            </select>
+            <div *ngIf="pagoForm.get('metodoPago')?.invalid && pagoForm.get('metodoPago')?.touched" class="text-danger">
+              Debes seleccionar un método de pago.
+            </div>
+          </div>
+
+          <!-- Datos para Efectivo -->
+          <div *ngIf="pagoForm.get('metodoPago')?.value === 'efectivo'">
+            <label class="form-label">Monto entregado</label>
+            <input type="number" formControlName="montoEntregado" class="form-control" min="0" step="0.01" placeholder="Ingrese el monto entregado" required />
+            <div *ngIf="pagoForm.get('montoEntregado')?.invalid && pagoForm.get('montoEntregado')?.touched" class="text-danger">
+              Ingresa un monto válido.
+            </div>
+          </div>
+
+          <!-- Datos para Tarjeta -->
+          <div *ngIf="pagoForm.get('metodoPago')?.value === 'tarjeta'">
+            <div class="mb-3">
+              <label class="form-label">Número de tarjeta</label>
+              <input type="text" formControlName="numeroTarjeta" class="form-control" maxlength="16" placeholder="Ingrese número de tarjeta" required />
+              <div *ngIf="pagoForm.get('numeroTarjeta')?.invalid && pagoForm.get('numeroTarjeta')?.touched" class="text-danger">
+                Ingresa un número válido.
+              </div>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Titular de la tarjeta</label>
+              <input type="text" formControlName="titularTarjeta" class="form-control" placeholder="Nombre en la tarjeta" required />
+              <div *ngIf="pagoForm.get('titularTarjeta')?.invalid && pagoForm.get('titularTarjeta')?.touched" class="text-danger">
+                Ingresa el nombre del titular.
+              </div>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Fecha de expiración</label>
+              <input type="month" formControlName="fechaExpiracion" class="form-control" required />
+              <div *ngIf="pagoForm.get('fechaExpiracion')?.invalid && pagoForm.get('fechaExpiracion')?.touched" class="text-danger">
+                Ingresa una fecha válida.
+              </div>
+            </div>
+            <div>
+              <label class="form-label">Código CVV</label>
+              <input type="text" formControlName="cvv" class="form-control" maxlength="3" placeholder="CVV" required />
+              <div *ngIf="pagoForm.get('cvv')?.invalid && pagoForm.get('cvv')?.touched" class="text-danger">
+                Ingresa un CVV válido.
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="cerrarModal()">Cancelar</button>
+          <button type="submit" class="btn btn-primary" [disabled]="pagoForm.invalid">Confirmar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

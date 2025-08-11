@@ -1,0 +1,86 @@
+<div class="layout">
+  <div class="contenido">
+    <!-- Mostrar solo si hay venta cargada -->
+    <div class="container mt-4" *ngIf="venta; else cargandoOError">
+      <div class="card border-custom">
+        <div class="card-header bg-header-custom d-flex justify-content-between align-items-center">
+          <h4 class="mb-0 d-flex align-items-center">
+            Detalles de la venta
+            <i class="bi bi-bag-check ms-2"></i>
+          </h4>
+          <button class="btn btn-back" (click)="goBack()">
+            <i class="bi bi-arrow-left"></i> Regresar
+          </button>
+        </div>
+
+        <div class="card-body bg-white">
+          <!-- Cliente y fecha -->
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <label class="form-label fw-bold">Cliente:</label>
+              <p class="form-control-plaintext" *ngIf="cliente; else sinCliente">
+                {{ cliente.nombreContacto }}
+              </p>
+              <ng-template #sinCliente>
+                <p class="text-muted fst-italic">Cliente no disponible</p>
+              </ng-template>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label fw-bold">Fecha de venta:</label>
+              <p class="form-control-plaintext">
+                {{ venta.fechaVenta | date:'dd/MM/yyyy' }}
+              </p>
+            </div>
+          </div>
+
+          <!-- Total -->
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <label class="form-label fw-bold">Total:</label>
+              <p class="form-control-plaintext">
+                {{ venta.total | currency:'MXN':'symbol':'1.2-2' }}
+              </p>
+            </div>
+          </div>
+
+          <!-- Detalles de productos -->
+          <div class="mt-4">
+            <h3>Productos vendidos:</h3>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Producto</th>
+                  <th>Cantidad</th>
+                  <th>Precio Unitario</th>
+                </tr>
+              </thead>
+              <tbody>
+                <ng-container *ngIf="detallesVenta && detallesVenta.length > 0; else noDetalles">
+                  <tr *ngFor="let detalle of detallesVenta">
+                    <td>{{ detalle.nombreProducto }}</td>
+                    <td>{{ detalle.cantidad }}</td>
+                    <td>{{ detalle.precioUnitario | currency:'MXN':'symbol':'1.2-2' }}</td>
+                  </tr>
+                </ng-container>
+              </tbody>
+            </table>
+
+            <ng-template #noDetalles>
+              <tr>
+                <td colspan="3" class="text-center text-muted fst-italic">
+                  No hay productos registrados para esta venta.
+                </td>
+              </tr>
+            </ng-template>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <ng-template #cargandoOError>
+      <div class="text-center mt-5">
+        <p *ngIf="!venta">Cargando detalles de la venta...</p>
+      </div>
+    </ng-template>
+  </div>
+</div>
