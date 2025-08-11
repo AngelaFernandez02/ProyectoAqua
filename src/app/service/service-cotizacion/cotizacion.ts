@@ -41,6 +41,8 @@ export class SCotizacion {
 
   // Crear cotización pública (sin cliente registrado)
   crearCotizacionPublica(cotizacionPublica: ICotizacionPublica): Observable<ICotizacionPublicaResponse> {
-    return this.http.post<ICotizacionPublicaResponse>(this.apiUrl, cotizacionPublica);
+    // Usar el endpoint público específico para cotizaciones públicas
+    const publicApiUrl = 'https://localhost:7186/api/Publico/cotizacion';
+    return this.http.post<ICotizacionPublicaResponse>(publicApiUrl, cotizacionPublica);
   }
 }
