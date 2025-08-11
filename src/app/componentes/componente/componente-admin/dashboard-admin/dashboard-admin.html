@@ -1,0 +1,82 @@
+<div class="dashboard-container">
+  <div class="dashboard-header">
+    <h1>Dashboard de Ventas</h1>
+    <div class="filters">
+      <div class="date-group">
+        <label>Fecha inicio</label>
+        <input type="date" [(ngModel)]="fechaInicio" />
+      </div>
+      <div class="date-group">
+        <label>Fecha fin</label>
+        <input type="date" [(ngModel)]="fechaFin" />
+      </div>
+      <div class="buttons">
+        <button class="btn primary" (click)="aplicarFiltros()">Aplicar</button>
+        <button class="btn ghost" (click)="limpiarFiltros()">Limpiar</button>
+        <button class="btn ghost" (click)="ultimoNDias(30)">Últimos 30 días</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="kpis" *ngIf="data as d">
+    <div class="kpi">
+      <div class="kpi-title">Total Ventas</div>
+      <div class="kpi-value">{{ d.datos.resumenGeneral.totalVentas | currency:'USD' }}</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-title">Transacciones</div>
+      <div class="kpi-value">{{ d.datos.resumenGeneral.totalTransacciones }}</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-title">Promedio Ticket</div>
+      <div class="kpi-value">{{ d.datos.resumenGeneral.promedioTicket | currency:'USD' }}</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-title">Crecimiento</div>
+      <div class="kpi-value">{{ d.datos.resumenGeneral.crecimientoPorcentual | number:'1.0-2' }}%</div>
+    </div>
+  </div>
+
+  <div class="charts">
+    <div class="chart-card main">
+      <h3>Ventas por período</h3>
+      <div class="chart-wrapper">
+        <canvas #ventasLineaCanvas></canvas>
+      </div>
+    </div>
+    <div class="chart-card">
+      <h3>Productos más vendidos</h3>
+      <div class="chart-wrapper">
+        <canvas #productosBarraCanvas></canvas>
+      </div>
+    </div>
+    <div class="chart-card">
+      <h3>Ventas por mes</h3>
+      <div class="chart-wrapper">
+        <canvas #mesesPieCanvas></canvas>
+      </div>
+    </div>
+  </div>
+
+  <div class="clientes" *ngIf="data as d">
+    <h3>Clientes Top</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Cliente</th>
+          <th>Total Comprado</th>
+          <th>Cantidad Compras</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let c of d.datos.clientesTop">
+          <td>{{ c.nombreCliente }}</td>
+          <td>{{ c.totalComprado | currency:'USD' }}</td>
+          <td>{{ c.cantidadCompras }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+

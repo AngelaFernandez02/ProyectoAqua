@@ -26,6 +26,7 @@ import { AgregarProducto } from './componentes/componente/componente-admin/admin
 import { EliminarProductos } from './componentes/componente/componente-admin/admin-productos/eliminar-productos/eliminar-productos';
 import { DetalleProductos } from './componentes/componente/componente-admin/admin-productos/detalle-productos/detalle-productos';
 import { EditarProductos } from './componentes/componente/componente-admin/admin-productos/editar-productos/editar-productos';
+import { DashboardAdmin } from './componentes/componente/componente-admin/dashboard-admin/dashboard-admin';
 export const routes : Routes = [
     { path: 'login', component: Login },
     {path:'inicio', component: ComponenteInicio},
@@ -58,5 +59,6 @@ export const routes : Routes = [
         { path: 'eliminar-productos/:id', component: EliminarProductos },
         { path: 'agregar-producto', component: AgregarProducto },        
     {path:'reporte-usuarioss', component: ReporteUsuarioss},
+    {path:'dashboard-admin', component: DashboardAdmin},
     {path:'', redirectTo: '/inicio', pathMatch:'full'}
 ]
