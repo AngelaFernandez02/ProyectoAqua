@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CurrencyPipe, NgFor } from '@angular/common';
 import { SearchProveedoresComponent } from '../search-proveedores/search-proveedores';
-import { MenuLateral } from "../../menu-lateral/menu-lateral";
+
 import { Router, RouterModule } from '@angular/router';
 import { SProveedores } from '../../../../../service/service-proveedores/proveedores';
 import { IProveedor } from '../../../../../interface/proveedores';
@@ -9,7 +9,7 @@ import { IProveedor } from '../../../../../interface/proveedores';
 @Component({
   selector: 'app-catalogo-proveedores',
   standalone: true,
-  imports: [CurrencyPipe, NgFor, SearchProveedoresComponent, RouterModule,MenuLateral],
+  imports: [CurrencyPipe, NgFor, SearchProveedoresComponent, RouterModule,],
   templateUrl: './catalogo-proveedores.html',
   styleUrls: ['./catalogo-proveedores.css']
 })

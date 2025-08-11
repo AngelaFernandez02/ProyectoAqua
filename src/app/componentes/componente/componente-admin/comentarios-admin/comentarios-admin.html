@@ -1,52 +1,62 @@
-<div class="wrapper">
-  <nav class="menu-lateral">
-    <app-menu-lateral></app-menu-lateral>
-  </nav>
+<div class="contenido">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h1 class="d-flex align-items-center gap-2" style="font-weight: bold;">
+      Gestión de Opiniones
+      <i class="bi bi-chat-dots"></i>
+    </h1>
+  </div>
+  <p class="mb-0">Administrar opiniones y feedback de los usuarios.</p>
 
-  <main class="opiniones-container">
-    <h2 class="titulo">Seguimiento de Opiniones</h2>
+  <div class="card border-custom mt-4">
+    <div class="card-header bg-header-custom">
+      <h5 class="mb-0">Lista de Opiniones</h5>
+    </div>
 
-    <table class="tabla-opiniones">
-      <thead>
-        <tr>
-          <th>Cliente</th>
-          <th>Producto</th>
-          <th>Mensaje</th>
-          <th>Calificación</th>
-          <th>Fecha</th>
-          <th>Estado</th>
-          <th>Respuesta</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let o of opiniones">
-          <td>{{ o.clienteNombre }}</td>
-          <td>{{ o.productoNombre }}</td>
-          <td>"{{ o.mensaje }}"</td>
-          <td>
-            <span class="estrellas">
-              <ng-container *ngFor="let star of [1,2,3,4,5]">
-                <span [class.activa]="star <= o.calificacion">★</span>
-              </ng-container>
-            </span>
-          </td>
-          <td>{{ o.fecha | date:'mediumDate' }}</td>
-          <td>
-            <select [(ngModel)]="o.estado" class="select-estado">
-              <option>Pendiente</option>
-              <option>Revisado</option>
-              <option>Respondido</option>
-            </select>
-          </td>
-          <td>
-            <textarea
-              [(ngModel)]="o.respuestaAdmin"
-              class="textarea-respuesta"
-              placeholder="Respuesta del admin..."></textarea>
-            <button class="btn-guardar" (click)="actualizarSeguimiento(o)">Guardar</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </main>
+    <div class="card-body bg-white">
+      <div class="table-responsive">
+        <table class="table table-striped table-hover">
+          <thead class="table-thead">
+            <tr>
+              <th>Cliente</th>
+              <th>Producto</th>
+              <th>Mensaje</th>
+              <th>Calificación</th>
+              <th>Fecha</th>
+              <th>Estado</th>
+              <th>Respuesta</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let o of opiniones">
+              <td>{{ o.clienteNombre }}</td>
+              <td>{{ o.productoNombre }}</td>
+              <td>"{{ o.mensaje }}"</td>
+              <td>
+                <span class="estrellas">
+                  <ng-container *ngFor="let star of [1,2,3,4,5]">
+                    <span [class.activa]="star <= o.calificacion">★</span>
+                  </ng-container>
+                </span>
+              </td>
+              <td>{{ o.fecha | date:'mediumDate' }}</td>
+              <td>
+                <select [(ngModel)]="o.estado" class="select-estado">
+                  <option>Pendiente</option>
+                  <option>Revisado</option>
+                  <option>Respondido</option>
+                </select>
+              </td>
+              <td>
+                <textarea
+                  [(ngModel)]="o.respuestaAdmin"
+                  class="textarea-respuesta"
+                  placeholder="Respuesta del admin..."></textarea>
+                <button class="btn-guardar" (click)="actualizarSeguimiento(o)">Guardar</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
 </div>

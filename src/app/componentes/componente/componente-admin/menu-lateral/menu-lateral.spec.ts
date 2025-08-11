@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MenuLateral } from './menu-lateral';
+
 
 describe('MenuLateral', () => {
   let component: MenuLateral;

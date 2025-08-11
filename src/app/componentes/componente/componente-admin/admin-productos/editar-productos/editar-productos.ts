@@ -8,14 +8,14 @@ import { SProducto } from '../../../../../service/service-producto/productos';
 import { SInsumo } from '../../../../../service/service-insumo/insumo';
 import { IInsumo } from '../../../../../interface/insumos';
 import { IProducto } from '../../../../../interface/producto';
-import { MenuLateral } from '../../menu-lateral/menu-lateral';
+
 
 @Component({
   selector: 'app-editar-producto',
   standalone: true,
   templateUrl: './editar-productos.html',
   styleUrls: ['./editar-productos.css'],
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, MenuLateral],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule],
 })
 export class EditarProductos implements OnInit {
   productoForm!: FormGroup;

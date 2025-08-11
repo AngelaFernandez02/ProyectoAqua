@@ -1,17 +1,17 @@
 import { Component } from '@angular/core';
-import { MenuLateral } from "../../menu-lateral/menu-lateral";
+
 import { Router, RouterLink, RouterOutlet } from '@angular/router';
 import { ICliente } from '../../../../../interface/cliente';
 import { ClienteService } from '../../../../../service/service-cliente/service-cliente';
 import { CommonModule } from '@angular/common';
-// import { MenuLateralCliente } from "../../componente-cliente/menu-lateral-cliente/menu-lateral-cliente"; // Elimina si no usas
+//  // Elimina si no usas
 import { ServiceUsuario } from '../../../../../service/service-usuario/service-usuario';
 import { IUsuario } from '../../../../../interface/usuario';
 import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-reporte-usuarioss',
-  imports: [MenuLateral,FormsModule, CommonModule, RouterOutlet, RouterLink],
+  imports: [FormsModule, CommonModule, RouterOutlet, RouterLink],
   templateUrl: './reporte-usuarioss.html',
   styleUrls: ['./reporte-usuarioss.css']
 })

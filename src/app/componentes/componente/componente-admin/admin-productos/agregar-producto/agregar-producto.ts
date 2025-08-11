@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { MenuLateral } from '../../menu-lateral/menu-lateral';
+
 import { SProducto } from '../../../../../service/service-producto/productos';
 import { SInsumo } from '../../../../../service/service-insumo/insumo';  // <- Importa el servicio insumo
 import { IInsumo } from '../../../../../interface/insumos';
@@ -11,7 +11,7 @@ import { IInsumo } from '../../../../../interface/insumos';
 @Component({
   selector: 'app-agregar-producto',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, MenuLateral],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule],
   templateUrl: './agregar-producto.html',
   styleUrls: ['./agregar-producto.css']
 })

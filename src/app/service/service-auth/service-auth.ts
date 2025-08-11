@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment.development';
 import { Router } from '@angular/router';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,14 @@ export class ServiceAuth {
   private readonly apiUrl = environment.endPoint + 'Auth/';
   private apiUrlr = 'https://localhost:7186/api'; // Si lo usas más adelante
 
-  constructor(private http: HttpClient, private router: Router) {}
+  // BehaviorSubject para manejar el estado de autenticación
+  private authStatusSubject = new BehaviorSubject<boolean>(false);
+  public authStatus$ = this.authStatusSubject.asObservable();
+
+  constructor(private http: HttpClient, private router: Router) {
+    // Inicializar el estado de autenticación al crear el servicio
+    this.updateAuthStatus();
+  }
 
   login(credentials: { username: string; password: string }) {
     return this.http.post<any>(`${this.apiUrl}login`, credentials);
@@ -18,10 +26,12 @@ export class ServiceAuth {
 
   saveToken(token: string) {
     localStorage.setItem('token', token);
+    this.updateAuthStatus();
   }
 
   saveUserRole(tipoUsuario: number) {
     localStorage.setItem('userRole', tipoUsuario.toString());
+    this.updateAuthStatus();
   }
 
   getToken(): string | null {
@@ -56,6 +66,12 @@ export class ServiceAuth {
     }
   }
 
+  // Método para actualizar el estado de autenticación y notificar a los suscriptores
+  private updateAuthStatus(): void {
+    const isAuth = this.isAuthenticated();
+    this.authStatusSubject.next(isAuth);
+  }
+
   isAdmin(): boolean {
     return this.getUserRole() === 1;
   }
@@ -84,6 +100,9 @@ export class ServiceAuth {
       console.log('⚠️ Limpiando localStorage completamente...');
       localStorage.clear();
     }
+    
+    // Actualizar el estado de autenticación
+    this.updateAuthStatus();
     
     console.log('🔄 Redirigiendo al login...');
     this.router.navigate(['/login']);

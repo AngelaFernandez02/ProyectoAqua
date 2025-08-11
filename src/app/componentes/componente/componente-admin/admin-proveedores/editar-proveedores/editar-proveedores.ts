@@ -7,7 +7,7 @@ import { SProveedores } from '../../../../../service/service-proveedores/proveed
 import { SInsumo } from '../../../../../service/service-insumo/insumo';
 import { IProveedor } from '../../../../../interface/proveedores';
 import { IInsumo } from '../../../../../interface/insumos';
-import { MenuLateral } from "../../menu-lateral/menu-lateral";
+
 
 export function existenciaValidaSegunUnidad(control: AbstractControl): ValidationErrors | null {
   if (!control || !control.parent) return null;
@@ -39,7 +39,7 @@ export function existenciaValidaSegunUnidad(control: AbstractControl): Validatio
 @Component({
   selector: 'app-editar-proveedores',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, FormsModule, MenuLateral],
+  imports: [CommonModule, ReactiveFormsModule, FormsModule],
   templateUrl: './editar-proveedores.html',
   styleUrls: ['./editar-proveedores.css']
 })
@@ -127,73 +127,63 @@ export class EditarProveedores implements OnInit {
   }
 
   cargarInsumosDisponibles() {
-  this.sInsumo.getInsumos().subscribe({
-    next: (insumos) => {
-      this.insumosDisponibles = insumos.map(insumo => ({
-        ...insumo,
-        CostoPromedio: insumo.CostoPromedio ?? insumo.costoPromedio ?? insumo.costo_Promedio ?? 0
-      }));
-    },
-    error: () => {
-      console.warn('No se pudieron cargar insumos disponibles');
-    }
-  });
-}
-
-  obtenerCostoPromedio(insumo: IInsumo): number {
-  return insumo.costo_Promedio ?? insumo.costoPromedio ?? 0;
-}
-
-
-  get insumosDisponiblesFiltrados(): IInsumo[] {
-  const asignadosIds = this.tbInsumos.controls
-    .map(ctrl => ctrl.get('idInsumo')?.value)
-    .filter(id => id != null);
-
-  return this.insumosDisponibles.filter(insumo => 
-    !asignadosIds.includes(insumo.idInsumo) && (insumo.idProveedor == null)
-  );
-}
-
-
-  nuevoInsumo(insumo?: any): FormGroup {
-    const group = this.fb.group({
-    idInsumo: [insumo?.idInsumo || 0],
-    nombreInsumo: [insumo?.nombreInsumo || '', Validators.required],
-    existencias: [insumo?.existencias || 0, [Validators.required, existenciaValidaSegunUnidad]],
-    costo_Promedio: [insumo?.costoPromedio ?? insumo?.costo_Promedio ?? 0, Validators.required],
-    unidad: [insumo?.unidad || '', Validators.required]
-    });
-
-    // Ajuste automático para enteros si la unidad lo requiere
-    group.get('existencias')?.valueChanges.subscribe(val => {
-      const unidad = group.get('unidad')?.value;
-      const unidadesEnteras = ['pieza'];
-      if (unidadesEnteras.includes(unidad?.toLowerCase())) {
-        if (val != null && val % 1 !== 0) {
-          const entero = Math.floor(val);
-          group.get('existencias')?.setValue(entero, { emitEvent: false });
-        }
+    this.sInsumo.getInsumos().subscribe({
+      next: (data) => {
+        this.insumosDisponibles = data;
+        console.log('Insumos disponibles cargados:', data.length);
+      },
+      error: () => {
+        console.error('Error al cargar insumos disponibles');
       }
     });
+  }
 
-    return group;
+  obtenerCostoPromedio(insumo: IInsumo): number {
+    return insumo.costoPromedio ?? insumo.costo_Promedio ?? insumo.CostoPromedio ?? 0;
+  }
+
+  get insumosDisponiblesFiltrados(): IInsumo[] {
+    return this.insumosDisponibles.filter(insumo => {
+      // Filtrar insumos que no están ya en el formulario
+      const yaEnFormulario = this.tbInsumos.controls.some(ctrl => 
+        ctrl.get('idInsumo')?.value === insumo.idInsumo
+      );
+      return !yaEnFormulario;
+    });
+  }
+
+  nuevoInsumo(insumo?: any): FormGroup {
+    return this.fb.group({
+      idInsumo: [insumo?.idInsumo || 0],
+      nombreInsumo: [insumo?.nombreInsumo || '', Validators.required],
+      existencias: [
+        insumo?.existencias || 0, 
+        [Validators.required, Validators.min(0), existenciaValidaSegunUnidad]
+      ],
+      costo_Promedio: [insumo?.costoPromedio || insumo?.costo_Promedio || 0, [Validators.required, Validators.min(0)]],
+      unidad: [insumo?.unidad || '', Validators.required]
+    });
   }
 
   soloNumerosYPunto(event: KeyboardEvent, unidad: string) {
     const tecla = event.key;
-    const unidadesEnteras = ['pieza'];
-
-    if (unidadesEnteras.includes(unidad.toLowerCase())) {
-      if (tecla < '0' || tecla > '9') {
+    
+    // Permitir números, punto, backspace y flechas
+    if (tecla === '.' || tecla === 'Backspace' || tecla === 'ArrowLeft' || tecla === 'ArrowRight') {
+      return;
+    }
+    
+    // Para unidades que requieren enteros, no permitir punto
+    if (['pieza', 'unidad', 'ESP32'].includes(unidad)) {
+      if (tecla >= '0' && tecla <= '9') {
+        return;
+      } else if ((tecla < '0' || tecla > '9') && tecla !== 'Backspace' && tecla !== 'ArrowLeft' && tecla !== 'ArrowRight') {
         event.preventDefault();
       }
     } else {
-      const input = event.target as HTMLInputElement;
-      if (tecla === '.') {
-        if (input.value.includes('.')) {
-          event.preventDefault();
-        }
+      // Para otras unidades, permitir números y punto
+      if ((tecla >= '0' && tecla <= '9') || tecla === '.') {
+        return;
       } else if ((tecla < '0' || tecla > '9') && tecla !== 'Backspace' && tecla !== 'ArrowLeft' && tecla !== 'ArrowRight') {
         event.preventDefault();
       }
@@ -235,37 +225,36 @@ export class EditarProveedores implements OnInit {
   }
 
   onSubmit(): void {
-  if (this.proveedorForm.valid) {
-    // Obtienes el valor raw del formulario (incluye controles deshabilitados)
-    const rawValue = this.proveedorForm.getRawValue();
+    if (this.proveedorForm.valid) {
+      // Obtienes el valor raw del formulario (incluye controles deshabilitados)
+      const rawValue = this.proveedorForm.getRawValue();
 
-    // Mapear el objeto principal
-    const proveedorActualizado = {
-      idProveedor: this.proveedorId, // o rawValue.idProveedor si lo tienes
-      nombreProveedor: rawValue.nombre,
-      contactoProveedor: rawValue.contacto,
-      tbInsumos: rawValue.tbInsumos.map((insumo: any) => ({
-        idInsumo: insumo.idInsumo,
-        nombreInsumo: insumo.nombreInsumo,
-        idProveedor: this.proveedorId,  // asigna el id del proveedor a cada insumo
-        existencias: insumo.existencias,
-        costoPromedio: insumo.costoPromedio ?? insumo.costo_Promedio ?? 0, // acomodar nombres distintos
-        unidad: insumo.unidad
-      }))
-    };
+      // Mapear el objeto principal
+      const proveedorActualizado = {
+        idProveedor: this.proveedorId, // o rawValue.idProveedor si lo tienes
+        nombreProveedor: rawValue.nombre,
+        contactoProveedor: rawValue.contacto,
+        tbInsumos: rawValue.tbInsumos.map((insumo: any) => ({
+          idInsumo: insumo.idInsumo,
+          nombreInsumo: insumo.nombreInsumo,
+          idProveedor: this.proveedorId,  // asigna el id del proveedor a cada insumo
+          existencias: insumo.existencias,
+          costoPromedio: insumo.costoPromedio ?? insumo.costo_Promedio ?? 0, // acomodar nombres distintos
+          unidad: insumo.unidad
+        }))
+      };
 
-    this.sProveedores.updateProveedor(this.proveedorId, proveedorActualizado).subscribe({
-      next: () => {
-        alert('Proveedor actualizado correctamente');
-        this.router.navigate(['/catalogo-proveedores']);
-      },
-      error: () => alert('Error al actualizar el proveedor')
-    });
-  } else {
-    this.mostrarErroresDetallados();
+      this.sProveedores.updateProveedor(this.proveedorId, proveedorActualizado).subscribe({
+        next: () => {
+          alert('Proveedor actualizado correctamente');
+          this.router.navigate(['/catalogo-proveedores']);
+        },
+        error: () => alert('Error al actualizar el proveedor')
+      });
+    } else {
+      this.mostrarErroresDetallados();
+    }
   }
-}
-
 
   goBack(): void {
     this.router.navigate(['/catalogo-proveedores']);

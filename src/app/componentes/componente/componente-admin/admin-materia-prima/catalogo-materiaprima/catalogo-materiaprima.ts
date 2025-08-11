@@ -3,7 +3,7 @@ import { CommonModule, CurrencyPipe } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
-import { MenuLateral } from '../../menu-lateral/menu-lateral';
+
 
 import { IProveedor } from '../../../../../interface/proveedores';
 import { SearchMateriaprima } from "../search-materiaprima/search-materiaprima";
@@ -17,7 +17,7 @@ import { SInsumo } from '../../../../../service/service-insumo/insumo';
     CommonModule,
     RouterModule,
     FormsModule,
-    MenuLateral,
+    
     SearchMateriaprima
 ],
   templateUrl: './catalogo-materiaprima.html',
