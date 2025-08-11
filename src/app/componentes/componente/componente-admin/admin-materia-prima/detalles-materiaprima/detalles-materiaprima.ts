@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { CommonModule, CurrencyPipe, NgFor, NgIf } from "@angular/common";
+import { CommonModule, CurrencyPipe, NgIf } from "@angular/common";
 import { ActivatedRoute, Router, RouterModule } from "@angular/router";
 
 import { IInsumo } from "../../../../../interface/insumos";
@@ -10,7 +10,7 @@ import { SProveedores } from "../../../../../service/service-proveedores/proveed
 @Component({
   selector: 'app-detalles-insumo',
   standalone: true,
-  imports: [CommonModule, CurrencyPipe, RouterModule, NgIf, NgFor],
+  imports: [CommonModule, CurrencyPipe, RouterModule, NgIf],
   templateUrl: './detalles-materiaprima.html',
   styleUrls: ['./detalles-materiaprima.css']
 })

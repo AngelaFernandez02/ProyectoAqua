@@ -1,17 +1,14 @@
-import { Component } from '@angular/core';
-
-import { Router, RouterLink, RouterOutlet } from '@angular/router';
-import { ICliente } from '../../../../../interface/cliente';
-import { ClienteService } from '../../../../../service/service-cliente/service-cliente';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-//  // Elimina si no usas
+import { RouterLink } from '@angular/router';
 import { ServiceUsuario } from '../../../../../service/service-usuario/service-usuario';
 import { IUsuario } from '../../../../../interface/usuario';
 import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-reporte-usuarioss',
-  imports: [FormsModule, CommonModule, RouterOutlet, RouterLink],
+  standalone: true,
+  imports: [FormsModule, CommonModule, RouterLink],
   templateUrl: './reporte-usuarioss.html',
   styleUrls: ['./reporte-usuarioss.css']
 })

@@ -1,14 +1,13 @@
 import { Component, OnInit  } from '@angular/core';
 
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { CommonModule, CurrencyPipe } from '@angular/common';
-import { NgIf } from '@angular/common';
+import { CommonModule, NgIf } from '@angular/common';
 import { SProveedores } from '../../../../../service/service-proveedores/proveedores';
 import { IProveedor } from '../../../../../interface/proveedores';
 @Component({
   selector: 'app-detalle-proveedores',
   standalone: true,
-  imports: [CommonModule, CurrencyPipe,RouterModule, NgIf,],
+  imports: [CommonModule, RouterModule, NgIf],
   templateUrl: './detalle-proveedores.html',
   styleUrls: ['./detalle-proveedores.css']
 })

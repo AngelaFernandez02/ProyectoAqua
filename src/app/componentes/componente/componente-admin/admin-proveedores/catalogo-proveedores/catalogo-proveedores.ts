@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CurrencyPipe, NgFor } from '@angular/common';
+import { NgFor } from '@angular/common';
 import { SearchProveedoresComponent } from '../search-proveedores/search-proveedores';
 
 import { Router, RouterModule } from '@angular/router';
@@ -9,7 +9,7 @@ import { IProveedor } from '../../../../../interface/proveedores';
 @Component({
   selector: 'app-catalogo-proveedores',
   standalone: true,
-  imports: [CurrencyPipe, NgFor, SearchProveedoresComponent, RouterModule,],
+  imports: [NgFor, SearchProveedoresComponent, RouterModule],
   templateUrl: './catalogo-proveedores.html',
   styleUrls: ['./catalogo-proveedores.css']
 })

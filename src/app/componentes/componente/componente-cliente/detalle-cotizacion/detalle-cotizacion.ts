@@ -4,17 +4,17 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 
 import { MenuLateral } from "../../componente-admin/menu-lateral/menu-lateral";
-import { BuscarProducto } from '../../componente-admin/admin-productos/buscar-producto/buscar-producto';
 import { SCotizacion } from '../../../../service/service-cotizacion/cotizacion';
 import { IProducto } from '../../../../interface/producto';
 import { IInsumoProducto } from '../../../../interface/insumosProducto';
 import { ICotizacionDetalle } from '../../../../interface/cotizaciondetalle';
 import { ICotizacion } from '../../../../interface/cotizacion';
+import { IInsumo } from '../../../../interface/insumos';
 
 @Component({
   selector: 'app-detalle-cotizacion',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, MenuLateral, BuscarProducto],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, MenuLateral],
   templateUrl: './detalle-cotizacion.html',
   styleUrls: ['./detalle-cotizacion.css']
 })
@@ -101,7 +101,11 @@ export class DetalleCotizacion implements OnInit {
   }
 
   crearDetalleFormGroup(detalle?: ICotizacionDetalle): FormGroup {
-    const insumos: IInsumoProducto[] = (detalle?.insumos ?? []) as IInsumoProducto[];
+    // Asegurar que insumos sea del tipo correcto según la interfaz ICotizacionDetalle
+    const insumos: IInsumo[] = Array.isArray(detalle?.insumos) 
+      ? detalle.insumos.filter(insumo => insumo && typeof insumo === 'object')
+      : [];
+    
     return this.fb.group({
       idCotizacionDetalle: [detalle?.idCotizacionDetalle ?? null],
       idProducto: [detalle?.idProducto ?? null, Validators.required],
@@ -113,9 +117,9 @@ export class DetalleCotizacion implements OnInit {
         insumos.map(insumo =>
           this.fb.group({
             idInsumo: [insumo.idInsumo ?? null],
-            nombreInsumo: [insumo.idInsumoNavigation?.nombreInsumo ?? '', Validators.required],
-            cantidad: [insumo.cantidad ?? 1, [Validators.required, Validators.min(1)]],
-            unidad: [insumo.idInsumoNavigation?.unidad ?? '', Validators.required]
+            nombreInsumo: [insumo.nombreInsumo ?? '', Validators.required],
+            cantidad: [1, [Validators.required, Validators.min(1)]], // Valor por defecto
+            unidad: [insumo.unidad ?? '', Validators.required]
           })
         )
       )
@@ -171,8 +175,16 @@ export class DetalleCotizacion implements OnInit {
     }
 
     const formValue = this.cotizacionForm.getRawValue();
+    const subtotal = this.calcularSubtotal();
+    const iva = this.calcularIVA();
+    const total = this.calcularTotal();
 
     const cotizacionActualizada: ICotizacion = {
+      idCotizacion: this.cotizacionId, // Asegurar que siempre sea un número
+      fechaCotizacion: this.cotizacion?.fechaCotizacion || new Date().toISOString(), // Asegurar que tenga valor
+      subtotal: subtotal, // Agregar subtotal calculado
+      iva: iva, // Agregar IVA calculado
+      total: total, // Agregar total calculado
       ...(this.cotizacion ?? {}),
       fechaVencimiento: formValue.fechaVencimiento,
       estado: formValue.estado,
