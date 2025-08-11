@@ -1,0 +1,7 @@
+.card {
+  max-width: 600px;
+  margin: 0 auto;
+}
+.card-footer {
+  padding-bottom: 3rem; /* o la cantidad que quieras */
+}

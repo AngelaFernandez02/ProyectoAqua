@@ -1,0 +1,30 @@
+<div class="container mt-5">
+  <div class="card border border-danger shadow">
+    <div class="card-header bg-danger text-white d-flex align-items-center justify-content-between">
+      <h4 class="mb-0">
+        <i class="bi bi-exclamation-triangle-fill me-2"></i> Confirmar eliminación
+      </h4>
+      <button class="btn-close btn-close-white" aria-label="Cerrar" (click)="cancelar()"></button>
+    </div>
+
+    <div class="card-body bg-white text-center">
+      <p class="fs-5 mb-4">
+  ¿Estás seguro de que deseas eliminar el insumo
+  <strong class="text-danger">#{{ insumo?.idInsumo }}</strong>
+  al proveedor <strong>{{ proveedorNombre || 'Proveedor desconocido' }}</strong>?
+</p>
+    </div>
+
+    <!-- Footer con botones -->
+    <div class="card-footer bg-light d-flex justify-content-center gap-3 py-3">
+      <button class="btn btn-danger px-4 py-2" (click)="confirmarEliminacion()">
+        <i class="bi bi-trash me-1"></i> Sí, eliminar
+      </button>
+      <button class="btn btn-outline-secondary px-4 py-2" (click)="cancelar()">
+        <i class="bi bi-arrow-left me-1"></i> Cancelar
+      </button>
+    </div>
+  </div>
+
+  <div style="padding: 10%;"></div>
+</div>

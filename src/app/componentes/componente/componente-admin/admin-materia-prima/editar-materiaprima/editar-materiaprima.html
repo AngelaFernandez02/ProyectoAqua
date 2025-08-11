@@ -1,0 +1,100 @@
+<div class="layout">
+  <app-menu-lateral class="menu-lateral"></app-menu-lateral>
+
+  <div class="contenido">
+    <div class="full-width-container">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h1 class="d-flex align-items-center gap-2 fw-bold">
+          Editar Materia Prima
+          <i class="bi bi-pencil-fill"></i>
+        </h1>
+        <div style="width: 100px;"></div>
+      </div>
+
+      <div class="card border-custom mt-4">
+        <div class="card-header bg-header-custom d-flex justify-content-between align-items-center">
+          <h3 class="mb-0">Actualizar datos del insumo</h3>
+          <button class="btn btn-back" (click)="goBack()">
+            <i class="bi bi-arrow-left"></i> Regresar
+          </button>
+        </div>
+
+        <div class="card-body bg-white">
+          <form [formGroup]="insumoForm" (ngSubmit)="onSubmit()" class="container mt-4">
+
+            <!-- Nombre Insumo -->
+            <div class="mb-3 row">
+              <label for="nombre_insumo" class="col-sm-2 col-form-label fw-semibold">Nombre Insumo</label>
+              <div class="col-sm-10">
+                <input type="text" id="nombre_insumo" formControlName="nombre_insumo" class="form-control" required />
+                <div *ngIf="insumoForm.get('nombre_insumo')?.invalid && insumoForm.get('nombre_insumo')?.touched" class="text-danger">
+                  El nombre es obligatorio.
+                </div>
+              </div>
+            </div>
+
+            <!-- Proveedor -->
+            <div class="mb-3 row">
+              <label for="id_proveedor" class="col-sm-2 col-form-label fw-semibold">Proveedor</label>
+              <div class="col-sm-10">
+                <select formControlName="id_proveedor" id="id_proveedor" class="form-select" required>
+                  <option value="" disabled>Selecciona un proveedor</option>
+                  <option *ngFor="let proveedor of proveedores" [value]="proveedor.idProveedor">
+                    {{ proveedor.nombreProveedor }}
+                  </option>
+                </select>
+                <div *ngIf="insumoForm.get('id_proveedor')?.invalid && insumoForm.get('id_proveedor')?.touched" class="text-danger">
+                  Debe seleccionar un proveedor.
+                </div>
+              </div>
+            </div>
+
+            <!-- Existencias -->
+            <div class="mb-3 row">
+              <label for="existencias" class="col-sm-2 col-form-label fw-semibold">Existencias</label>
+              <div class="col-sm-10">
+                <input type="number" id="existencias" formControlName="existencias" class="form-control" min="0" required />
+                <div *ngIf="insumoForm.get('existencias')?.invalid && insumoForm.get('existencias')?.touched" class="text-danger">
+                  Ingrese una cantidad válida.
+                </div>
+              </div>
+            </div>
+
+           <div class="form-group">
+    <label for="costoPromedio">Costo Promedio</label>
+    <input type="number" 
+           id="costoPromedio" 
+           name="costoPromedio" 
+           class="form-control" 
+           step="0.01" 
+           readonly>
+</div>
+
+
+        
+            <div class="mb-3 row">
+              <label for="unidad" class="col-sm-2 col-form-label fw-semibold">Unidad</label>
+              <div class="col-sm-10">
+                <input type="text" id="unidad" formControlName="unidad" class="form-control" required />
+                <div *ngIf="insumoForm.get('unidad')?.invalid && insumoForm.get('unidad')?.touched" class="text-danger">
+                  La unidad es obligatoria.
+                </div>
+              </div>
+            </div>
+
+            <!-- Botones -->
+            <div class="d-flex justify-content-between mt-4">
+              <button type="button" class="btn btn-secondary" (click)="goBack()">
+                <i class="bi bi-arrow-left"></i> Cancelar
+              </button>
+              <button type="submit" class="btn btn-primary" [disabled]="insumoForm.invalid">
+                <i class="bi bi-save"></i> Guardar Cambios
+              </button>
+            </div>
+
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,71 @@
+<div class="layout">
+  <app-menu-lateral class="menu-lateral"></app-menu-lateral>
+
+  <div class="contenido">
+    <!-- Mostrar solo si hay compra cargada -->
+    <div class="container mt-4" *ngIf="compra; else cargandoOError">
+
+      <div class="card border-custom">
+        <div class="card-header bg-header-custom d-flex justify-content-between align-items-center">
+          <h4 class="mb-0 d-flex align-items-center">
+            Detalles de la compra
+            <i class="bi bi-cart-check ms-2"></i>
+          </h4>
+          <button class="btn btn-back" (click)="goBack()">
+            <i class="bi bi-arrow-left"></i> Regresar
+          </button>
+        </div>
+
+        <div class="card-body bg-white">
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <label class="form-label fw-bold">Proveedor:</label>
+              <p class="form-control-plaintext" *ngIf="proveedor; else sinProveedor">
+                {{ proveedor.nombreProveedor }}
+              </p>
+              <ng-template #sinProveedor>
+                <p class="text-muted fst-italic">Proveedor no disponible</p>
+              </ng-template>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label fw-bold">Fecha de compra:</label>
+              <p class="form-control-plaintext">
+                {{ compra.fechaCompra | date:'dd/MM/yyyy' }}
+              </p>
+            </div>
+          </div>
+
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <label class="form-label fw-bold">Total:</label>
+              <p class="form-control-plaintext">
+                {{ compra.total | currency:'MXN':'symbol':'1.2-2' }}
+              </p>
+            </div>
+          </div>
+
+          <!-- Detalles de compra -->
+          <div class="mt-4">
+            <h3>Detalles de productos/insumos:</h3>
+
+               <div *ngFor="let detalle of detallesCompra" class="d-flex justify-content-between align-items-center p-3 border rounded mb-2 shadow-sm detalle-card">
+ <span class="detalle-nombre">{{ detalle.nombreInsumo }}</span>
+  <span><strong>Cantidad:</strong> {{ detalle.cantidad || 'N/A' }}</span>
+  <span><strong>Precio unitario:</strong> {{ detalle.precioUnitario | currency:'MXN':'symbol':'1.2-2' }}</span>
+</div>
+
+            <ng-template #noDetalles>
+              <p class="text-muted fst-italic">No hay detalles de productos o insumos registrados para esta compra.</p>
+            </ng-template>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <ng-template #cargandoOError>
+      <div class="text-center mt-5">
+        <p *ngIf="!compra">Cargando detalles de la compra...</p>
+      </div>
+    </ng-template>
+  </div>
+</div>

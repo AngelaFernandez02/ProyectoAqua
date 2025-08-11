@@ -1,0 +1,71 @@
+<div class="layout">
+  <app-menu-lateral class="menu-lateral"></app-menu-lateral>
+
+  <div class="contenido">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h1 class="d-flex align-items-center gap-2" style="font-weight: bold;">
+        Gestión de compras
+        <i class="bi bi-cart-fill"></i>
+      </h1>
+      <div style="width: 100px;"></div>
+    </div>
+
+    <p class="mb-0">Agregar nuevas compras y editar o eliminar.</p>
+
+    <div class="card border-custom mt-4">
+
+      <div class="card border-custom mt-4">
+
+  <div class="card-header bg-header-custom d-flex justify-content-between align-items-center">
+    <app-search-compras 
+      class="search-container"
+      (searchChange)="onSearchChange($event)">
+  </app-search-compras>
+        <button class="btn btn-add" [routerLink]="['/agregar-compras']">
+          <i class="bi bi-plus-lg"></i> Agregar
+        </button>
+      </div>
+
+      <div class="card-body bg-white">
+        <div class="table-responsive">
+          <table class="table table-striped table-hover">
+            <thead class="table-thead">
+              <tr>
+                <th>Proveedor</th>
+                <th>Fecha</th>
+                <th>Total</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let compra of filteredCompras; trackBy: trackCompra"
+                  (click)="abrirDetallesCompra(compra)" style="cursor: pointer;">
+              <td>{{ getNombreProveedor(compra.idProveedor ?? 0) }}</td>
+                <td>{{ compra.fechaCompra | date:'dd/MM/yyyy' }}</td>
+                <td>{{ compra.total | currency:'MXN':'symbol':'1.2-2' }}</td>
+                <td>
+                  <button class="btn btn-sm btn-outline-dark me-1"
+                          [routerLink]="['/detalles-compras', compra.idCompra]"
+                          (click)="$event.stopPropagation()">
+                    <i class="bi bi-eye"></i>
+                  </button>c
+                  <button class="btn btn-sm btn-outline-dark me-1"
+                          [routerLink]="['/editar-compras', compra.idCompra]"
+                          (click)="$event.stopPropagation()">
+                    <i class="bi bi-pencil-square"></i>
+                  </button>
+                  <button class="btn btn-sm btn-outline-dark"
+                          [routerLink]="['/eliminar-compras', compra.idCompra]"
+                          (click)="$event.stopPropagation()">
+                    <i class="bi bi-trash"></i>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
