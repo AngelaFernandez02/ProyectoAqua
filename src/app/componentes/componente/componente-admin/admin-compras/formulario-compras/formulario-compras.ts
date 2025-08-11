@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MenuLateral } from '../../menu-lateral/menu-lateral';
+
 import { ServiceCompra } from '../../../../../service/service-compra/service-compra';
 import { Compra } from '../../../../../interface/compra';
 import { DetalleCompra } from '../../../../../interface/DetalleCompra';
@@ -14,7 +14,7 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-formulario-compras',
-  imports: [MenuLateral,ReactiveFormsModule,CommonModule],
+  imports: [ReactiveFormsModule,CommonModule],
   templateUrl: './formulario-compras.html',
   styleUrl: './formulario-compras.css'
 })

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule, CurrencyPipe, NgFor } from '@angular/common';
-import { MenuLateral } from "../../menu-lateral/menu-lateral";
+
 import { Router, RouterModule } from '@angular/router';
 import { Compra } from '../../../../../interface/compra';
 import { ServiceCompra } from '../../../../../service/service-compra/service-compra';
@@ -13,7 +13,7 @@ import { SearchCompras } from '../search-compras/search-compras';
 @Component({
   selector: 'app-catalogo-compras',
   standalone: true,
- imports: [CurrencyPipe, RouterModule, MenuLateral, SearchCompras, CommonModule, FormsModule],
+ imports: [CurrencyPipe, RouterModule, SearchCompras, CommonModule, FormsModule],
  templateUrl: './catalogo-compras.html',
   styleUrls: ['./catalogo-compras.css']
 })

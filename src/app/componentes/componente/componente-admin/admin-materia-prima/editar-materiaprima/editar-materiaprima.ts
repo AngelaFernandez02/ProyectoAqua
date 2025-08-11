@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MenuLateral } from "../../menu-lateral/menu-lateral";
+
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SProveedores } from '../../../../../service/service-proveedores/proveedores';
@@ -10,7 +10,7 @@ import { IInsumo } from '../../../../../interface/insumos';
 @Component({
   selector: 'app-editar-materiaprima',
   standalone: true,
-  imports: [MenuLateral, CommonModule, ReactiveFormsModule,FormsModule],
+  imports: [ CommonModule, ReactiveFormsModule,FormsModule],
   templateUrl: './editar-materiaprima.html',
   styleUrls: ['./editar-materiaprima.css']
 })

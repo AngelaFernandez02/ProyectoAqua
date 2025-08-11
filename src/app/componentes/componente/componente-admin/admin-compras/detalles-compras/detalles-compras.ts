@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { CommonModule, CurrencyPipe, NgFor, NgIf } from "@angular/common";
 import { ActivatedRoute, Router, RouterModule } from "@angular/router";
-import { MenuLateral } from "../../menu-lateral/menu-lateral";
+
 import { Compra } from "../../../../../interface/compra";
 import { IProveedor } from "../../../../../interface/proveedores";
 import { ServiceCompra } from "../../../../../service/service-compra/service-compra";
@@ -22,7 +22,7 @@ interface DetalleCompraConNombre extends DetalleCompra {
 @Component({
   selector: 'app-detalle-compra',
   standalone: true,
-  imports: [CommonModule, CurrencyPipe, RouterModule, NgIf, NgFor, MenuLateral],
+  imports: [CommonModule, CurrencyPipe, RouterModule, NgIf, NgFor],
   templateUrl: './detalles-compras.html',
   styleUrls: ['./detalles-compras.css']
 })

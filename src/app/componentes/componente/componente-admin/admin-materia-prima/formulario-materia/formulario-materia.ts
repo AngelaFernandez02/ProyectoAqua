@@ -6,14 +6,14 @@ import { IProveedor } from '../../../../../interface/proveedores';
 import { IInsumo } from '../../../../../interface/insumos'; // Ajusta ruta
 import { SProveedores } from '../../../../../service/service-proveedores/proveedores'; // Servicio para proveedores
 import { SInsumo } from '../../../../../service/service-insumo/insumo';
-import { MenuLateral } from "../../menu-lateral/menu-lateral"; // Servicio para insumos
+ // Servicio para insumos
 import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-formulario-materia',
   templateUrl: './formulario-materia.html',
   styleUrls: ['./formulario-materia.css'],
-  imports: [MenuLateral,CommonModule,FormsModule,ReactiveFormsModule]
+  imports: [CommonModule,FormsModule,ReactiveFormsModule]
 })
 export class FormularioMateria implements OnInit {
 

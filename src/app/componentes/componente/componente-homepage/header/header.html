@@ -18,7 +18,15 @@
     <a routerLink="/contactanos" routerLinkActive="active">CONTÁCTANOS</a>
     <a routerLink="/menu-lateral" routerLinkActive="active">MENÚ</a>
 
-    <button class="btn-blue" [routerLink]="'/login'">Iniciar sesión</button>
+    <!-- Mostrar botón de login solo si NO está autenticado -->
+    <button *ngIf="!isAuthenticated" class="btn-blue" [routerLink]="'/login'">Iniciar sesión</button>
+    
+    <!-- Mostrar información del usuario y logout si está autenticado -->
+    <div *ngIf="isAuthenticated" class="user-info">
+      <span class="user-role">{{ getUserDisplayName() }}</span>
+      <button class="btn-logout" (click)="logout()">Cerrar sesión</button>
+    </div>
+    
     <button class="btn-icon" onclick="alert('Botón decorativo o de ayuda')">?</button>
   </div>
 </div>

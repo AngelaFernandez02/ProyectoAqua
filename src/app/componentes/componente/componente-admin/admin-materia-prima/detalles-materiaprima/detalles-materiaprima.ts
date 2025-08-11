@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { CommonModule, CurrencyPipe, NgFor, NgIf } from "@angular/common";
 import { ActivatedRoute, Router, RouterModule } from "@angular/router";
-import { MenuLateral } from "../../menu-lateral/menu-lateral";
+
 import { IInsumo } from "../../../../../interface/insumos";
 import { IProveedor } from "../../../../../interface/proveedores";
 import { SInsumo } from "../../../../../service/service-insumo/insumo";
@@ -10,7 +10,7 @@ import { SProveedores } from "../../../../../service/service-proveedores/proveed
 @Component({
   selector: 'app-detalles-insumo',
   standalone: true,
-  imports: [CommonModule, CurrencyPipe, RouterModule, NgIf, NgFor, MenuLateral],
+  imports: [CommonModule, CurrencyPipe, RouterModule, NgIf, NgFor],
   templateUrl: './detalles-materiaprima.html',
   styleUrls: ['./detalles-materiaprima.css']
 })

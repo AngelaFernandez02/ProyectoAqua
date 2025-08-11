@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MenuLateral } from "../../menu-lateral/menu-lateral";
+
 import { FormBuilder, FormGroup, FormArray, Validators, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ServiceCompra } from '../../../../../service/service-compra/service-compra';
@@ -9,7 +9,7 @@ import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-editar-compras',
-  imports: [MenuLateral, CommonModule, ReactiveFormsModule],
+  imports: [ CommonModule, ReactiveFormsModule],
 templateUrl: './editar-compras.html',
   styleUrls: ['./editar-compras.css']
 })

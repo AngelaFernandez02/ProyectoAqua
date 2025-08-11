@@ -5,11 +5,11 @@ import { IUsuario } from '../../../../../interface/usuario';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { MenuLateral } from '../../menu-lateral/menu-lateral';
+
 
 @Component({
   selector: 'app-formulario-usuario-admin',
-  imports: [RouterOutlet, RouterLink, FormsModule, MenuLateral, CommonModule],
+  imports: [RouterOutlet, RouterLink, FormsModule, CommonModule],
   templateUrl: './formulario-usuario-admin.html',
   styleUrls: ['./formulario-usuario-admin.css']  // <- corregido de "styleUrl" a "styleUrls"
 })

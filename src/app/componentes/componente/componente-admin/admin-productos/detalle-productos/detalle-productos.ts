@@ -3,12 +3,12 @@ import { ActivatedRoute } from '@angular/router';
 import { SProducto } from '../../../../../service/service-producto/productos';
 import { IProducto } from '../../../../../interface/producto';
 import { CommonModule } from '@angular/common'; // 👈 importa esto
-import { MenuLateral } from '../../menu-lateral/menu-lateral';
+
 import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-detalle-productos',
-  imports: [CommonModule,MenuLateral], // 👈 agrega CommonModule aquí
+  imports: [CommonModule,], // 👈 agrega CommonModule aquí
   templateUrl: './detalle-productos.html',
   styleUrls: ['./detalle-productos.css']
 })

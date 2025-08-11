@@ -26,8 +26,8 @@ export const roleGuard: CanActivateFn = (route, state) => {
       console.log('🚪 Redirigiendo al login (no autenticado)');
       router.navigate(['/login']);
     } else if (userRole === 1) {
-      console.log('🔀 Redirigiendo a área admin');
-      router.navigate(['/menu-lateral']); // Admin
+      console.log('🔀 Redirigiendo a admin dashboard');
+      router.navigate(['/admin/dashboard']); // Admin
     } else if (userRole === 2) {
       console.log('🔀 Redirigiendo a área cliente');
       router.navigate(['/cliente-actualizar']); // Cliente
@@ -65,8 +65,8 @@ export class RoleGuard implements CanActivate {
         console.log('🚪 Redirigiendo al login (no autenticado)');
         this.router.navigate(['/login']);
       } else if (userRole === 1) {
-        console.log('🔀 Redirigiendo a área admin');
-        this.router.navigate(['/menu-lateral']); // Admin
+        console.log('🔀 Redirigiendo a admin dashboard');
+        this.router.navigate(['/admin/dashboard']); // Admin
       } else if (userRole === 2) {
         console.log('🔀 Redirigiendo a área cliente');
         this.router.navigate(['/cliente-actualizar']); // Cliente

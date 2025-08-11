@@ -1,5 +1,5 @@
 import { Component, OnInit  } from '@angular/core';
-import { MenuLateral } from "../../menu-lateral/menu-lateral";
+
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { CommonModule, CurrencyPipe } from '@angular/common';
 import { NgIf } from '@angular/common';
@@ -8,7 +8,7 @@ import { IProveedor } from '../../../../../interface/proveedores';
 @Component({
   selector: 'app-detalle-proveedores',
   standalone: true,
-  imports: [CommonModule, CurrencyPipe,RouterModule, NgIf,MenuLateral],
+  imports: [CommonModule, CurrencyPipe,RouterModule, NgIf,],
   templateUrl: './detalle-proveedores.html',
   styleUrls: ['./detalle-proveedores.css']
 })

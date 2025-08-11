@@ -5,11 +5,11 @@ import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { FormsModule, NgModel } from '@angular/forms';
 import { RouterLink, RouterOutlet } from '@angular/router';
-import { MenuLateral } from "../../menu-lateral/menu-lateral";
+
 
 @Component({
   selector: 'app-formulario-usuario-cliente',
-  imports: [RouterOutlet, RouterLink, FormsModule, CommonModule, MenuLateral],
+  imports: [RouterOutlet, RouterLink, FormsModule, CommonModule],
   templateUrl: './formulario-usuario-cliente.html',
   styleUrl: './formulario-usuario-cliente.css'
 })

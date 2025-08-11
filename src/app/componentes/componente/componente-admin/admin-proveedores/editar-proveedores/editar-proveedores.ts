@@ -6,12 +6,12 @@ import { CommonModule } from '@angular/common';
 import { SProveedores } from '../../../../../service/service-proveedores/proveedores';
 import { IProveedor } from '../../../../../interface/proveedores';
 import { IInsumo } from '../../../../../interface/insumos';
-import { MenuLateral } from "../../menu-lateral/menu-lateral";
+
 
 @Component({
   selector: 'app-editar-proveedores',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule,MenuLateral],
+  imports: [CommonModule, ReactiveFormsModule,],
   templateUrl: './editar-proveedores.html',
   styleUrls: ['./editar-proveedores.css']
 })

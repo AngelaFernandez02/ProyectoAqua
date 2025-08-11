@@ -5,11 +5,11 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { SProveedores } from '../../../../../service/service-proveedores/proveedores';
 import { IProveedor } from '../../../../../interface/proveedores';
-import { MenuLateral } from '../../menu-lateral/menu-lateral';
+
 @Component({
   selector: 'app-agregar-proveedores',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule,MenuLateral],
+  imports: [CommonModule, ReactiveFormsModule,],
   templateUrl: './agregar-proveedores.html',
   styleUrl: './agregar-proveedores.css'
 })
