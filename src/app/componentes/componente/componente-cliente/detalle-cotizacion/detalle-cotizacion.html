@@ -1,0 +1,93 @@
+<div class="layout">
+  <app-menu-lateral class="menu-lateral"></app-menu-lateral>
+
+  <div class="contenido p-4">
+    <button class="btn btn-secondary mb-3" (click)="volverListado()">
+      ← Volver al listado
+    </button>
+
+    <div *ngIf="cargando" class="alert alert-info">
+      Cargando cotización...
+    </div>
+
+    <div *ngIf="error" class="alert alert-danger">
+      {{ error }}
+    </div>
+
+    <form *ngIf="!cargando && !error && cotizacion" [formGroup]="cotizacionForm" (ngSubmit)="guardarCambios()">
+
+      <h2>Detalles Cotización: {{ cotizacion.numeroCotizacion || ('ID ' + cotizacionId) }}</h2>
+
+      <p><strong>Fecha Cotización:</strong> {{ cotizacion.fechaCotizacion | date:'dd/MM/yyyy' }}</p>
+      <p><strong>Fecha Vencimiento:</strong> {{ cotizacion.fechaVencimiento | date:'dd/MM/yyyy' }}</p>
+      <p><strong>Estado:</strong> {{ cotizacion.estado }}</p>
+
+      <h3>Cliente</h3>
+      <p *ngIf="cotizacion.cliente">
+        {{ cotizacion.cliente.nombreContacto }}<br>
+        Email: {{ cotizacion.cliente.correoContacto }}<br>
+        Teléfono: {{ cotizacion.cliente.telefono }}
+      </p>
+      <p *ngIf="!cotizacion.cliente && cotizacion.nombreCliente">
+        {{ cotizacion.nombreCliente }}<br>
+        Email: {{ cotizacion.emailCliente }}<br>
+        Teléfono: {{ cotizacion.telefonoCliente }}
+      </p>
+
+      <h3>Detalles de Productos</h3>
+      <div formArrayName="detalles">
+        <div *ngFor="let detalleCtrl of detalles.controls; let i=index" [formGroupName]="i" class="border rounded p-3 mb-3">
+
+          <label>Producto:</label>
+          <select formControlName="idProducto" class="form-select mb-2">
+            <option *ngFor="let p of productosDisponibles" [value]="p.idProducto">{{ p.nombreProducto }}</option>
+          </select>
+
+          <div>
+            <label>Cantidad:</label>
+            <input type="number" formControlName="cantidad" class="form-control" min="1" />
+          </div>
+
+          <div>
+            <label>Precio Unitario:</label>
+            <input type="number" formControlName="precioUnitario" class="form-control" min="0" step="0.01" />
+          </div>
+
+          <div>
+            <label>Subtotal:</label>
+            <input [value]="detalles.controls[i].get('cantidad')!.value * detalles.controls[i].get('precioUnitario')!.value | number:'1.2-2'" readonly class="form-control" />
+          </div>
+
+          <div formArrayName="insumos" class="mt-3">
+            <label>Insumos:</label>
+            <div *ngFor="let insumoCtrl of getInsumos(i).controls; let j=index" [formGroupName]="j" class="border p-2 mb-2">
+              <input formControlName="nombreInsumo" placeholder="Nombre Insumo" class="form-control mb-1" />
+              <input formControlName="cantidad" type="number" min="1" placeholder="Cantidad" class="form-control mb-1" />
+              <input formControlName="unidad" placeholder="Unidad" class="form-control mb-1" />
+
+              <button type="button" class="btn btn-danger btn-sm" (click)="eliminarInsumo(i, j)">Eliminar Insumo</button>
+            </div>
+            <button type="button" class="btn btn-secondary btn-sm" (click)="agregarInsumo(i)">+ Agregar Insumo</button>
+          </div>
+
+          <button type="button" class="btn btn-danger mt-2" (click)="eliminarDetalle(i)">Eliminar Producto</button>
+        </div>
+      </div>
+
+      <button type="button" class="btn btn-primary mb-3" (click)="agregarDetalle()">+ Agregar Producto</button>
+
+      <h4>Resumen</h4>
+      <p><strong>Subtotal:</strong> $ {{ calcularSubtotal() | number:'1.2-2' }}</p>
+      <p><strong>IVA:</strong> $ {{ calcularIVA() | number:'1.2-2' }}</p>
+      <p><strong>Total:</strong> $ {{ calcularTotal() | number:'1.2-2' }}</p>
+
+      <div class="mb-3">
+        <label>Observaciones:</label>
+        <textarea formControlName="observaciones" class="form-control" rows="3"></textarea>
+      </div>
+
+      <button type="submit" class="btn btn-success">Guardar Cambios</button>
+
+    </form>
+  </div>
+</div>

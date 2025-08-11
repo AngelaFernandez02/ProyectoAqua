@@ -40,11 +40,14 @@ export class AgregarProveedores implements OnInit {
   }
 
   nuevoInsumo(): FormGroup {
-    return this.fb.group({
-      nombreInsumo: ['', Validators.required],
-      tbInsumoProductos: this.fb.array([])
-    });
-  }
+  return this.fb.group({
+    nombreInsumo: ['', Validators.required],
+    existencias: [0, [Validators.required, Validators.min(0)]],
+    costoPromedio: [0, [Validators.required, Validators.min(0)]],
+    unidad: ['', Validators.required]
+  });
+}
+
 
   agregarInsumo(): void {
     this.tbInsumos.push(this.nuevoInsumo());
@@ -53,26 +56,6 @@ export class AgregarProveedores implements OnInit {
   eliminarInsumo(index: number): void {
     this.tbInsumos.removeAt(index);
   }
-
-  tbInsumoProductos(insumoIndex: number): FormArray {
-    return this.tbInsumos.at(insumoIndex).get('tbInsumoProductos') as FormArray;
-  }
-
-  nuevoProducto(): FormGroup {
-    return this.fb.group({
-      idProducto: [null, Validators.required],
-      cantidad: [0, [Validators.required, Validators.min(1)]]
-    });
-  }
-
-  agregarProducto(insumoIndex: number): void {
-    this.tbInsumoProductos(insumoIndex).push(this.nuevoProducto());
-  }
-
-  eliminarProducto(insumoIndex: number, prodIndex: number): void {
-    this.tbInsumoProductos(insumoIndex).removeAt(prodIndex);
-  }
-
   onSubmit(): void {
     if (this.proveedorForm.valid) {
       const proveedor = this.proveedorForm.value;

@@ -1,0 +1,38 @@
+.btn-add {
+  background-color: #0A009C;
+  color: white;
+  padding: 10px 15px;
+  border: 2px solid #070066;
+  border-radius: 5px;
+  font-weight: bold;
+  transition: background-color 0.2s ease;
+}
+
+.btn-add:hover {
+  background-color: #070066;
+}
+
+
+/* Menu Lateral*/
+.layout {
+  display: flex;
+  min-height: 100vh;
+  background-color: #f4f6f8;
+  font-family: Arial, sans-serif;
+}
+
+
+.menu-lateral {
+  width: 250px;
+  background-color: #0A009C;
+  color: white;
+  padding: 20px 0;
+  flex-shrink: 0;
+}
+
+
+.contenido {
+  flex: 1;
+  padding: 40px;
+  box-sizing: border-box;
+}

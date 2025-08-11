@@ -1,0 +1,39 @@
+<div class="layout">
+  <app-menu-lateral class="menu-lateral"></app-menu-lateral>
+
+  <div class="contenido container py-4">
+    <!-- Título Principal -->
+    <h1 class="mb-4 text-center text-primary fw-bold">Catálogo de Productos</h1>
+
+    <!-- Subtítulo Buscador -->
+    <h4 class="mb-3 text-secondary">Encuentra el producto ideal para tu Casa</h4>
+
+    <!-- Buscador -->
+    <app-buscar-producto (onFiltrar)="filtrar($event.nombre)"></app-buscar-producto>
+
+    <div style="padding: 20px;"></div>
+
+    <!-- Subtítulo Lista -->
+    <h4 class="mb-3 text-secondary">Productos disponibles</h4>
+
+    <!-- Lista de Productos -->
+    <div class="row">
+      <div class="col-md-4 mb-4" *ngFor="let producto of productosFiltrados">
+        <div class="card h-100 shadow-sm" (click)="verDetallesProducto(producto.idProducto)" style="cursor:pointer">
+          <div class="card-header bg-primary text-white fw-semibold">
+            {{ producto.nombreProducto }}
+          </div>
+          <div class="card-body text-center">
+            <img 
+              [src]="'assets/ima/img-casas/' + getImagenPorNombre(producto.nombreProducto)" 
+              alt="{{ producto.nombreProducto }}" 
+              class="img-fluid mb-3" 
+              style="max-height: 180px; object-fit: contain;" 
+            />
+            <h5 class="card-title text-success">$ {{ producto.precio | number:'1.2-2' }}</h5>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

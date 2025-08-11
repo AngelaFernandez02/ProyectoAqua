@@ -58,24 +58,28 @@
           <input type="text" id="nombreInsumo-{{i}}" formControlName="nombreInsumo" class="form-control" placeholder="Nombre del insumo" />
         </div>
 
-        <div formArrayName="tbInsumoProductos">
-          <div *ngFor="let producto of tbInsumoProductos(i).controls; let j=index" [formGroupName]="j" class="border rounded p-3 mb-3 position-relative">
+        <div class="mb-3">
+  <label class="form-label fw-semibold">Existencias</label>
+  <input type="number" formControlName="existencias" class="form-control" min="0" placeholder="Cantidad en inventario" />
+</div>
 
-            <button type="button" class="btn-close position-absolute top-0 end-0 m-2" aria-label="Eliminar producto" (click)="eliminarProducto(i,j)"></button>
+<div class="mb-3">
+  <label class="form-label fw-semibold">Costo promedio</label>
+  <input type="number" formControlName="costoPromedio" class="form-control" step="0.01" min="0" placeholder="Costo promedio" />
+</div>
 
-            <div class="row g-3">
-              
-              <div class="col-md-12">
-                <label class="form-label fw-semibold" for="cantidad-{{i}}-{{j}}">Cantidad</label>
-                <input type="number" id="cantidad-{{i}}-{{j}}" formControlName="cantidad" class="form-control" min="1" placeholder="Cantidad" />
-              </div>
-            </div>
+<div class="mb-3">
+  <label>Unidad:</label>
+                  <select formControlName="unidad" class="form-control mb-2">
+                    <option value="">Seleccione unidad</option>
+                    <option value="pieza">pieza</option>
+                    <option value="m">m</option>
+                    <option value="kg">kg</option>
+                    <option value="unidad">unidad</option>
+                    <option value="ESP32">ESP32</option>
+                  </select>
+</div>
 
-          </div>
-          <button type="button" class="btn btn-success btn-sm" (click)="agregarProducto(i)">
-            <i class="bi bi-plus-circle"></i> Agregar Producto
-          </button>
-        </div>
 
       </div>
     </div>

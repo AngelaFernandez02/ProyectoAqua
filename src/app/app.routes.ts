@@ -26,6 +26,10 @@ import { AgregarProducto } from './componentes/componente/componente-admin/admin
 import { EliminarProductos } from './componentes/componente/componente-admin/admin-productos/eliminar-productos/eliminar-productos';
 import { DetalleProductos } from './componentes/componente/componente-admin/admin-productos/detalle-productos/detalle-productos';
 import { EditarProductos } from './componentes/componente/componente-admin/admin-productos/editar-productos/editar-productos';
+import { CatalogoProductosCliente } from './componentes/componente/componente-cliente/catalogo-productos-cliente/catalogo-productos-cliente';
+import { DetalleCotizacion } from './componentes/componente/componente-cliente/detalle-cotizacion/detalle-cotizacion';
+import { DetalleCotizacionPersonalizada } from './componentes/componente/componente-cliente/detalle-cotizacion-personalizada/detalle-cotizacion-personalizada';
+
 export const routes : Routes = [
     { path: 'login', component: Login },
     {path:'inicio', component: ComponenteInicio},
@@ -40,6 +44,10 @@ export const routes : Routes = [
     {path:'menu-lateral', component: MenuLateral},
     {path:'formulario-usuario-cliente', component: FormularioUsuarioCliente},
     {path:'formulario-usuario-admin', component: FormularioUsuarioAdmin},
+    // cliete cotizaciones rutas
+{path:'catalogo-productos-cliente', component: CatalogoProductosCliente},
+{path:'detalle-cotizacion/:id', component: DetalleCotizacion},
+{path:'detalle-cotizacion-personalizada/:id', component: DetalleCotizacionPersonalizada},
 
         {path:'formulario-compras', component: FormularioCompras},
         {path:'formulario-ventas', component: FormularioVentas},
