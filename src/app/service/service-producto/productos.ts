@@ -16,6 +16,11 @@ export class SProducto {
     return this.http.get<IProducto[]>(this.apiUrl);
   }
 
+  // Método público para cotizaciones sin autenticación
+  getProductosPublicos(): Observable<IProducto[]> {
+    return this.http.get<IProducto[]>('https://localhost:7186/api/Publico/productos');
+  }
+
   getProductoById(id: number): Observable<IProducto> {
     return this.http.get<IProducto>(`${this.apiUrl}/${id}`);
   }

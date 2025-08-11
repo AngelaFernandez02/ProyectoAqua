@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { ICotizacion } from '../../interface/cotizacion'; // Asegúrate que la ruta sea correcta
+import { ICotizacionPublica, ICotizacionPublicaResponse } from '../../interface/cotizacion-publica';
 
 @Injectable({
   providedIn: 'root',
@@ -36,5 +37,10 @@ export class SCotizacion {
   // Eliminar cotización
   eliminarCotizacion(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  }
+
+  // Crear cotización pública (sin cliente registrado)
+  crearCotizacionPublica(cotizacionPublica: ICotizacionPublica): Observable<ICotizacionPublicaResponse> {
+    return this.http.post<ICotizacionPublicaResponse>(this.apiUrl, cotizacionPublica);
   }
 }

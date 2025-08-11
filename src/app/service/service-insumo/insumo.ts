@@ -24,6 +24,11 @@ export class SInsumo {
    getInsumos(): Observable<IInsumo[]> {
      return this.http.get<IInsumo[]>(`${this.apiUrl}`);
    }
+
+   // Método público para cotizaciones sin autenticación
+   getInsumosPublicos(): Observable<IInsumo[]> {
+     return this.http.get<IInsumo[]>('https://localhost:7186/api/Publico/insumos');
+   }
  
    eliminarInsumos(idInsumo: number): Observable<void> {
      return this.http.delete<void>(`${this.apiUrl}${idInsumo}`);

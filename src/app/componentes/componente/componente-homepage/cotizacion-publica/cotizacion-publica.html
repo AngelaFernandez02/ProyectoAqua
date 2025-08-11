@@ -1,0 +1,366 @@
+<div class="cotizacion-publica-container">
+  
+  <!-- Header con progreso -->
+  <div class="header-cotizacion">
+    <h1>Solicitar Cotización</h1>
+    <div class="progress-bar">
+      <div class="step" [class.active]="paso >= 1" [class.completed]="paso > 1">
+        <span class="step-number">1</span>
+        <span class="step-label">Datos</span>
+      </div>
+      <div class="step" [class.active]="paso >= 2" [class.completed]="paso > 2">
+        <span class="step-number">2</span>
+        <span class="step-label">Productos</span>
+      </div>
+      <div class="step" [class.active]="paso >= 3" [class.completed]="paso > 3">
+        <span class="step-number">3</span>
+        <span class="step-label">Revisión</span>
+      </div>
+      <div class="step" [class.active]="paso >= 4">
+        <span class="step-number">4</span>
+        <span class="step-label">Confirmación</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mensajes de error -->
+  <div *ngIf="error" class="alert alert-danger">
+    {{ error }}
+    <div class="mt-2">
+      <button class="btn btn-sm btn-outline-primary" (click)="cargarProductos()">
+        🔄 Reintentar
+      </button>
+    </div>
+  </div>
+
+  <!-- Paso 1: Datos del Cliente -->
+  <div *ngIf="paso === 1" class="paso-container">
+    <div class="card">
+      <div class="card-header">
+        <h2>Datos de Contacto</h2>
+        <p>Para enviarle su cotización personalizada</p>
+      </div>
+      
+      <form [formGroup]="cotizacionForm" class="card-body">
+        <div class="form-group">
+          <label for="nombreCliente">Nombre Completo *</label>
+          <input 
+            type="text" 
+            id="nombreCliente"
+            formControlName="nombreCliente" 
+            class="form-control"
+            placeholder="Ingrese su nombre completo"
+            [class.is-invalid]="cotizacionForm.get('nombreCliente')?.invalid && cotizacionForm.get('nombreCliente')?.touched">
+          <div *ngIf="cotizacionForm.get('nombreCliente')?.invalid && cotizacionForm.get('nombreCliente')?.touched" class="invalid-feedback">
+            El nombre es requerido (mínimo 3 caracteres)
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="emailCliente">Correo Electrónico *</label>
+          <input 
+            type="email" 
+            id="emailCliente"
+            formControlName="emailCliente" 
+            class="form-control"
+            placeholder="ejemplo@correo.com"
+            [class.is-invalid]="cotizacionForm.get('emailCliente')?.invalid && cotizacionForm.get('emailCliente')?.touched">
+          <div *ngIf="cotizacionForm.get('emailCliente')?.invalid && cotizacionForm.get('emailCliente')?.touched" class="invalid-feedback">
+            Ingrese un correo electrónico válido
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="telefonoCliente">Teléfono *</label>
+          <input 
+            type="tel" 
+            id="telefonoCliente"
+            formControlName="telefonoCliente" 
+            class="form-control"
+            placeholder="5551234567"
+            [class.is-invalid]="cotizacionForm.get('telefonoCliente')?.invalid && cotizacionForm.get('telefonoCliente')?.touched">
+          <div *ngIf="cotizacionForm.get('telefonoCliente')?.invalid && cotizacionForm.get('telefonoCliente')?.touched" class="invalid-feedback">
+            Ingrese un teléfono válido (10 dígitos)
+          </div>
+        </div>
+      </form>
+
+      <div class="card-footer">
+        <button 
+          type="button" 
+          class="btn btn-outline-secondary"
+          (click)="volverInicio()">
+          Cancelar
+        </button>
+        <button 
+          type="button" 
+          class="btn btn-primary"
+          [disabled]="cotizacionForm.invalid"
+          (click)="siguientePaso()">
+          Continuar
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Paso 2: Selección de Productos -->
+  <div *ngIf="paso === 2" class="paso-container">
+    <div class="row">
+      <!-- Catálogo de productos -->
+      <div class="col-md-8">
+        <div class="card">
+          <div class="card-header">
+            <h2>Seleccione sus Productos</h2>
+            <p>Haga clic en un producto para agregarlo a su cotización</p>
+          </div>
+          
+          <div class="card-body">
+            <div *ngIf="cargando" class="text-center">
+              <div class="spinner-border" role="status"></div>
+              <p>Cargando productos...</p>
+            </div>
+
+            <div *ngIf="!cargando" class="productos-grid">
+              <div 
+                *ngFor="let producto of productos" 
+                class="producto-card"
+                (click)="agregarProducto(producto)">
+                <div class="producto-imagen">
+                  <img [src]="producto.imagen || 'assets/ima/producto.png'" [alt]="producto.nombreProducto">
+                </div>
+                <div class="producto-info">
+                  <h4>{{ producto.nombreProducto }}</h4>
+                  <p class="producto-descripcion">{{ producto.descripcion }}</p>
+                  <div class="producto-precio">
+                    <span class="precio">Desde ${{ producto.precio | number:'1.2-2' }}</span>
+                  </div>
+                  <button type="button" class="btn btn-outline-primary">
+                    Agregar
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Productos seleccionados -->
+      <div class="col-md-4">
+        <div class="card productos-seleccionados">
+          <div class="card-header">
+            <h3>Productos Seleccionados</h3>
+            <span class="badge">{{ productosSeleccionados.length }}</span>
+          </div>
+          
+          <div class="card-body">
+            <div *ngIf="productosSeleccionados.length === 0" class="text-center text-muted">
+              <p>No hay productos seleccionados</p>
+            </div>
+
+            <div *ngFor="let producto of productosSeleccionados; let i = index" class="producto-seleccionado">
+              <div class="producto-header">
+                <h5>{{ producto.nombreProducto }}</h5>
+                <button 
+                  type="button" 
+                  class="btn btn-sm btn-outline-danger"
+                  (click)="eliminarProducto(i)">
+                  ×
+                </button>
+              </div>
+              
+              <div class="cantidad-control">
+                <label>Cantidad:</label>
+                <input 
+                  type="number" 
+                  [(ngModel)]="producto.cantidadSeleccionada" 
+                  min="1" 
+                  class="form-control form-control-sm">
+              </div>
+
+              <div class="insumos-section" *ngIf="producto.insumos.length > 0">
+                <h6>Personalizar Componentes:</h6>
+                <div *ngFor="let insumo of producto.insumos; let j = index" class="insumo-item">
+                  <span class="insumo-nombre">{{ insumo.nombreInsumo }}</span>
+                  <div class="insumo-control">
+                    <input 
+                      type="number" 
+                      [value]="insumo.cantidadPersonalizada" 
+                      (change)="actualizarCantidadInsumo(i, j, $event.target.value)"
+                      min="0" 
+                      step="0.1"
+                      class="form-control form-control-sm">
+                    <span class="unidad">{{ insumo.unidad }}</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="precio-producto">
+                <strong>Precio: ${{ producto.precioPersonalizado * producto.cantidadSeleccionada | number:'1.2-2' }}</strong>
+              </div>
+            </div>
+          </div>
+
+          <div class="card-footer">
+            <div class="total-seleccion">
+              <strong>Total: ${{ calcularTotal() | number:'1.2-2' }}</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="navegacion-pasos">
+      <button 
+        type="button" 
+        class="btn btn-outline-secondary"
+        (click)="pasoAnterior()">
+        Anterior
+      </button>
+      <button 
+        type="button" 
+        class="btn btn-primary"
+        [disabled]="productosSeleccionados.length === 0"
+        (click)="siguientePaso()">
+        Continuar
+      </button>
+    </div>
+  </div>
+
+  <!-- Paso 3: Revisión y Observaciones -->
+  <div *ngIf="paso === 3" class="paso-container">
+    <div class="card">
+      <div class="card-header">
+        <h2>Revisar Cotización</h2>
+        <p>Verifique que toda la información sea correcta</p>
+      </div>
+      
+      <div class="card-body">
+        <!-- Datos del cliente -->
+        <div class="seccion-revision">
+          <h3>Datos de Contacto</h3>
+          <div class="datos-cliente">
+            <p><strong>Nombre:</strong> {{ cotizacionForm.value.nombreCliente }}</p>
+            <p><strong>Email:</strong> {{ cotizacionForm.value.emailCliente }}</p>
+            <p><strong>Teléfono:</strong> {{ cotizacionForm.value.telefonoCliente }}</p>
+          </div>
+        </div>
+
+        <!-- Productos seleccionados -->
+        <div class="seccion-revision">
+          <h3>Productos Cotizados</h3>
+          
+          <!-- Mensaje si no hay productos -->
+          <div *ngIf="productosSeleccionados.length === 0" class="alert alert-warning">
+            ⚠️ No hay productos seleccionados.
+          </div>
+
+          <div class="tabla-productos">
+            <div *ngFor="let producto of productosSeleccionados; let i = index" class="fila-producto">
+              <div class="producto-detalle">
+                <h4>{{ producto.nombreProducto }}</h4>
+                <p>Cantidad: {{ producto.cantidadSeleccionada }}</p>
+                
+                <div *ngIf="producto.insumosPersonalizados.length > 0" class="insumos-detalle">
+                  <h5>Componentes:</h5>
+                  <ul>
+                    <li *ngFor="let insumo of producto.insumosPersonalizados">
+                      {{ insumo.nombreInsumo }}: {{ insumo.cantidad }} {{ insumo.unidad }} 
+                      (${{ insumo.precioUnitario | number:'1.2-2' }} × {{ insumo.cantidad }} = ${{ insumo.subtotal | number:'1.2-2' }})
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="producto-precio">
+                <span class="precio-unitario">${{ producto.precioPersonalizado | number:'1.2-2' }} c/u</span>
+                <span class="precio-total">${{ producto.precioPersonalizado * producto.cantidadSeleccionada | number:'1.2-2' }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Totales -->
+        <div class="seccion-revision totales">
+          <div class="calculo-totales">
+            <div class="linea-total">
+              <span>Subtotal:</span>
+              <span>${{ calcularTotal() | number:'1.2-2' }}</span>
+            </div>
+            <div class="linea-total">
+              <span>IVA (16%):</span>
+              <span>${{ calcularIVA() | number:'1.2-2' }}</span>
+            </div>
+            <div class="linea-total total-final">
+              <span><strong>Total:</strong></span>
+              <span><strong>${{ calcularTotalConIVA() | number:'1.2-2' }}</strong></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Observaciones -->
+        <form [formGroup]="cotizacionForm">
+          <div class="form-group">
+            <label for="observaciones">Observaciones adicionales (opcional)</label>
+            <textarea 
+              id="observaciones"
+              formControlName="observaciones" 
+              class="form-control"
+              rows="3"
+              placeholder="Agregue cualquier comentario o requerimiento especial..."></textarea>
+          </div>
+        </form>
+      </div>
+
+      <div class="card-footer">
+        <button 
+          type="button" 
+          class="btn btn-outline-secondary"
+          (click)="pasoAnterior()">
+          Anterior
+        </button>
+        <button 
+          type="button" 
+          class="btn btn-success"
+          [disabled]="enviando"
+          (click)="enviarCotizacion()">
+          <span *ngIf="enviando" class="spinner-border spinner-border-sm me-2"></span>
+          {{ enviando ? 'Enviando...' : 'Enviar Cotización' }}
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Paso 4: Confirmación -->
+  <div *ngIf="paso === 4 && cotizacionCreada" class="paso-container">
+    <div class="card confirmacion">
+      <div class="card-body text-center">
+        <div class="icono-exito">
+          ✓
+        </div>
+        <h2>¡Cotización Enviada!</h2>
+        <p class="lead">Su cotización ha sido procesada exitosamente</p>
+        
+        <div class="info-cotizacion">
+          <p><strong>Número de Cotización:</strong> {{ numeroCotizacion }}</p>
+          <p><strong>Total:</strong> ${{ calcularTotalConIVA() | number:'1.2-2' }}</p>
+          <p>Hemos enviado una copia en PDF a su correo electrónico: <strong>{{ cotizacionForm.value.emailCliente }}</strong></p>
+        </div>
+
+        <div class="acciones-finales">
+          <button 
+            type="button" 
+            class="btn btn-primary"
+            (click)="nuevaCotizacion()">
+            Nueva Cotización
+          </button>
+          <button 
+            type="button" 
+            class="btn btn-outline-secondary"
+            (click)="volverInicio()">
+            Volver al Inicio
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

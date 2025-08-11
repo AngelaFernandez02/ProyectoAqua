@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RouterLink, RouterOutlet } from '@angular/router';
+import { RouterLink, RouterOutlet, Router } from '@angular/router';
 
 @Component({
   selector: 'app-botones-inicio-rapido',
@@ -10,4 +10,10 @@ import { RouterLink, RouterOutlet } from '@angular/router';
 })
 export class BotonesInicioRapido {
 
+  constructor(private router: Router) {}
+
+  // Método para ir a cotización
+  irACotizacion() {
+    this.router.navigate(['/solicitar-cotizacion']);
+  }
 }

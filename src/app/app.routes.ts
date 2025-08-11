@@ -41,6 +41,7 @@ import { EliminarMateriaprima } from './componentes/componente/componente-admin/
 import { CatalogoMateriaPrima } from './componentes/componente/componente-admin/admin-materia-prima/catalogo-materiaprima/catalogo-materiaprima';
 import { EditarMateriaprima } from './componentes/componente/componente-admin/admin-materia-prima/editar-materiaprima/editar-materiaprima';
 import { AdminLayout } from './layouts/admin-layout/admin-layout';
+import { CotizacionPublica } from './componentes/componente/componente-homepage/cotizacion-publica/cotizacion-publica';
 
 export const routes : Routes = [
     // Rutas públicas (sin autenticación requerida)
@@ -50,6 +51,7 @@ export const routes : Routes = [
     { path: 'contactanos', component: Contactanos },
     { path: 'producto', component: Producto },
     { path: 'clientes', component: Clientes },
+    { path: 'solicitar-cotizacion', component: CotizacionPublica },
     
     // Rutas protegidas para CLIENTES (tipo usuario: 2)
     { 

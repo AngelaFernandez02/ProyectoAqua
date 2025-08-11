@@ -5,6 +5,19 @@ import { catchError } from 'rxjs/operators';
 import { ServiceAuth } from '../service/service-auth/service-auth';
 import { Router } from '@angular/router';
 
+// Rutas públicas que no requieren autenticación
+const RUTAS_PUBLICAS = [
+  '/inicio', '/conocenos', '/contactanos', '/producto', '/clientes', 
+  '/solicitar-cotizacion', '/login'
+];
+
+// Verificar si la ruta actual es pública
+const esRutaPublica = (): boolean => {
+  const router = inject(Router);
+  const rutaActual = router.url;
+  return RUTAS_PUBLICAS.some(ruta => rutaActual.includes(ruta));
+};
+
 // Interceptor funcional para Angular 18+
 export const authInterceptorFn: HttpInterceptorFn = (req, next) => {
   const authService = inject(ServiceAuth);
@@ -12,6 +25,11 @@ export const authInterceptorFn: HttpInterceptorFn = (req, next) => {
 
   // Debug: Log de la petición
   console.log('🔍 Interceptor ejecutándose para:', req.url);
+  console.log('📍 Ruta actual:', router.url);
+  
+  // Verificar si estamos en una ruta pública
+  const rutaPublica = esRutaPublica();
+  console.log('🌐 Es ruta pública:', rutaPublica);
   
   // Obtener el token del servicio de autenticación
   const token = authService.getToken();
@@ -31,6 +49,10 @@ export const authInterceptorFn: HttpInterceptorFn = (req, next) => {
         if (error.status === 401 || error.status === 403) {
           console.log('🚪 Token inválido, cerrando sesión');
           authService.logout();
+          // Solo redirigir al login si no estamos en una ruta pública
+          if (!rutaPublica) {
+            router.navigate(['/login']);
+          }
         }
         return throwError(() => error);
       })
@@ -42,10 +64,18 @@ export const authInterceptorFn: HttpInterceptorFn = (req, next) => {
   return next(req).pipe(
     catchError((error: HttpErrorResponse) => {
       console.log('❌ Error en petición no autenticada:', error.status);
-      if (error.status === 401 || error.status === 403) {
-        console.log('🚪 Redirigiendo al login');
+      
+      // Solo redirigir al login si:
+      // 1. El error es 401/403 Y
+      // 2. NO estamos en una ruta pública
+      if ((error.status === 401 || error.status === 403) && !rutaPublica) {
+        console.log('🚪 Redirigiendo al login desde ruta privada');
         router.navigate(['/login']);
+      } else if (rutaPublica && (error.status === 401 || error.status === 403)) {
+        console.log('🌐 Error 401/403 en ruta pública - continuando sin redirección');
+        // En rutas públicas, simplemente logeamos el error pero no redirigimos
       }
+      
       return throwError(() => error);
     })
   );
@@ -57,9 +87,19 @@ export class AuthInterceptor implements HttpInterceptor {
 
   constructor(private authService: ServiceAuth, private router: Router) {}
 
+  private esRutaPublica(): boolean {
+    const rutaActual = this.router.url;
+    return RUTAS_PUBLICAS.some(ruta => rutaActual.includes(ruta));
+  }
+
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     // Debug: Log de la petición
-    console.log('🔍 Interceptor ejecutándose para:', req.url);
+    console.log('🔍 Interceptor (clase) ejecutándose para:', req.url);
+    console.log('📍 Ruta actual:', this.router.url);
+    
+    // Verificar si estamos en una ruta pública
+    const rutaPublica = this.esRutaPublica();
+    console.log('🌐 Es ruta pública:', rutaPublica);
     
     // Obtener el token del servicio de autenticación
     const token = this.authService.getToken();
@@ -79,6 +119,10 @@ export class AuthInterceptor implements HttpInterceptor {
           if (error.status === 401 || error.status === 403) {
             console.log('🚪 Token inválido, cerrando sesión');
             this.authService.logout();
+            // Solo redirigir al login si no estamos en una ruta pública
+            if (!rutaPublica) {
+              this.router.navigate(['/login']);
+            }
           }
           return throwError(() => error);
         })
@@ -90,10 +134,18 @@ export class AuthInterceptor implements HttpInterceptor {
     return next.handle(req).pipe(
       catchError((error: HttpErrorResponse) => {
         console.log('❌ Error en petición no autenticada:', error.status);
-        if (error.status === 401 || error.status === 403) {
-          console.log('🚪 Redirigiendo al login');
+        
+        // Solo redirigir al login si:
+        // 1. El error es 401/403 Y
+        // 2. NO estamos en una ruta pública
+        if ((error.status === 401 || error.status === 403) && !rutaPublica) {
+          console.log('🚪 Redirigiendo al login desde ruta privada');
           this.router.navigate(['/login']);
+        } else if (rutaPublica && (error.status === 401 || error.status === 403)) {
+          console.log('🌐 Error 401/403 en ruta pública - continuando sin redirección');
+          // En rutas públicas, simplemente logeamos el error pero no redirigimos
         }
+        
         return throwError(() => error);
       })
     );

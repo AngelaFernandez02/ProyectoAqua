@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-banner',
@@ -8,4 +9,9 @@ import { Component } from '@angular/core';
 })
 export class Banner {
 
+  constructor(private router: Router) {}
+
+  comenzarCotizacion() {
+    this.router.navigate(['/solicitar-cotizacion']);
+  }
 }
